@@ -1,0 +1,23 @@
+{
+  "name": "rescript-graphology",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:dev": "rescript -w"
+  },
+  "keywords": [
+    "rescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@rescript/core": "^0.7.0",
+    "graphology": "^0.25.4",
+    "graphology-shortest-path": "^2.0.2",
+    "graphology-simple-path": "^0.2.0",
+    "graphology-traversal": "^0.3.1",
+    "rescript": "^11.0.1"
+  }
+}
