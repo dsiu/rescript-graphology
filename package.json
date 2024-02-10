@@ -1,5 +1,5 @@
 {
-  "name": "rescript-graphology",
+  "name": "@dsiu/rescript-graphology",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
