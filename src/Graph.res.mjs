@@ -122,6 +122,9 @@ function MakeGraph(C) {
           clearEdges: (function (prim) {
               prim.clearEdges();
             }),
+          getEdgeAttribute: (function (prim0, prim1, prim2) {
+              return prim0.getEdgeAttribute(prim1, prim2);
+            }),
           nodes: (function (prim) {
               return prim.nodes();
             }),
