@@ -2,78 +2,160 @@ let log = Console.log
 let log2 = Console.log2
 // Str
 
-module G = Graph.MakeGraph({
-  type node = string
-  type nodeAttr = {}
-  type edge = string
-  type edgeAttr = {}
-})
+{
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
 
-let g = G.makeGraph()
-let gg = G.makeDirectedGraph()
-g->G.addNode("John")
+  let g = G.makeGraph()
+  g->G.addNode("John")
+}
 
-type hNodeAttr = {name: string}
-type hEdgeAttr = {dist: int}
+{
+  module Dict = RescriptCore.Dict
+  module H = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+  let h = H.makeGraph()
+  "hi"->log
+  h->H.addNode("John", ~attr={"lastName": "Doe"})
+  h->H.addNode("Peter", ~attr={"lastName": "Egg"})
+  //  h->H.addNode("Mary", ~attr={"lastName": "Klein"})
+  h->H.addNode("Mary")
+  h->H.addEdge("John", "Peter", ~attr={"dist": 23})
+  h->H.addEdge("Peter", "Mary", ~attr={"dist": 12})
 
-module H = Graph.MakeGraph({
-  type node = int
-  type nodeAttr = hNodeAttr
-  type edge = string
-  type edgeAttr = hEdgeAttr
-})
-let h = H.makeGraph()
-"hi"->log
-h->H.addNode(1, ~attr={name: "John"})
-h->H.addNode(2, ~attr={name: "Peter"})
-h->H.addNode(3, ~attr={name: "Ken"})
-h->H.addEdge(1, 2, ~attr={dist: 23})
-h->H.addEdge(2, 3, ~attr={dist: 1})
+  h->H.inspect->(log2("inspect", _))
 
-h->H.inspect->(log2("inspect", _))
+  h->H.forEachNode((n, attr) => {
+    n->log
+    attr->log
+    ()
+  })
+  h
+  ->H.mapNodes((n, attr) => {
+    n->log
+    attr->log
+    1
+  })
+  ->(log2("mapNodes", _))
 
-h->H.forEachNode((n, attr) => {
-  n->log
-  attr->log
-  ()
-})
-h
-->H.mapNodes((n, attr) => {
-  h->H.degree(n)->Int.toString ++ " diu"
-})
-->(log2("mapNodes", _))
+  let iter = h->H.nodeEntries
+  iter->(log2("iter", _))
+  let arr = iter->Core__Iterator.toArray
+  arr->(log2("arr", _))
+  let arr2 = arr->Array.map(({node, attributes}) => {
+    node->log
+    attributes->log
+    node ++ " - " ++ attributes["lastName"]
+  })
 
-let iter = h->H.nodeEntries
-iter->(log2("iter", _))
-let arr = iter->Core__Iterator.toArray
-arr->(log2("arr", _))
-let arr2 = arr->Array.map(({node, attributes}) => {
-  node->log
-  attributes->log
-  node->Int.toString ++ " - " ++ attributes.name
-})
+  arr2->log
 
-arr2->log
+  h->H.Traversal.bfs((n, att, depth) => {
+    n->log
+    att->log
+    depth->log
+    ()
+  })
 
-h->H.Traversal.bfs((n, att, depth) => {
-  n->log
-  att->log
-  depth->log
-  ()
-})
+  h->H.Traversal.dfs((n, att, depth) => {
+    n->log
+    att->log
+    depth->log
+    ()
+  })
 
-h->H.Traversal.dfs((n, att, depth) => {
-  n->log
-  att->log
-  depth->log
-  ()
-})
+  h->H.Traversal.bfsFromNode("John", (n, att, depth) => {
+    n->log
+    att->log
+    depth->log
+    ()
+  })
+  h->H.ShortestPath.Unweighted.bidirectional("John", "Mary")->(log2("Unweighted bidirection", _))
+  h->H.ShortestPath.Unweighted.singleSource("John")->(log2("Unweighted singleSource", _))
+  h
+  ->H.ShortestPath.Unweighted.singleSourceLength("John")
+  ->(log2("Unweighted singleSourceLength", _))
+  h
+  ->H.ShortestPath.Unweighted.undirectedSingleSourceLength("John")
+  ->(log2("Unweighted undirectedSingleSourceLength", _))
 
-h->H.Traversal.bfsFromNode(1, (n, att, depth) => {
-  n->log
-  att->log
-  depth->log
-  ()
-})
-h->H.ShortestPath.Unweighted.bidirectional(1, 2)->(log2("shortestPath bidirection", _))
-h->H.ShortestPath.Unweighted.singleSource(1)->(log2("shortestPath singleSource", _))
+  //  h->H.ShortestPath.Dijkstra.bidirectional("John", "Mary")->(log2("Dijkstra bidirection", _))
+  h->H.ShortestPath.Dijkstra.singleSource("John")->(log2("Dijkstra singleSource", _))
+
+  let dijss = h->H.ShortestPath.Dijkstra.singleSource("John")
+
+  dijss->RescriptCore.Dict.keysToArray->(log2("k", _))
+  dijss->RescriptCore.Dict.valuesToArray->(log2("v", _))
+  dijss->RescriptCore.Dict.get("John")->(log2("John", _))
+  dijss->RescriptCore.Dict.get("Peter")->(log2("Peter", _))
+  dijss->RescriptCore.Dict.get("Mary")->(log2("Mary", _))
+}
+
+{
+  // tuples
+  module T = Graph.MakeGraph({
+    type node = (int, int)
+    type edge = string
+  })
+  let t = T.makeGraph()
+
+  t->T.addNode((0, 0), ~attr={"lastName": "Doe"})
+  t->T.addNode((1, 1), ~attr={"lastName": "Egg"})
+  t->T.addNode((2, 2), ~attr={"lastName": "Klein"})
+  t->T.addEdge((0, 0), (1, 1), ~attr={"dist": 23})
+  t->T.addEdge((1, 1), (2, 2), ~attr={"dist": 12})
+  //  t
+  //  ->T.ShortestPath.Dijkstra.bidirectional((0, 0), (2, 2))
+  //  ->(log2("(tuple) Dijkstra bidirection", _))
+}
+
+{
+  module G = Graph.MakeGraph({
+    type node = int
+    type edge = string
+  })
+  let g = G.makeGraph()
+
+  g->G.addNode(1)
+  g->G.addNode(2)
+  g->G.addNode(3)
+  g->G.addNode(4)
+
+  g->G.addEdge(1, 2, ~attr={"weight1": 3})
+  g->G.addEdge(1, 3, ~attr={"weight1": 2})
+  g->G.addEdge(2, 4, ~attr={"weight1": 1})
+  g->G.addEdge(3, 4, ~attr={"weight1": 1})
+  //  g->G.addEdgeWithKey(10, 1, 2)
+  g->G.edge(1, 2)->(log2("edge", _))
+  g->G.edges->(log2("edges", _))
+  g->G.inspect->(log2("inspect", _))
+
+  g
+  ->G.ShortestPath.Dijkstra.singleSource(1)
+  ->(log2("Dijkstra singleSource", _))
+
+  g
+  ->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
+  ->(log2("Dijkstra bidirectional", _))
+}
+
+{
+  module G = Graph.MakeGraph({
+    type node = int
+    type edge = string
+  })
+  let g = G.makeGraph(
+    ~options={
+      multi: true,
+      allowSelfLoops: false,
+      type_: #directed,
+    },
+  )
+  //  let g = G.makeGraph()
+
+  g->G.inspect->(log2("inspect", _))
+}

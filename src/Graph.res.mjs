@@ -9,7 +9,7 @@ import * as GraphologyShortestPath from "graphology-shortest-path";
 function MakeGraph(C) {
   return {
           makeGraph: (function (prim) {
-              return new (Graphology.default.Graph)();
+              return new (Graphology.default.Graph)(prim !== undefined ? Caml_option.valFromOption(prim) : undefined);
             }),
           makeDirectedGraph: (function (prim) {
               return new (Graphology.default.DirectedGraph)();
@@ -222,8 +222,8 @@ function MakeGraph(C) {
                 })
             },
             Dijkstra: {
-              bidirectional: (function (prim0, prim1, prim2) {
-                  return GraphologyShortestPath.dijkstra.bidirectional(prim0, prim1, prim2);
+              bidirectional: (function (prim0, prim1, prim2, prim3) {
+                  return GraphologyShortestPath.dijkstra.bidirectional(prim0, prim1, prim2, prim3.VAL);
                 }),
               singleSource: (function (prim0, prim1) {
                   return GraphologyShortestPath.dijkstra.singleSource(prim0, prim1);

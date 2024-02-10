@@ -12,36 +12,32 @@ function log2(prim0, prim1) {
 
 var G = Graph.MakeGraph({});
 
-var g = G.makeGraph();
-
-var gg = G.makeDirectedGraph();
+var g = G.makeGraph(undefined);
 
 G.addNode(g, "John", undefined);
 
 var H = Graph.MakeGraph({});
 
-var h = H.makeGraph();
+var h = H.makeGraph(undefined);
 
 console.log("hi");
 
-H.addNode(h, 1, {
-      name: "John"
+H.addNode(h, "John", {
+      lastName: "Doe"
     });
 
-H.addNode(h, 2, {
-      name: "Peter"
+H.addNode(h, "Peter", {
+      lastName: "Egg"
     });
 
-H.addNode(h, 3, {
-      name: "Ken"
-    });
+H.addNode(h, "Mary", undefined);
 
-H.addEdge(h, 1, 2, {
+H.addEdge(h, "John", "Peter", {
       dist: 23
     });
 
-H.addEdge(h, 2, 3, {
-      dist: 1
+H.addEdge(h, "Peter", "Mary", {
+      dist: 12
     });
 
 ((function (__x) {
@@ -56,7 +52,9 @@ H.forEachNode(h, (function (n, attr) {
 ((function (__x) {
         console.log("mapNodes", __x);
       })(H.mapNodes(h, (function (n, attr) {
-              return H.degree(h, n).toString() + " diu";
+              console.log(n);
+              console.log(attr);
+              return 1;
             }))));
 
 var iter = H.nodeEntries(h);
@@ -76,7 +74,7 @@ var arr2 = arr.map(function (param) {
       var node = param.node;
       console.log(node);
       console.log(attributes);
-      return node.toString() + " - " + attributes.name;
+      return node + " - " + attributes.lastName;
     });
 
 console.log(arr2);
@@ -93,30 +91,164 @@ H.Traversal.dfs(h, (function (n, att, depth) {
         console.log(depth);
       }));
 
-H.Traversal.bfsFromNode(h, 1, (function (n, att, depth) {
+H.Traversal.bfsFromNode(h, "John", (function (n, att, depth) {
         console.log(n);
         console.log(att);
         console.log(depth);
       }));
 
 ((function (__x) {
-        console.log("shortestPath bidirection", __x);
-      })(H.ShortestPath.Unweighted.bidirectional(h, 1, 2)));
+        console.log("Unweighted bidirection", __x);
+      })(H.ShortestPath.Unweighted.bidirectional(h, "John", "Mary")));
 
 ((function (__x) {
-        console.log("shortestPath singleSource", __x);
-      })(H.ShortestPath.Unweighted.singleSource(h, 1)));
+        console.log("Unweighted singleSource", __x);
+      })(H.ShortestPath.Unweighted.singleSource(h, "John")));
+
+((function (__x) {
+        console.log("Unweighted singleSourceLength", __x);
+      })(H.ShortestPath.Unweighted.singleSourceLength(h, "John")));
+
+((function (__x) {
+        console.log("Unweighted undirectedSingleSourceLength", __x);
+      })(H.ShortestPath.Unweighted.undirectedSingleSourceLength(h, "John")));
+
+((function (__x) {
+        console.log("Dijkstra singleSource", __x);
+      })(H.ShortestPath.Dijkstra.singleSource(h, "John")));
+
+var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John");
+
+((function (__x) {
+        console.log("k", __x);
+      })(Object.keys(dijss)));
+
+((function (__x) {
+        console.log("v", __x);
+      })(Object.values(dijss)));
+
+((function (__x) {
+        console.log("John", __x);
+      })(dijss["John"]));
+
+((function (__x) {
+        console.log("Peter", __x);
+      })(dijss["Peter"]));
+
+((function (__x) {
+        console.log("Mary", __x);
+      })(dijss["Mary"]));
+
+var T = Graph.MakeGraph({});
+
+var t = T.makeGraph(undefined);
+
+T.addNode(t, [
+      0,
+      0
+    ], {
+      lastName: "Doe"
+    });
+
+T.addNode(t, [
+      1,
+      1
+    ], {
+      lastName: "Egg"
+    });
+
+T.addNode(t, [
+      2,
+      2
+    ], {
+      lastName: "Klein"
+    });
+
+T.addEdge(t, [
+      0,
+      0
+    ], [
+      1,
+      1
+    ], {
+      dist: 23
+    });
+
+T.addEdge(t, [
+      1,
+      1
+    ], [
+      2,
+      2
+    ], {
+      dist: 12
+    });
+
+var G$1 = Graph.MakeGraph({});
+
+var g$1 = G$1.makeGraph(undefined);
+
+G$1.addNode(g$1, 1, undefined);
+
+G$1.addNode(g$1, 2, undefined);
+
+G$1.addNode(g$1, 3, undefined);
+
+G$1.addNode(g$1, 4, undefined);
+
+G$1.addEdge(g$1, 1, 2, {
+      weight1: 3
+    });
+
+G$1.addEdge(g$1, 1, 3, {
+      weight1: 2
+    });
+
+G$1.addEdge(g$1, 2, 4, {
+      weight1: 1
+    });
+
+G$1.addEdge(g$1, 3, 4, {
+      weight1: 1
+    });
+
+((function (__x) {
+        console.log("edge", __x);
+      })(G$1.edge(g$1, 1, 2)));
+
+((function (__x) {
+        console.log("edges", __x);
+      })(G$1.edges(g$1)));
+
+((function (__x) {
+        console.log("inspect", __x);
+      })(G$1.inspect(g$1)));
+
+((function (__x) {
+        console.log("Dijkstra singleSource", __x);
+      })(G$1.ShortestPath.Dijkstra.singleSource(g$1, 1)));
+
+((function (__x) {
+        console.log("Dijkstra bidirectional", __x);
+      })(G$1.ShortestPath.Dijkstra.bidirectional(g$1, 1, 4, {
+            NAME: "Attr",
+            VAL: "weight1"
+          })));
+
+var G$2 = Graph.MakeGraph({});
+
+var g$2 = G$2.makeGraph({
+      allowSelfLoops: false,
+      multi: true,
+      type: "directed"
+    });
+
+((function (__x) {
+        console.log("inspect", __x);
+      })(G$2.inspect(g$2)));
 
 export {
   log ,
   log2 ,
-  G ,
-  g ,
-  gg ,
-  H ,
-  h ,
-  iter ,
-  arr ,
-  arr2 ,
 }
 /* G Not a pure module */
