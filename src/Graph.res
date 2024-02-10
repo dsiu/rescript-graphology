@@ -88,6 +88,7 @@ module type GRAPH = {
   let clearEdges: t => unit
 
   // todo:Attributes
+  let getEdgeAttribute: (edge, string) => 'a
 
   // Iteration
   // Nodes Iteration
@@ -280,6 +281,9 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
 
   @send external clear: t => unit = "clear"
   @send external clearEdges: t => unit = "clearEdges"
+
+  // Attributes
+  @send external getEdgeAttribute: (edge, string) => 'a = "getEdgeAttribute"
 
   // Iteration
   // Nodes Iteration
