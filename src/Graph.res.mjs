@@ -8,8 +8,8 @@ import * as GraphologyShortestPath from "graphology-shortest-path";
 
 function MakeGraph(C) {
   return {
-          makeGraph: (function (prim) {
-              return new (Graphology.default.Graph)(prim !== undefined ? Caml_option.valFromOption(prim) : undefined);
+          makeGraph: (function (prim0, prim1) {
+              return new (Graphology.default.Graph)(prim0 !== undefined ? Caml_option.valFromOption(prim0) : undefined);
             }),
           makeDirectedGraph: (function (prim) {
               return new (Graphology.default.DirectedGraph)();
@@ -86,22 +86,22 @@ function MakeGraph(C) {
           areNeighbors: (function (prim0, prim1, prim2) {
               return prim0.areNeighbors(prim1, prim2);
             }),
-          addNode: (function (prim0, prim1, prim2) {
+          addNode: (function (prim0, prim1, prim2, prim3) {
               prim0.addNode(prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
             }),
           updateNode: (function (prim0, prim1, prim2) {
               return prim0.updateNode(prim1, prim2);
             }),
-          addEdge: (function (prim0, prim1, prim2, prim3) {
+          addEdge: (function (prim0, prim1, prim2, prim3, prim4) {
               prim0.addEdge(prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
             }),
-          addEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4) {
+          addEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4, prim5) {
               prim0.addEdgeWithKey(prim1, prim2, prim3, prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
             }),
-          mergeEdge: (function (prim0, prim1, prim2, prim3) {
+          mergeEdge: (function (prim0, prim1, prim2, prim3, prim4) {
               return prim0.mergeEdge(prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
             }),
-          mergeEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4) {
+          mergeEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4, prim5) {
               return mergeEdgeWithKey(prim0, prim1, prim2, prim3, prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
             }),
           updateEdge: (function (prim0, prim1, prim2, prim3) {
@@ -236,13 +236,13 @@ function MakeGraph(C) {
             }
           },
           SimplePath: {
-            allSimplePaths: (function (prim0, prim1, prim2, prim3) {
+            allSimplePaths: (function (prim0, prim1, prim2, prim3, prim4) {
                 return GraphologySimplePath.allSimplePaths(prim0, prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
               }),
-            allSimpleEdgePaths: (function (prim0, prim1, prim2, prim3) {
+            allSimpleEdgePaths: (function (prim0, prim1, prim2, prim3, prim4) {
                 return GraphologySimplePath.allSimpleEdgePaths(prim0, prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
               }),
-            allSimpleEdgeGroupPaths: (function (prim0, prim1, prim2, prim3) {
+            allSimpleEdgeGroupPaths: (function (prim0, prim1, prim2, prim3, prim4) {
                 return GraphologySimplePath.allSimpleEdgeGroupPaths(prim0, prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
               })
           },

@@ -1,3 +1,5 @@
+@@uncurried
+
 module type CONFIG = {
   type node
   type edge
@@ -17,7 +19,7 @@ module type GRAPH = {
   }
 
   // Instantiation
-  let makeGraph: (~options: graphOptions=?) => t
+  let makeGraph: (~options: graphOptions=?, unit) => t
 
   // Specialized Constructors
   let makeDirectedGraph: unit => t
@@ -55,14 +57,21 @@ module type GRAPH = {
   let areNeighbors: (t, node, node) => bool
 
   // Mutation
-  let addNode: (t, node, ~attr: nodeAttr<'a>=?) => unit
+  let addNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => unit
   // todo: need to implement this
   //  mergeNode: (t, node) => unit = "mergeNode"
   let updateNode: (t, node, node => node) => (node, bool)
-  let addEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => unit
-  let addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?) => unit
-  let mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => (edge, bool, bool, bool)
-  let mergeEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?) => (edge, bool, bool, bool)
+  let addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit
+  let addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?, unit) => unit
+  let mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => (edge, bool, bool, bool)
+  let mergeEdgeWithKey: (
+    t,
+    edge,
+    node,
+    node,
+    ~attr: edgeAttr<'a>=?,
+    unit,
+  ) => (edge, bool, bool, bool)
   let updateEdge: (t, node, node, edgeAttr<'a> => edgeAttr<'a>) => (edge, bool, bool, bool)
   let updateEdgeWithKey: (
     t,
@@ -164,9 +173,9 @@ module type GRAPH = {
 
   module SimplePath: {
     type opts
-    let allSimplePaths: (t, node, node, ~opts: opts=?) => array<array<node>>
-    let allSimpleEdgePaths: (t, node, node, ~opts: opts=?) => array<array<edge>>
-    let allSimpleEdgeGroupPaths: (t, node, node, ~opts: opts=?) => array<array<array<node>>>
+    let allSimplePaths: (t, node, node, ~opts: opts=?, unit) => array<array<node>>
+    let allSimpleEdgePaths: (t, node, node, ~opts: opts=?, unit) => array<array<edge>>
+    let allSimpleEdgeGroupPaths: (t, node, node, ~opts: opts=?, unit) => array<array<array<node>>>
   }
 
   module Traversal: {
@@ -200,7 +209,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   }
 
   @new @module("graphology") @scope("default")
-  external makeGraph: (~options: graphOptions=?) => t = "Graph"
+  external makeGraph: (~options: graphOptions=?, unit) => t = "Graph"
 
   // Specialized Constructors
   @new @module("graphology") @scope("default")
@@ -236,16 +245,17 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external areNeighbors: (t, node, node) => bool = "areNeighbors"
 
   // Mutation
-  @send external addNode: (t, node, ~attr: nodeAttr<'a>=?) => unit = "addNode"
+  @send external addNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => unit = "addNode"
   // todo: need to implement this
   //  @send external mergeNode: (t, node) => unit = "mergeNode"
   @send external updateNode: (t, node, node => node) => (node, bool) = "updateNode"
 
-  @send external addEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => unit = "addEdge"
+  @send external addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit = "addEdge"
   @send
-  external addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?) => unit = "addEdgeWithKey"
+  external addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?, unit) => unit =
+    "addEdgeWithKey"
   @send
-  external mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => (edge, bool, bool, bool) =
+  external mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => (edge, bool, bool, bool) =
     "mergeEdge"
   external mergeEdgeWithKey: (
     t,
@@ -253,6 +263,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     node,
     node,
     ~attr: edgeAttr<'a>=?,
+    unit,
   ) => (edge, bool, bool, bool) = "mergeEdgeWithKey"
   external updateEdge: (t, node, node, edgeAttr<'a> => edgeAttr<'a>) => (edge, bool, bool, bool) =
     "updateEdge"
@@ -367,15 +378,21 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type opts = {maxDepth?: int}
 
     @module("graphology-simple-path")
-    external allSimplePaths: (t, node, node, ~opts: opts=?) => array<array<node>> = "allSimplePaths"
+    external allSimplePaths: (t, node, node, ~opts: opts=?, unit) => array<array<node>> =
+      "allSimplePaths"
 
     @module("graphology-simple-path")
-    external allSimpleEdgePaths: (t, node, node, ~opts: opts=?) => array<array<edge>> =
+    external allSimpleEdgePaths: (t, node, node, ~opts: opts=?, unit) => array<array<edge>> =
       "allSimpleEdgePaths"
 
     @module("graphology-simple-path")
-    external allSimpleEdgeGroupPaths: (t, node, node, ~opts: opts=?) => array<array<array<node>>> =
-      "allSimpleEdgeGroupPaths"
+    external allSimpleEdgeGroupPaths: (
+      t,
+      node,
+      node,
+      ~opts: opts=?,
+      unit,
+    ) => array<array<array<node>>> = "allSimpleEdgeGroupPaths"
   }
 
   module Traversal = {

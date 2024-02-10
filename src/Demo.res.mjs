@@ -12,33 +12,33 @@ function log2(prim0, prim1) {
 
 var G = Graph.MakeGraph({});
 
-var g = G.makeGraph(undefined);
+var g = G.makeGraph(undefined, undefined);
 
-G.addNode(g, "John", undefined);
+G.addNode(g, "John", undefined, undefined);
 
 var H = Graph.MakeGraph({});
 
-var h = H.makeGraph(undefined);
+var h = H.makeGraph(undefined, undefined);
 
 console.log("hi");
 
 H.addNode(h, "John", {
       lastName: "Doe"
-    });
+    }, undefined);
 
 H.addNode(h, "Peter", {
       lastName: "Egg"
-    });
+    }, undefined);
 
-H.addNode(h, "Mary", undefined);
+H.addNode(h, "Mary", undefined, undefined);
 
 H.addEdge(h, "John", "Peter", {
       dist: 23
-    });
+    }, undefined);
 
 H.addEdge(h, "Peter", "Mary", {
       dist: 12
-    });
+    }, undefined);
 
 ((function (__x) {
         console.log("inspect", __x);
@@ -141,28 +141,28 @@ var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John");
 
 var T = Graph.MakeGraph({});
 
-var t = T.makeGraph(undefined);
+var t = T.makeGraph(undefined, undefined);
 
 T.addNode(t, [
       0,
       0
     ], {
       lastName: "Doe"
-    });
+    }, undefined);
 
 T.addNode(t, [
       1,
       1
     ], {
       lastName: "Egg"
-    });
+    }, undefined);
 
 T.addNode(t, [
       2,
       2
     ], {
       lastName: "Klein"
-    });
+    }, undefined);
 
 T.addEdge(t, [
       0,
@@ -172,7 +172,7 @@ T.addEdge(t, [
       1
     ], {
       dist: 23
-    });
+    }, undefined);
 
 T.addEdge(t, [
       1,
@@ -182,35 +182,35 @@ T.addEdge(t, [
       2
     ], {
       dist: 12
-    });
+    }, undefined);
 
 var G$1 = Graph.MakeGraph({});
 
-var g$1 = G$1.makeGraph(undefined);
+var g$1 = G$1.makeGraph(undefined, undefined);
 
-G$1.addNode(g$1, 1, undefined);
+G$1.addNode(g$1, 1, undefined, undefined);
 
-G$1.addNode(g$1, 2, undefined);
+G$1.addNode(g$1, 2, undefined, undefined);
 
-G$1.addNode(g$1, 3, undefined);
+G$1.addNode(g$1, 3, undefined, undefined);
 
-G$1.addNode(g$1, 4, undefined);
+G$1.addNode(g$1, 4, undefined, undefined);
 
 G$1.addEdge(g$1, 1, 2, {
       weight1: 3
-    });
+    }, undefined);
 
 G$1.addEdge(g$1, 1, 3, {
       weight1: 2
-    });
+    }, undefined);
 
 G$1.addEdge(g$1, 2, 4, {
       weight1: 1
-    });
+    }, undefined);
 
 G$1.addEdge(g$1, 3, 4, {
       weight1: 1
-    });
+    }, undefined);
 
 ((function (__x) {
         console.log("edge", __x);
@@ -241,7 +241,7 @@ var g$2 = G$2.makeGraph({
       allowSelfLoops: false,
       multi: true,
       type: "directed"
-    });
+    }, undefined);
 
 ((function (__x) {
         console.log("inspect", __x);

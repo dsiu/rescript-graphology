@@ -1,18 +1,20 @@
+@@uncurried
+
 let log = Console.log
 let log2 = Console.log2
 // Str
 
-{
+let _ = {
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
   })
 
   let g = G.makeGraph()
-  g->G.addNode("John")
+  g->G.addNode("John", ())
 }
 
-{
+let _ = {
   module Dict = RescriptCore.Dict
   module H = Graph.MakeGraph({
     type node = string
@@ -20,12 +22,12 @@ let log2 = Console.log2
   })
   let h = H.makeGraph()
   "hi"->log
-  h->H.addNode("John", ~attr={"lastName": "Doe"})
-  h->H.addNode("Peter", ~attr={"lastName": "Egg"})
+  h->H.addNode("John", ~attr={"lastName": "Doe"}, ())
+  h->H.addNode("Peter", ~attr={"lastName": "Egg"}, ())
   //  h->H.addNode("Mary", ~attr={"lastName": "Klein"})
-  h->H.addNode("Mary")
-  h->H.addEdge("John", "Peter", ~attr={"dist": 23})
-  h->H.addEdge("Peter", "Mary", ~attr={"dist": 12})
+  h->H.addNode("Mary", ())
+  h->H.addEdge("John", "Peter", ~attr={"dist": 23}, ())
+  h->H.addEdge("Peter", "Mary", ~attr={"dist": 12}, ())
 
   h->H.inspect->(log2("inspect", _))
 
@@ -103,11 +105,11 @@ let log2 = Console.log2
   })
   let t = T.makeGraph()
 
-  t->T.addNode((0, 0), ~attr={"lastName": "Doe"})
-  t->T.addNode((1, 1), ~attr={"lastName": "Egg"})
-  t->T.addNode((2, 2), ~attr={"lastName": "Klein"})
-  t->T.addEdge((0, 0), (1, 1), ~attr={"dist": 23})
-  t->T.addEdge((1, 1), (2, 2), ~attr={"dist": 12})
+  t->T.addNode((0, 0), ~attr={"lastName": "Doe"}, ())
+  t->T.addNode((1, 1), ~attr={"lastName": "Egg"}, ())
+  t->T.addNode((2, 2), ~attr={"lastName": "Klein"}, ())
+  t->T.addEdge((0, 0), (1, 1), ~attr={"dist": 23}, ())
+  t->T.addEdge((1, 1), (2, 2), ~attr={"dist": 12}, ())
   //  t
   //  ->T.ShortestPath.Dijkstra.bidirectional((0, 0), (2, 2))
   //  ->(log2("(tuple) Dijkstra bidirection", _))
@@ -120,15 +122,15 @@ let log2 = Console.log2
   })
   let g = G.makeGraph()
 
-  g->G.addNode(1)
-  g->G.addNode(2)
-  g->G.addNode(3)
-  g->G.addNode(4)
+  g->G.addNode(1, ())
+  g->G.addNode(2, ())
+  g->G.addNode(3, ())
+  g->G.addNode(4, ())
 
-  g->G.addEdge(1, 2, ~attr={"weight1": 3})
-  g->G.addEdge(1, 3, ~attr={"weight1": 2})
-  g->G.addEdge(2, 4, ~attr={"weight1": 1})
-  g->G.addEdge(3, 4, ~attr={"weight1": 1})
+  g->G.addEdge(1, 2, ~attr={"weight1": 3}, ())
+  g->G.addEdge(1, 3, ~attr={"weight1": 2}, ())
+  g->G.addEdge(2, 4, ~attr={"weight1": 1}, ())
+  g->G.addEdge(3, 4, ~attr={"weight1": 1}, ())
   //  g->G.addEdgeWithKey(10, 1, 2)
   g->G.edge(1, 2)->(log2("edge", _))
   g->G.edges->(log2("edges", _))
@@ -154,6 +156,7 @@ let log2 = Console.log2
       allowSelfLoops: false,
       type_: #directed,
     },
+    (),
   )
   //  let g = G.makeGraph()
 
