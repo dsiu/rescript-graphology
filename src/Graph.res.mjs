@@ -234,7 +234,7 @@ function MakeGraph(C) {
             },
             Utils: {
               edgePathFromNodePath: (function (prim0, prim1) {
-                  return GraphologyShortestPath.utils.edgePathFromNodePath(prim0, prim1);
+                  return GraphologyShortestPath.edgePathFromNodePath(prim0, prim1);
                 })
             }
           },

@@ -143,6 +143,10 @@ let _ = {
   g
   ->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
   ->(log2("Dijkstra bidirectional", _))
+
+  let ps = g->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
+  let es = g->G.ShortestPath.Utils.edgePathFromNodePath(ps)
+  es->(log2("es", _))
 }
 
 {

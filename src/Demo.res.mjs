@@ -235,6 +235,17 @@ G$1.addEdge(g$1, 3, 4, {
             VAL: "weight1"
           })));
 
+var ps = G$1.ShortestPath.Dijkstra.bidirectional(g$1, 1, 4, {
+      NAME: "Attr",
+      VAL: "weight1"
+    });
+
+var es = G$1.ShortestPath.Utils.edgePathFromNodePath(g$1, ps);
+
+((function (__x) {
+        console.log("es", __x);
+      })(es));
+
 var G$2 = Graph.MakeGraph({});
 
 var g$2 = G$2.makeGraph({

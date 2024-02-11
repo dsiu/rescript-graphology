@@ -373,7 +373,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     }
 
     module Utils = {
-      @module("graphology-shortest-path") @scope("utils")
+      @module("graphology-shortest-path")
       external edgePathFromNodePath: (t, array<node>) => array<edge> = "edgePathFromNodePath"
     }
   }
