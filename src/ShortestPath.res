@@ -30,6 +30,7 @@ module type SHORTESTPATH = {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
+      unit,
     ) => array<node>
 
     // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
@@ -41,6 +42,7 @@ module type SHORTESTPATH = {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
+      unit,
     ) => RescriptCore.Dict.t<array<node>>
   }
 
@@ -101,6 +103,7 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
+      unit,
     ) => array<node> = "bidirectional"
 
     // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
@@ -114,6 +117,7 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
+      unit,
     ) => RescriptCore.Dict.t<array<node>> = "singleSource"
   }
 

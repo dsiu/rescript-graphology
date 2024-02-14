@@ -86,9 +86,9 @@ let _ = {
   ->(log2("Unweighted undirectedSingleSourceLength", _))
 
   //  h->H.ShortestPath.Dijkstra.bidirectional("John", "Mary")->(log2("Dijkstra bidirection", _))
-  h->H.ShortestPath.Dijkstra.singleSource("John")->(log2("Dijkstra singleSource", _))
+  h->H.ShortestPath.Dijkstra.singleSource("John", ())->(log2("Dijkstra singleSource", _))
 
-  let dijss = h->H.ShortestPath.Dijkstra.singleSource("John")
+  let dijss = h->H.ShortestPath.Dijkstra.singleSource("John", ())
 
   dijss->RescriptCore.Dict.keysToArray->(log2("k", _))
   dijss->RescriptCore.Dict.valuesToArray->(log2("v", _))
@@ -137,14 +137,14 @@ let _ = {
   g->G.inspect->(log2("inspect", _))
 
   g
-  ->G.ShortestPath.Dijkstra.singleSource(1)
+  ->G.ShortestPath.Dijkstra.singleSource(1, ())
   ->(log2("Dijkstra singleSource", _))
 
   g
-  ->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
+  ->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"), ())
   ->(log2("Dijkstra bidirectional", _))
 
-  let ps = g->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
+  let ps = g->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"), ())
   let es = g->G.ShortestPath.Utils.edgePathFromNodePath(ps)
   es->(log2("es", _))
 }
