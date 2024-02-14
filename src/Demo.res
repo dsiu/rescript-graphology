@@ -164,5 +164,5 @@ let _ = {
   )
   //  let g = G.makeGraph()
 
-  g->G.inspect->(log2("inspect", _))
+  g->G.inspect->(log2("inspect", ...))
 }

@@ -115,9 +115,9 @@ H.Traversal.bfsFromNode(h, "John", (function (n, att, depth) {
 
 ((function (__x) {
         console.log("Dijkstra singleSource", __x);
-      })(H.ShortestPath.Dijkstra.singleSource(h, "John")));
+      })(H.ShortestPath.Dijkstra.singleSource(h, "John", undefined)));
 
-var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John");
+var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John", undefined);
 
 ((function (__x) {
         console.log("k", __x);
@@ -226,7 +226,7 @@ G$1.addEdge(g$1, 3, 4, {
 
 ((function (__x) {
         console.log("Dijkstra singleSource", __x);
-      })(G$1.ShortestPath.Dijkstra.singleSource(g$1, 1)));
+      })(G$1.ShortestPath.Dijkstra.singleSource(g$1, 1, undefined)));
 
 ((function (__x) {
         console.log("Dijkstra bidirectional", __x);
@@ -254,9 +254,9 @@ var g$2 = G$2.makeGraph({
       type: "directed"
     }, undefined);
 
-((function (__x) {
-        console.log("inspect", __x);
-      })(G$2.inspect(g$2)));
+var prim0 = G$2.inspect(g$2);
+
+console.log(prim0, "inspect");
 
 export {
   log ,
