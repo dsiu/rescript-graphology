@@ -132,6 +132,16 @@ module type GRAPH = {
   //
   // Standard Libraries
   //
+  module Layout: {
+    open Layout
+    include LAYOUT
+      with type t := t
+      and type node := node
+      and type edge := edge
+      and type nodeAttr<'a> := nodeAttr<'a>
+      and type edgeAttr<'a> := edgeAttr<'a>
+  }
+
   module ShortestPath: {
     open ShortestPath
     include SHORTESTPATH
@@ -145,6 +155,16 @@ module type GRAPH = {
   module SimplePath: {
     open SimplePath
     include SIMPLEPATH
+      with type t := t
+      and type node := node
+      and type edge := edge
+      and type nodeAttr<'a> := nodeAttr<'a>
+      and type edgeAttr<'a> := edgeAttr<'a>
+  }
+
+  module SVG: {
+    open SVG
+    include SVG
       with type t := t
       and type node := node
       and type edge := edge
@@ -299,6 +319,14 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   //
   // Graphology Stand Libraries
   //
+  module Layout = Layout.MakeLayout({
+    type t = t
+    type node = node
+    type edge = edge
+    type nodeAttr<'a> = nodeAttr<'a>
+    type edgeAttr<'a> = edgeAttr<'a>
+  })
+
   module ShortestPath = ShortestPath.MakeShortestPath({
     type t = t
     type node = node
@@ -308,6 +336,14 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   })
 
   module SimplePath = SimplePath.MakeSimplePath({
+    type t = t
+    type node = node
+    type edge = edge
+    type nodeAttr<'a> = nodeAttr<'a>
+    type edgeAttr<'a> = edgeAttr<'a>
+  })
+
+  module SVG = SVG.MakeSVG({
     type t = t
     type node = node
     type edge = edge

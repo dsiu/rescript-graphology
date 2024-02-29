@@ -154,6 +154,36 @@ let _ = {
     type node = int
     type edge = string
   })
+  let g = G.makeGraph()
+
+  g->G.addNode(1, ())
+  g->G.addNode(2, ())
+  g->G.addNode(3, ())
+  g->G.addNode(4, ())
+
+  g->G.addEdge(1, 2, ())
+  g->G.addEdge(1, 3, ())
+  g->G.addEdge(2, 4, ())
+  g->G.addEdge(3, 4, ())
+
+  g->G.inspect->(log2("inspect - layout", _))
+
+  let pos = g->G.Layout.circular
+  pos->(log2("pos", _))
+
+  G.Layout.Circular.assign(g, ~options={center: 0.7, scale: 20.0})
+  g->G.SVG.render("./graph.svg", ~settings={margin: 20, width: 4096, height: 4096}, () =>
+    log("DONE writing to file")
+  )
+
+  g->G.inspect->(log2("inspect - layout", _))
+}
+
+{
+  module G = Graph.MakeGraph({
+    type node = int
+    type edge = string
+  })
   let g = G.makeGraph(
     ~options={
       multi: true,
