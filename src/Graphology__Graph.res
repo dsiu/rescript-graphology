@@ -15,6 +15,16 @@ module type GRAPH = {
     @as("type") type_?: [#mixed | #undirected | #directed],
   }
 
+  type serializedGraphAttr<'a> = {..} as 'a
+  type serializedNodeAttr<'a> = {..} as 'a
+  type serializedEdgeAttr<'a> = {..} as 'a
+
+  type serialized<'g, 'n, 'e> = {
+    attributes: serializedGraphAttr<'g>,
+    nodes: array<serializedNodeAttr<'n>>,
+    edges: array<serializedNodeAttr<'e>>,
+  }
+
   // Instantiation
   let makeGraph: (~options: graphOptions=?, unit) => t
 
@@ -26,9 +36,13 @@ module type GRAPH = {
   let makeMultiUndirectedGraph: unit => t
 
   // Static from method
-  // todo: need to implement this
-  // let from: (data, option) => t
-
+  let from: ('a, ~options: graphOptions=?, unit) => t
+  // From Specialized Constructors
+  let fromDirectedGraph: 'a => t
+  let fromUndirectedGraph: unit => t
+  let fromMultiGraph: unit => t
+  let fromMultiDirectedGraph: unit => t
+  let fromMultiUndirectedGraph: unit => t
   // Properties
   let order: t => int
   let size: t => int
@@ -158,6 +172,10 @@ module type GRAPH = {
   let everyNeighbor: (t, (node, nodeAttr<'a>) => bool) => bool
   let neighborEntries: t => RescriptCore.Iterator.t<nodeIterValue<'a>>
 
+  // Serialization
+  let import: (t, serialized<'g, 'n, 'e>, ~merge: bool=?) => unit
+  let export: t => serialized<'g, 'n, 'e>
+
   // Known methods
   let inspect: t => string
 
@@ -236,6 +254,16 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     @as("type") type_?: [#mixed | #undirected | #directed],
   }
 
+  type serializedGraphAttr<'a> = {..} as 'a
+  type serializedNodeAttr<'a> = {..} as 'a
+  type serializedEdgeAttr<'a> = {..} as 'a
+
+  type serialized<'g, 'n, 'e> = {
+    attributes: serializedGraphAttr<'g>,
+    nodes: array<serializedNodeAttr<'n>>,
+    edges: array<serializedNodeAttr<'e>>,
+  }
+
   @new @module("graphology") @scope("default")
   external makeGraph: (~options: graphOptions=?, unit) => t = "Graph"
 
@@ -249,6 +277,25 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   external makeMultiDirectedGraph: unit => t = "MultiDirectedGraph"
   @new @module("graphology")
   external makeMultiUndirectedGraph: unit => t = "MultiUndirectedGraph"
+
+  // Static from method
+  @module("graphology") @scope("Graph")
+  external from: ('a, ~options: graphOptions=?, unit) => t = "from"
+  // From Specialized Constructors
+  @module("graphology") @scope("DirectedGraph")
+  external fromDirectedGraph: 'a => t = "from"
+
+  @module("graphology") @scope("UndirectedGraph")
+  external fromUndirectedGraph: 'a => t = "from"
+
+  @module("graphology") @scope("MultiGraph")
+  external fromMultiGraph: 'a => t = "from"
+
+  @module("graphology") @scope("MultiDirectedGraph")
+  external fromMultiDirectedGraph: 'a => t = "from"
+
+  @module("graphology") @scope("MultiUndirectedGraph")
+  external fromMultiUndirectedGraph: 'a => t = "from"
 
   @get external order: t => int = "order"
   @get external size: t => int = "size"
@@ -278,12 +325,16 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external updateNode: (t, node, node => node) => (node, bool) = "updateNode"
 
   @send external addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit = "addEdge"
+
   @send
   external addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?, unit) => unit =
     "addEdgeWithKey"
+
   @send
   external mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => (edge, bool, bool, bool) =
     "mergeEdge"
+
+  @send
   external mergeEdgeWithKey: (
     t,
     edge,
@@ -292,8 +343,12 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     ~attr: edgeAttr<'a>=?,
     unit,
   ) => (edge, bool, bool, bool) = "mergeEdgeWithKey"
+
+  @send
   external updateEdge: (t, node, node, edgeAttr<'a> => edgeAttr<'a>) => (edge, bool, bool, bool) =
     "updateEdge"
+
+  @send
   external updateEdgeWithKey: (
     t,
     edge,
@@ -388,6 +443,10 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external someNeighbor: (t, (node, nodeAttr<'a>) => bool) => bool = "someNeighbor"
   @send external everyNeighbor: (t, (node, nodeAttr<'a>) => bool) => bool = "everyNeighbor"
   @send external neighborEntries: t => Core__Iterator.t<nodeIterValue<'a>> = "neighborEntries"
+
+  // Serialization
+  @send external import: (t, serialized<'g, 'n, 'e>, ~merge: bool=?) => unit = "import"
+  @send external export: t => serialized<'g, 'n, 'e> = "export"
 
   // Known methods
   @send external inspect: t => string = "inspect"

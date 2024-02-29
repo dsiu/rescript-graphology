@@ -33,6 +33,24 @@ function MakeGraph(C) {
           makeMultiUndirectedGraph: (function (prim) {
               return new Graphology.MultiUndirectedGraph();
             }),
+          from: (function (prim0, prim1, prim2) {
+              return Graphology.Graph.from(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+            }),
+          fromDirectedGraph: (function (prim) {
+              return Graphology.DirectedGraph.from(prim);
+            }),
+          fromUndirectedGraph: (function (prim) {
+              return Graphology.UndirectedGraph.from(prim);
+            }),
+          fromMultiGraph: (function (prim) {
+              return Graphology.MultiGraph.from(prim);
+            }),
+          fromMultiDirectedGraph: (function (prim) {
+              return Graphology.MultiDirectedGraph.from(prim);
+            }),
+          fromMultiUndirectedGraph: (function (prim) {
+              return Graphology.MultiUndirectedGraph.from(prim);
+            }),
           order: (function (prim) {
               return prim.order;
             }),
@@ -112,13 +130,13 @@ function MakeGraph(C) {
               return prim0.mergeEdge(prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
             }),
           mergeEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4, prim5) {
-              return mergeEdgeWithKey(prim0, prim1, prim2, prim3, prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
+              return prim0.mergeEdgeWithKey(prim1, prim2, prim3, prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
             }),
           updateEdge: (function (prim0, prim1, prim2, prim3) {
-              return updateEdge(prim0, prim1, prim2, prim3);
+              return prim0.updateEdge(prim1, prim2, prim3);
             }),
           updateEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4) {
-              return updateEdgeWithKey(prim0, prim1, prim2, prim3, prim4);
+              return prim0.updateEdgeWithKey(prim1, prim2, prim3, prim4);
             }),
           dropEdge: (function (prim0, prim1) {
               prim0.dropEdge(prim1);
@@ -299,6 +317,12 @@ function MakeGraph(C) {
             }),
           neighborEntries: (function (prim) {
               return prim.neighborEntries();
+            }),
+          $$import: (function (prim0, prim1, prim2) {
+              prim0.import(prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
+            }),
+          $$export: (function (prim) {
+              return prim.export();
             }),
           inspect: (function (prim) {
               return prim.inspect();

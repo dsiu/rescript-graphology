@@ -323,6 +323,30 @@ var match$2 = G$4.mergeNode(g$4, "John", {
 
 console.log(match$2[0], match$2[1]);
 
+var g$5 = G$4.makeGraph(undefined, undefined);
+
+G$4.mergeEdgeWithKey(g$5, "T->E", "Thomas", "Eric", {
+      type: "KNOWS"
+    }, undefined);
+
+G$4.setAttribute(g$5, "name", "My Graph");
+
+var exported = G$4.$$export(g$5);
+
+((function (__x) {
+        console.log("exported", __x);
+      })(exported));
+
+var h$1 = G$4.makeGraph(undefined, undefined);
+
+G$4.$$import(h$1, exported, undefined);
+
+G$4.addNode(h$1, "John", undefined, undefined);
+
+((function (__x) {
+        console.log("imported", __x);
+      })(h$1));
+
 export {
   log ,
   log2 ,

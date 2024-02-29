@@ -212,4 +212,17 @@ let _ = {
   log2(n, b)
   let (n, b) = g->G.mergeNode("John", ~attr={"eyes": "blue"}, ())
   log2(n, b)
+
+  let g = G.makeGraph()
+
+  let _ = g->G.mergeEdgeWithKey("T->E", "Thomas", "Eric", ~attr={"type": "KNOWS"}, ())
+  g->G.setAttribute("name", "My Graph")
+  let exported = g->G.export
+
+  exported->(log2("exported", _))
+
+  let h = G.makeGraph()
+  h->G.import(exported)
+  h->G.addNode("John", ())
+  h->(log2("imported", _))
 }
