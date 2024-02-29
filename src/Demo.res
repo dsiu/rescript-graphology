@@ -1,5 +1,3 @@
-@@uncurried
-
 open Graphology
 
 let log = Console.log
@@ -13,7 +11,7 @@ let _ = {
   })
 
   let g = G.makeGraph()
-  g->G.addNode("John", ())
+  g->G.addNode("John")
 }
 
 let _ = {
@@ -24,12 +22,12 @@ let _ = {
   })
   let h = H.makeGraph()
   "hi"->log
-  h->H.addNode("John", ~attr={"lastName": "Doe"}, ())
-  h->H.addNode("Peter", ~attr={"lastName": "Egg"}, ())
+  h->H.addNode("John", ~attr={"lastName": "Doe"})
+  h->H.addNode("Peter", ~attr={"lastName": "Egg"})
   //  h->H.addNode("Mary", ~attr={"lastName": "Klein"})
-  h->H.addNode("Mary", ())
-  h->H.addEdge("John", "Peter", ~attr={"dist": 23}, ())
-  h->H.addEdge("Peter", "Mary", ~attr={"dist": 12}, ())
+  h->H.addNode("Mary")
+  h->H.addEdge("John", "Peter", ~attr={"dist": 23})
+  h->H.addEdge("Peter", "Mary", ~attr={"dist": 12})
 
   h->H.inspect->(log2("inspect", _))
 
@@ -88,9 +86,9 @@ let _ = {
   ->(log2("Unweighted undirectedSingleSourceLength", _))
 
   //  h->H.ShortestPath.Dijkstra.bidirectional("John", "Mary")->(log2("Dijkstra bidirection", _))
-  h->H.ShortestPath.Dijkstra.singleSource("John", ())->(log2("Dijkstra singleSource", _))
+  h->H.ShortestPath.Dijkstra.singleSource("John")->(log2("Dijkstra singleSource", _))
 
-  let dijss = h->H.ShortestPath.Dijkstra.singleSource("John", ())
+  let dijss = h->H.ShortestPath.Dijkstra.singleSource("John")
 
   dijss->RescriptCore.Dict.keysToArray->(log2("k", _))
   dijss->RescriptCore.Dict.valuesToArray->(log2("v", _))
@@ -107,11 +105,11 @@ let _ = {
   })
   let t = T.makeGraph()
 
-  t->T.addNode((0, 0), ~attr={"lastName": "Doe"}, ())
-  t->T.addNode((1, 1), ~attr={"lastName": "Egg"}, ())
-  t->T.addNode((2, 2), ~attr={"lastName": "Klein"}, ())
-  t->T.addEdge((0, 0), (1, 1), ~attr={"dist": 23}, ())
-  t->T.addEdge((1, 1), (2, 2), ~attr={"dist": 12}, ())
+  t->T.addNode((0, 0), ~attr={"lastName": "Doe"})
+  t->T.addNode((1, 1), ~attr={"lastName": "Egg"})
+  t->T.addNode((2, 2), ~attr={"lastName": "Klein"})
+  t->T.addEdge((0, 0), (1, 1), ~attr={"dist": 23})
+  t->T.addEdge((1, 1), (2, 2), ~attr={"dist": 12})
   //  t
   //  ->T.ShortestPath.Dijkstra.bidirectional((0, 0), (2, 2))
   //  ->(log2("(tuple) Dijkstra bidirection", _))
@@ -124,29 +122,30 @@ let _ = {
   })
   let g = G.makeGraph()
 
-  g->G.addNode(1, ())
-  g->G.addNode(2, ())
-  g->G.addNode(3, ())
-  g->G.addNode(4, ())
+  g->G.addNode(1)
+  g->G.addNode(2)
+  g->G.addNode(3)
+  g->G.addNode(4)
 
-  g->G.addEdge(1, 2, ~attr={"weight1": 3}, ())
-  g->G.addEdge(1, 3, ~attr={"weight1": 2}, ())
-  g->G.addEdge(2, 4, ~attr={"weight1": 1}, ())
-  g->G.addEdge(3, 4, ~attr={"weight1": 1}, ())
+  g->G.addEdge(1, 2, ~attr={"weight1": 3})
+  g->G.addEdge(1, 3, ~attr={"weight1": 2})
+  g->G.addEdge(2, 4, ~attr={"weight1": 1})
+  g->G.addEdge(3, 4, ~attr={"weight1": 1})
   //  g->G.addEdgeWithKey(10, 1, 2)
   g->G.edge(1, 2)->(log2("edge", _))
-  g->G.edges->(log2("edges", _))
+  g->G.edges(All)->(log2("edges", _))
+  g->G.edges(Node(1))->(log2("edges", _))
   g->G.inspect->(log2("inspect", _))
 
   g
-  ->G.ShortestPath.Dijkstra.singleSource(1, ())
+  ->G.ShortestPath.Dijkstra.singleSource(1)
   ->(log2("Dijkstra singleSource", _))
 
   g
-  ->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"), ())
+  ->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
   ->(log2("Dijkstra bidirectional", _))
 
-  let ps = g->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"), ())
+  let ps = g->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
   let es = g->G.ShortestPath.Utils.edgePathFromNodePath(ps)
   es->(log2("es", _))
 }
@@ -158,15 +157,15 @@ let _ = {
   })
   let g = G.makeGraph()
 
-  g->G.addNode(1, ())
-  g->G.addNode(2, ())
-  g->G.addNode(3, ())
-  g->G.addNode(4, ())
+  g->G.addNode(1)
+  g->G.addNode(2)
+  g->G.addNode(3)
+  g->G.addNode(4)
 
-  g->G.addEdge(1, 2, ())
-  g->G.addEdge(1, 3, ())
-  g->G.addEdge(2, 4, ())
-  g->G.addEdge(3, 4, ())
+  g->G.addEdge(1, 2)
+  g->G.addEdge(1, 3)
+  g->G.addEdge(2, 4)
+  g->G.addEdge(3, 4)
 
   g->G.inspect->(log2("inspect - layout", _))
 
@@ -192,7 +191,6 @@ let _ = {
       allowSelfLoops: false,
       type_: #directed,
     },
-    (),
   )
   //  let g = G.makeGraph()
 
@@ -206,16 +204,16 @@ let _ = {
   })
 
   let g = G.makeGraph()
-  let (n, b) = g->G.mergeNode("John", ())
+  let (n, b) = g->G.mergeNode("John")
   log2(n, b)
-  let (n, b) = g->G.mergeNode("John", ())
+  let (n, b) = g->G.mergeNode("John")
   log2(n, b)
-  let (n, b) = g->G.mergeNode("John", ~attr={"eyes": "blue"}, ())
+  let (n, b) = g->G.mergeNode("John", ~attr={"eyes": "blue"})
   log2(n, b)
 
   let g = G.makeGraph()
 
-  let _ = g->G.mergeEdgeWithKey("T->E", "Thomas", "Eric", ~attr={"type": "KNOWS"}, ())
+  let _ = g->G.mergeEdgeWithKey("T->E", "Thomas", "Eric", ~attr={"type": "KNOWS"})
   g->G.setAttribute("name", "My Graph")
   let exported = g->G.export
 
@@ -223,6 +221,32 @@ let _ = {
 
   let h = G.makeGraph()
   h->G.import(exported)
-  h->G.addNode("John", ())
+  h->G.addNode("John")
   h->(log2("imported", _))
+}
+
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  let g = G.makeGraph(~options={multi: true})
+
+  let _ = g->G.mergeEdgeWithKey("T->R", "Thomas", "Rosaline")
+  let _ = g->G.mergeEdgeWithKey("T->E", "Thomas", "Emmett")
+  let _ = g->G.mergeEdgeWithKey("C->T", "Catherine", "Thomas")
+  let _ = g->G.mergeEdgeWithKey("R->C", "Rosaline", "Catherine")
+  let _ = g->G.mergeEdgeWithKey("J->D1", "John", "Daniel")
+  let _ = g->G.mergeEdgeWithKey("J->D2", "John", "Daniel")
+
+  // Using the array-returning methods:
+  g->G.edges(All)->(log2("g-G.edges", _))
+  //>>> ['T->R', 'T->E', 'C->T', 'R->C']
+  g->G.edges(Node("Thomas"))->(log2("g-G.edges('Thomas')", _))
+  //>>> ['T->R', 'T->E', 'C->T']
+
+  g->G.edges(FromTo("John", "Daniel"))->(log2("g-G.edges('John', 'Daniel')", _))
+
+  //>>> ['J->D1', 'J->D2']
 }

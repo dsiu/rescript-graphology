@@ -12,33 +12,33 @@ function log2(prim0, prim1) {
 
 var G = Graphology__Graph.MakeGraph({});
 
-var g = G.makeGraph(undefined, undefined);
+var g = G.makeGraph(undefined);
 
-G.addNode(g, "John", undefined, undefined);
+G.addNode(g, "John", undefined);
 
 var H = Graphology__Graph.MakeGraph({});
 
-var h = H.makeGraph(undefined, undefined);
+var h = H.makeGraph(undefined);
 
 console.log("hi");
 
 H.addNode(h, "John", {
       lastName: "Doe"
-    }, undefined);
+    });
 
 H.addNode(h, "Peter", {
       lastName: "Egg"
-    }, undefined);
+    });
 
-H.addNode(h, "Mary", undefined, undefined);
+H.addNode(h, "Mary", undefined);
 
 H.addEdge(h, "John", "Peter", {
       dist: 23
-    }, undefined);
+    });
 
 H.addEdge(h, "Peter", "Mary", {
       dist: 12
-    }, undefined);
+    });
 
 ((function (__x) {
         console.log("inspect", __x);
@@ -115,9 +115,9 @@ H.Traversal.bfsFromNode(h, "John", (function (n, att, depth) {
 
 ((function (__x) {
         console.log("Dijkstra singleSource", __x);
-      })(H.ShortestPath.Dijkstra.singleSource(h, "John", undefined, undefined)));
+      })(H.ShortestPath.Dijkstra.singleSource(h, "John", undefined)));
 
-var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John", undefined, undefined);
+var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John", undefined);
 
 ((function (__x) {
         console.log("k", __x);
@@ -141,28 +141,28 @@ var dijss = H.ShortestPath.Dijkstra.singleSource(h, "John", undefined, undefined
 
 var T = Graphology__Graph.MakeGraph({});
 
-var t = T.makeGraph(undefined, undefined);
+var t = T.makeGraph(undefined);
 
 T.addNode(t, [
       0,
       0
     ], {
       lastName: "Doe"
-    }, undefined);
+    });
 
 T.addNode(t, [
       1,
       1
     ], {
       lastName: "Egg"
-    }, undefined);
+    });
 
 T.addNode(t, [
       2,
       2
     ], {
       lastName: "Klein"
-    }, undefined);
+    });
 
 T.addEdge(t, [
       0,
@@ -172,7 +172,7 @@ T.addEdge(t, [
       1
     ], {
       dist: 23
-    }, undefined);
+    });
 
 T.addEdge(t, [
       1,
@@ -182,35 +182,35 @@ T.addEdge(t, [
       2
     ], {
       dist: 12
-    }, undefined);
+    });
 
 var G$1 = Graphology__Graph.MakeGraph({});
 
-var g$1 = G$1.makeGraph(undefined, undefined);
+var g$1 = G$1.makeGraph(undefined);
 
-G$1.addNode(g$1, 1, undefined, undefined);
+G$1.addNode(g$1, 1, undefined);
 
-G$1.addNode(g$1, 2, undefined, undefined);
+G$1.addNode(g$1, 2, undefined);
 
-G$1.addNode(g$1, 3, undefined, undefined);
+G$1.addNode(g$1, 3, undefined);
 
-G$1.addNode(g$1, 4, undefined, undefined);
+G$1.addNode(g$1, 4, undefined);
 
 G$1.addEdge(g$1, 1, 2, {
       weight1: 3
-    }, undefined);
+    });
 
 G$1.addEdge(g$1, 1, 3, {
       weight1: 2
-    }, undefined);
+    });
 
 G$1.addEdge(g$1, 2, 4, {
       weight1: 1
-    }, undefined);
+    });
 
 G$1.addEdge(g$1, 3, 4, {
       weight1: 1
-    }, undefined);
+    });
 
 ((function (__x) {
         console.log("edge", __x);
@@ -218,7 +218,14 @@ G$1.addEdge(g$1, 3, 4, {
 
 ((function (__x) {
         console.log("edges", __x);
-      })(G$1.edges(g$1)));
+      })(G$1.edges(g$1, "All")));
+
+((function (__x) {
+        console.log("edges", __x);
+      })(G$1.edges(g$1, {
+            TAG: "Node",
+            _0: 1
+          })));
 
 ((function (__x) {
         console.log("inspect", __x);
@@ -226,19 +233,19 @@ G$1.addEdge(g$1, 3, 4, {
 
 ((function (__x) {
         console.log("Dijkstra singleSource", __x);
-      })(G$1.ShortestPath.Dijkstra.singleSource(g$1, 1, undefined, undefined)));
+      })(G$1.ShortestPath.Dijkstra.singleSource(g$1, 1, undefined)));
 
 ((function (__x) {
         console.log("Dijkstra bidirectional", __x);
       })(G$1.ShortestPath.Dijkstra.bidirectional(g$1, 1, 4, {
             NAME: "Attr",
             VAL: "weight1"
-          }, undefined)));
+          })));
 
 var ps = G$1.ShortestPath.Dijkstra.bidirectional(g$1, 1, 4, {
       NAME: "Attr",
       VAL: "weight1"
-    }, undefined);
+    });
 
 var es = G$1.ShortestPath.Utils.edgePathFromNodePath(g$1, ps);
 
@@ -248,23 +255,23 @@ var es = G$1.ShortestPath.Utils.edgePathFromNodePath(g$1, ps);
 
 var G$2 = Graphology__Graph.MakeGraph({});
 
-var g$2 = G$2.makeGraph(undefined, undefined);
+var g$2 = G$2.makeGraph(undefined);
 
-G$2.addNode(g$2, 1, undefined, undefined);
+G$2.addNode(g$2, 1, undefined);
 
-G$2.addNode(g$2, 2, undefined, undefined);
+G$2.addNode(g$2, 2, undefined);
 
-G$2.addNode(g$2, 3, undefined, undefined);
+G$2.addNode(g$2, 3, undefined);
 
-G$2.addNode(g$2, 4, undefined, undefined);
+G$2.addNode(g$2, 4, undefined);
 
-G$2.addEdge(g$2, 1, 2, undefined, undefined);
+G$2.addEdge(g$2, 1, 2, undefined);
 
-G$2.addEdge(g$2, 1, 3, undefined, undefined);
+G$2.addEdge(g$2, 1, 3, undefined);
 
-G$2.addEdge(g$2, 2, 4, undefined, undefined);
+G$2.addEdge(g$2, 2, 4, undefined);
 
-G$2.addEdge(g$2, 3, 4, undefined, undefined);
+G$2.addEdge(g$2, 3, 4, undefined);
 
 ((function (__x) {
         console.log("inspect - layout", __x);
@@ -299,7 +306,7 @@ var g$3 = G$3.makeGraph({
       allowSelfLoops: false,
       multi: true,
       type: "directed"
-    }, undefined);
+    });
 
 var prim0 = G$3.inspect(g$3);
 
@@ -307,27 +314,27 @@ console.log(prim0, "inspect");
 
 var G$4 = Graphology__Graph.MakeGraph({});
 
-var g$4 = G$4.makeGraph(undefined, undefined);
+var g$4 = G$4.makeGraph(undefined);
 
-var match = G$4.mergeNode(g$4, "John", undefined, undefined);
+var match = G$4.mergeNode(g$4, "John", undefined);
 
 console.log(match[0], match[1]);
 
-var match$1 = G$4.mergeNode(g$4, "John", undefined, undefined);
+var match$1 = G$4.mergeNode(g$4, "John", undefined);
 
 console.log(match$1[0], match$1[1]);
 
 var match$2 = G$4.mergeNode(g$4, "John", {
       eyes: "blue"
-    }, undefined);
+    });
 
 console.log(match$2[0], match$2[1]);
 
-var g$5 = G$4.makeGraph(undefined, undefined);
+var g$5 = G$4.makeGraph(undefined);
 
 G$4.mergeEdgeWithKey(g$5, "T->E", "Thomas", "Eric", {
       type: "KNOWS"
-    }, undefined);
+    });
 
 G$4.setAttribute(g$5, "name", "My Graph");
 
@@ -337,15 +344,52 @@ var exported = G$4.$$export(g$5);
         console.log("exported", __x);
       })(exported));
 
-var h$1 = G$4.makeGraph(undefined, undefined);
+var h$1 = G$4.makeGraph(undefined);
 
 G$4.$$import(h$1, exported, undefined);
 
-G$4.addNode(h$1, "John", undefined, undefined);
+G$4.addNode(h$1, "John", undefined);
 
 ((function (__x) {
         console.log("imported", __x);
       })(h$1));
+
+var G$5 = Graphology__Graph.MakeGraph({});
+
+var g$6 = G$5.makeGraph({
+      multi: true
+    });
+
+G$5.mergeEdgeWithKey(g$6, "T->R", "Thomas", "Rosaline", undefined);
+
+G$5.mergeEdgeWithKey(g$6, "T->E", "Thomas", "Emmett", undefined);
+
+G$5.mergeEdgeWithKey(g$6, "C->T", "Catherine", "Thomas", undefined);
+
+G$5.mergeEdgeWithKey(g$6, "R->C", "Rosaline", "Catherine", undefined);
+
+G$5.mergeEdgeWithKey(g$6, "J->D1", "John", "Daniel", undefined);
+
+G$5.mergeEdgeWithKey(g$6, "J->D2", "John", "Daniel", undefined);
+
+((function (__x) {
+        console.log("g-G.edges", __x);
+      })(G$5.edges(g$6, "All")));
+
+((function (__x) {
+        console.log("g-G.edges('Thomas')", __x);
+      })(G$5.edges(g$6, {
+            TAG: "Node",
+            _0: "Thomas"
+          })));
+
+((function (__x) {
+        console.log("g-G.edges('John', 'Daniel')", __x);
+      })(G$5.edges(g$6, {
+            TAG: "FromTo",
+            _0: "John",
+            _1: "Daniel"
+          })));
 
 export {
   log ,

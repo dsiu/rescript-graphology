@@ -26,7 +26,7 @@ module type GRAPH = {
   }
 
   // Instantiation
-  let makeGraph: (~options: graphOptions=?, unit) => t
+  let makeGraph: (~options: graphOptions=?) => t
 
   // Specialized Constructors
   let makeDirectedGraph: unit => t
@@ -36,7 +36,7 @@ module type GRAPH = {
   let makeMultiUndirectedGraph: unit => t
 
   // Static from method
-  let from: ('a, ~options: graphOptions=?, unit) => t
+  let from: ('a, ~options: graphOptions=?) => t
   // From Specialized Constructors
   let fromDirectedGraph: 'a => t
   let fromUndirectedGraph: unit => t
@@ -68,20 +68,13 @@ module type GRAPH = {
   let areNeighbors: (t, node, node) => bool
 
   // Mutation
-  let addNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => unit
-  let mergeNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => (node, bool)
+  let addNode: (t, node, ~attr: nodeAttr<'a>=?) => unit
+  let mergeNode: (t, node, ~attr: nodeAttr<'a>=?) => (node, bool)
   let updateNode: (t, node, node => node) => (node, bool)
-  let addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit
-  let addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?, unit) => unit
-  let mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => (edge, bool, bool, bool)
-  let mergeEdgeWithKey: (
-    t,
-    edge,
-    node,
-    node,
-    ~attr: edgeAttr<'a>=?,
-    unit,
-  ) => (edge, bool, bool, bool)
+  let addEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => unit
+  let addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?) => unit
+  let mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => (edge, bool, bool, bool)
+  let mergeEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?) => (edge, bool, bool, bool)
   let updateEdge: (t, node, node, edgeAttr<'a> => edgeAttr<'a>) => (edge, bool, bool, bool)
   let updateEdgeWithKey: (
     t,
@@ -148,9 +141,65 @@ module type GRAPH = {
   let nodeEntries: t => RescriptCore.Iterator.t<nodeIterValue<'a>>
 
   // Edges Iteration
-  let edges: t => array<edge>
-  let forEachEdge: (t, (edge, edgeAttr<'a>) => unit) => unit
+  type edgesVarArgs = All | Node(node) | FromTo(node, node)
+
+  // Returns an array of relevant edge keys.
+  // #.edges
+  let edges: (t, edgesVarArgs) => array<edge>
+  // #.inEdges
+  let inEdges: (t, edgesVarArgs) => array<edge>
+  // #.outEdges
+  let outEdges: (t, edgesVarArgs) => array<edge>
+  // #. inboundEdges
+  let inboundEdges: (t, edgesVarArgs) => array<edge>
+  // #.outboundEdges
+  let outboundEdges: (t, edgesVarArgs) => array<edge>
+  // #.directedEdges
+  let directedEdges: (t, edgesVarArgs) => array<edge>
+  // #.undirectedEdges
+  let undirectedEdges: (t, edgesVarArgs) => array<edge>
+
+  // todo: forEachEdge call back should have (edge, attributes, source, target, sourceAttributes, targetAttributes)
+
+  // Iterates over relevant edges using a callback.
+  type forEachEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => unit
+
+  type forEachEdgeVarArgs<'a> =
+    | All(forEachEdgeCallback<'a>)
+    | Node(node, forEachEdgeCallback<'a>)
+    | FromTo(node, node, forEachEdgeCallback<'a>)
+
+  let forEachEdge: (t, forEachEdgeVarArgs<'a>) => unit
+  let forEachInEdge: (t, forEachEdgeVarArgs<'a>) => unit
+  let forEachOutEdge: (t, forEachEdgeVarArgs<'a>) => unit
+  let forEachInboundEdge: (t, forEachEdgeVarArgs<'a>) => unit
+  let forEachOutboundEdge: (t, forEachEdgeVarArgs<'a>) => unit
+  let forEachDirectedEdge: (t, forEachEdgeVarArgs<'a>) => unit
+  let forEachUndirectedEdge: (t, forEachEdgeVarArgs<'a>) => unit
+
+  // todo:
+  // #.forEachInEdge
+  // #.forEachOutEdge
+  // #.forEachInboundEdge (in + undirected)
+  // #.forEachOutboundEdge (out + undirected)
+  // #.forEachDirectedEdge
+  // #.forEachUndirectedEdge
   let mapEdges: (t, (edge, edgeAttr<'a>) => 'b) => array<'b>
+  // todo:
+  // #.mapInEdges
+  // #.mapOutEdges
+  // #.mapInboundEdges (in + undirected)
+  // #.mapOutboundEdges (out + undirected)
+  // #.mapDirectedEdges
+  // #.mapUndirectedEdges
   let filterEdges: (t, (edge, edgeAttr<'a>) => bool) => array<edge>
   let reduceEdges: (t, ('a, edge, edgeAttr<'a>) => 'a, 'a) => array<edge>
   let findEdge: (t, (edge, edgeAttr<'a>) => bool) => edge
@@ -265,7 +314,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   }
 
   @new @module("graphology") @scope("default")
-  external makeGraph: (~options: graphOptions=?, unit) => t = "Graph"
+  external makeGraph: (~options: graphOptions=?) => t = "Graph"
 
   // Specialized Constructors
   @new @module("graphology") @scope("default")
@@ -280,7 +329,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
 
   // Static from method
   @module("graphology") @scope("Graph")
-  external from: ('a, ~options: graphOptions=?, unit) => t = "from"
+  external from: ('a, ~options: graphOptions=?) => t = "from"
   // From Specialized Constructors
   @module("graphology") @scope("DirectedGraph")
   external fromDirectedGraph: 'a => t = "from"
@@ -320,18 +369,17 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external areNeighbors: (t, node, node) => bool = "areNeighbors"
 
   // Mutation
-  @send external addNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => unit = "addNode"
-  @send external mergeNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => (node, bool) = "mergeNode"
+  @send external addNode: (t, node, ~attr: nodeAttr<'a>=?) => unit = "addNode"
+  @send external mergeNode: (t, node, ~attr: nodeAttr<'a>=?) => (node, bool) = "mergeNode"
   @send external updateNode: (t, node, node => node) => (node, bool) = "updateNode"
 
-  @send external addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit = "addEdge"
+  @send external addEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => unit = "addEdge"
 
   @send
-  external addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?, unit) => unit =
-    "addEdgeWithKey"
+  external addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?) => unit = "addEdgeWithKey"
 
   @send
-  external mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => (edge, bool, bool, bool) =
+  external mergeEdge: (t, node, node, ~attr: edgeAttr<'a>=?) => (edge, bool, bool, bool) =
     "mergeEdge"
 
   @send
@@ -341,7 +389,6 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     node,
     node,
     ~attr: edgeAttr<'a>=?,
-    unit,
   ) => (edge, bool, bool, bool) = "mergeEdgeWithKey"
 
   @send
@@ -421,9 +468,241 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external nodeEntries: t => Core__Iterator.t<nodeIterValue<'a>> = "nodeEntries"
 
   // Edges Iteration
-  @send external edges: t => array<edge> = "edges"
-  @send external forEachEdge: (t, (edge, edgeAttr<'a>) => unit) => unit = "forEachEdge"
+  type edgesVarArgs = All | Node(node) | FromTo(node, node)
+
+  let _edgesVarArgsCall = (t, edgesVarArgs, allFn, nodeFn, fromToFn) => {
+    switch edgesVarArgs {
+    | All => allFn(t)
+    | Node(node) => nodeFn(t, node)
+    | FromTo(source, target) => fromToFn(t, source, target)
+    }
+  }
+
+  // #.edges
+  @send external _edges: t => array<edge> = "edges"
+  @send external _edgesOfNode: (t, node) => array<edge> = "edges"
+  @send external _edgesFromTo: (t, node, node) => array<edge> = "edges"
+
+  let edges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(t, edgesVarArgs, _edges, _edgesOfNode, _edgesFromTo)
+  }
+
+  // #.inEdges
+  @send external _inEdges: t => array<edge> = "inEdges"
+  @send external _inEdgesOfNode: (t, node) => array<edge> = "inEdges"
+  @send external _inEdgesFromTo: (t, node, node) => array<edge> = "inEdges"
+
+  let inEdges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(t, edgesVarArgs, _inEdges, _inEdgesOfNode, _inEdgesFromTo)
+  }
+
+  // #.outEdges
+  @send external _outEdges: t => array<edge> = "outEdges"
+  @send external _outEdgesOfNode: (t, node) => array<edge> = "outEdges"
+  @send external _outEdgesFromTo: (t, node, node) => array<edge> = "outEdges"
+
+  let outEdges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(t, edgesVarArgs, _outEdges, _outEdgesOfNode, _outEdgesFromTo)
+  }
+
+  // #. inboundEdges
+  @send external _inboundEdges: t => array<edge> = "inboundEdges"
+  @send external _inboundEdgesOfNode: (t, node) => array<edge> = "inboundEdges"
+  @send external _inboundEdgesFromTo: (t, node, node) => array<edge> = "inboundEdges"
+
+  let inboundEdges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(t, edgesVarArgs, _inboundEdges, _inboundEdgesOfNode, _inboundEdgesFromTo)
+  }
+
+  // #.outboundEdges
+  @send external _outboundEdges: t => array<edge> = "outboundEdges"
+  @send external _outboundEdgesOfNode: (t, node) => array<edge> = "outboundEdges"
+  @send external _outboundEdgesFromTo: (t, node, node) => array<edge> = "outboundEdges"
+
+  let outboundEdges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(t, edgesVarArgs, _outboundEdges, _outboundEdgesOfNode, _outboundEdgesFromTo)
+  }
+
+  // #.directedEdges
+  @send external _directedEdges: t => array<edge> = "directedEdges"
+  @send external _directedEdgesOfNode: (t, node) => array<edge> = "directedEdges"
+  @send external _directedEdgesFromTo: (t, node, node) => array<edge> = "directedEdges"
+
+  let directedEdges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(t, edgesVarArgs, _directedEdges, _directedEdgesOfNode, _directedEdgesFromTo)
+  }
+
+  // #.undirectedEdges
+  @send external _undirectedEdges: t => array<edge> = "undirectedEdges"
+  @send external _undirectedEdgesOfNode: (t, node) => array<edge> = "undirectedEdges"
+  @send external _undirectedEdgesFromTo: (t, node, node) => array<edge> = "undirectedEdges"
+
+  let undirectedEdges = (t, edgesVarArgs) => {
+    _edgesVarArgsCall(
+      t,
+      edgesVarArgs,
+      _undirectedEdges,
+      _undirectedEdgesOfNode,
+      _undirectedEdgesFromTo,
+    )
+  }
+
+  // Iterates over relevant edges using a callback.
+  type forEachEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => unit
+
+  type forEachEdgeVarArgs<'a> =
+    | All(forEachEdgeCallback<'a>)
+    | Node(node, forEachEdgeCallback<'a>)
+    | FromTo(node, node, forEachEdgeCallback<'a>)
+
+  let _forEachEdgeVarArgsCall = (t, forEachEdgeVarArgs, allFn, nodeFn, fromToFn) => {
+    switch forEachEdgeVarArgs {
+    | All(callback) => allFn(t, callback)
+    | Node(node, callback) => nodeFn(t, node, callback)
+    | FromTo(source, target, callback) => fromToFn(t, source, target, callback)
+    }
+  }
+
+  // #.forEachEdge
+  @send external _forEachEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachEdge"
+  @send external _forEachEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit = "forEachEdge"
+  @send
+  external _forEachEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit = "forEachEdge"
+
+  let forEachEdge = (t, forEachEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachEdgeVarArgs,
+      _forEachEdge,
+      _forEachEdgeOfNode,
+      _forEachEdgeFromTo,
+    )
+  }
+
+  // #.forEachInEdge
+  @send external _forEachInEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachInEdge"
+  @send
+  external _forEachInEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit = "forEachInEdge"
+  @send
+  external _forEachInEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit = "forEachInEdge"
+
+  let forEachInEdge = (t, forEachInEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachInEdgeVarArgs,
+      _forEachInEdge,
+      _forEachInEdgeOfNode,
+      _forEachInEdgeFromTo,
+    )
+  }
+
+  // #.forEachOutEdge
+  @send external _forEachOutEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachOutEdge"
+  @send
+  external _forEachOutEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit = "forEachOutEdge"
+  @send
+  external _forEachOutEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit =
+    "forEachOutEdge"
+
+  let forEachOutEdge = (t, forEachOutEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachOutEdgeVarArgs,
+      _forEachOutEdge,
+      _forEachOutEdgeOfNode,
+      _forEachOutEdgeFromTo,
+    )
+  }
+
+  // #.forEachInboundEdge
+  @send external _forEachInboundEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachInboundEdge"
+  @send
+  external _forEachInboundEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit =
+    "forEachInboundEdge"
+  @send
+  external _forEachInboundEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit =
+    "forEachInboundEdge"
+
+  let forEachInboundEdge = (t, forEachInboundEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachInboundEdgeVarArgs,
+      _forEachInboundEdge,
+      _forEachInboundEdgeOfNode,
+      _forEachInboundEdgeFromTo,
+    )
+  }
+
+  // #.forEachOutboundEdge
+  @send external _forEachOutboundEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachOutboundEdge"
+  @send
+  external _forEachOutboundEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit =
+    "forEachOutboundEdge"
+  @send
+  external _forEachOutboundEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit =
+    "forEachOutboundEdge"
+
+  let forEachOutboundEdge = (t, forEachOutboundEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachOutboundEdgeVarArgs,
+      _forEachOutboundEdge,
+      _forEachOutboundEdgeOfNode,
+      _forEachOutboundEdgeFromTo,
+    )
+  }
+
+  // #.forEachDirectedEdge
+  @send external _forEachDirectedEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachDirectedEdge"
+  @send
+  external _forEachDirectedEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit =
+    "forEachDirectedEdge"
+  @send
+  external _forEachDirectedEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit =
+    "forEachDirectedEdge"
+
+  let forEachDirectedEdge = (t, forEachDirectedEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachDirectedEdgeVarArgs,
+      _forEachDirectedEdge,
+      _forEachDirectedEdgeOfNode,
+      _forEachDirectedEdgeFromTo,
+    )
+  }
+
+  // #.forEachUndirectedEdge
+  @send
+  external _forEachUndirectedEdge: (t, forEachEdgeCallback<'a>) => unit = "forEachUndirectedEdge"
+  @send
+  external _forEachUndirectedEdgeOfNode: (t, node, forEachEdgeCallback<'a>) => unit =
+    "forEachUndirectedEdge"
+  @send
+  external _forEachUndirectedEdgeFromTo: (t, node, node, forEachEdgeCallback<'a>) => unit =
+    "forEachUndirectedEdge"
+
+  let forEachUndirectedEdge = (t, forEachUndirectedEdgeVarArgs) => {
+    _forEachEdgeVarArgsCall(
+      t,
+      forEachUndirectedEdgeVarArgs,
+      _forEachUndirectedEdge,
+      _forEachUndirectedEdgeOfNode,
+      _forEachUndirectedEdgeFromTo,
+    )
+  }
+
+  // map
   @send external mapEdges: (t, (edge, edgeAttr<'a>) => 'b) => array<'b> = "mapEdges"
+
+  // filter
   @send external filterEdges: (t, (edge, edgeAttr<'a>) => bool) => array<edge> = "filterEdges"
   @send external reduceEdges: (t, ('b, edge, edgeAttr<'a>) => 'b, 'b) => array<edge> = "reduceEdges"
   @send external findEdge: (t, (edge, edgeAttr<'a>) => bool) => edge = "findEdge"

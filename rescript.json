@@ -14,6 +14,5 @@
   ],
   "bsc-flags": [
     "-open RescriptCore"
-  ],
-  "uncurried": true
+  ]
 }

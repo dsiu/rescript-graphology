@@ -9,14 +9,160 @@ import * as Graphology__SimplePath from "./Graphology__SimplePath.res.mjs";
 import * as Graphology__ShortestPath from "./Graphology__ShortestPath.res.mjs";
 
 function MakeGraph(C) {
+  var _edgesVarArgsCall = function (t, edgesVarArgs, allFn, nodeFn, fromToFn) {
+    if (typeof edgesVarArgs !== "object") {
+      return allFn(t);
+    } else if (edgesVarArgs.TAG === "Node") {
+      return nodeFn(t, edgesVarArgs._0);
+    } else {
+      return fromToFn(t, edgesVarArgs._0, edgesVarArgs._1);
+    }
+  };
+  var edges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.edges();
+                }), (function (prim0, prim1) {
+                  return prim0.edges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.edges(prim1, prim2);
+                }));
+  };
+  var inEdges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.inEdges();
+                }), (function (prim0, prim1) {
+                  return prim0.inEdges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.inEdges(prim1, prim2);
+                }));
+  };
+  var outEdges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.outEdges();
+                }), (function (prim0, prim1) {
+                  return prim0.outEdges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.outEdges(prim1, prim2);
+                }));
+  };
+  var inboundEdges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.inboundEdges();
+                }), (function (prim0, prim1) {
+                  return prim0.inboundEdges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.inboundEdges(prim1, prim2);
+                }));
+  };
+  var outboundEdges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.outboundEdges();
+                }), (function (prim0, prim1) {
+                  return prim0.outboundEdges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.outboundEdges(prim1, prim2);
+                }));
+  };
+  var directedEdges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.directedEdges();
+                }), (function (prim0, prim1) {
+                  return prim0.directedEdges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.directedEdges(prim1, prim2);
+                }));
+  };
+  var undirectedEdges = function (t, edgesVarArgs) {
+    return _edgesVarArgsCall(t, edgesVarArgs, (function (prim) {
+                  return prim.undirectedEdges();
+                }), (function (prim0, prim1) {
+                  return prim0.undirectedEdges(prim1);
+                }), (function (prim0, prim1, prim2) {
+                  return prim0.undirectedEdges(prim1, prim2);
+                }));
+  };
+  var _forEachEdgeVarArgsCall = function (t, forEachEdgeVarArgs, allFn, nodeFn, fromToFn) {
+    switch (forEachEdgeVarArgs.TAG) {
+      case "All" :
+          return allFn(t, forEachEdgeVarArgs._0);
+      case "Node" :
+          return nodeFn(t, forEachEdgeVarArgs._0, forEachEdgeVarArgs._1);
+      case "FromTo" :
+          return fromToFn(t, forEachEdgeVarArgs._0, forEachEdgeVarArgs._1, forEachEdgeVarArgs._2);
+      
+    }
+  };
+  var forEachEdge = function (t, forEachEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachEdge(prim1, prim2, prim3);
+          }));
+  };
+  var forEachInEdge = function (t, forEachInEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachInEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachInEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachInEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachInEdge(prim1, prim2, prim3);
+          }));
+  };
+  var forEachOutEdge = function (t, forEachOutEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachOutEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachOutEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachOutEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachOutEdge(prim1, prim2, prim3);
+          }));
+  };
+  var forEachInboundEdge = function (t, forEachInboundEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachInboundEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachInboundEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachInboundEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachInboundEdge(prim1, prim2, prim3);
+          }));
+  };
+  var forEachOutboundEdge = function (t, forEachOutboundEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachOutboundEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachOutboundEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachOutboundEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachOutboundEdge(prim1, prim2, prim3);
+          }));
+  };
+  var forEachDirectedEdge = function (t, forEachDirectedEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachDirectedEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachDirectedEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachDirectedEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachDirectedEdge(prim1, prim2, prim3);
+          }));
+  };
+  var forEachUndirectedEdge = function (t, forEachUndirectedEdgeVarArgs) {
+    _forEachEdgeVarArgsCall(t, forEachUndirectedEdgeVarArgs, (function (prim0, prim1) {
+            prim0.forEachUndirectedEdge(prim1);
+          }), (function (prim0, prim1, prim2) {
+            prim0.forEachUndirectedEdge(prim1, prim2);
+          }), (function (prim0, prim1, prim2, prim3) {
+            prim0.forEachUndirectedEdge(prim1, prim2, prim3);
+          }));
+  };
   var Layout = Graphology__Layout.MakeLayout({});
   var ShortestPath = Graphology__ShortestPath.MakeShortestPath({});
   var SimplePath = Graphology__SimplePath.MakeSimplePath({});
   var SVG = Graphology__SVG.MakeSVG({});
   var Traversal = Graphology__Traversal.MakeTraversal({});
   return {
-          makeGraph: (function (prim0, prim1) {
-              return new (Graphology.default.Graph)(prim0 !== undefined ? Caml_option.valFromOption(prim0) : undefined);
+          makeGraph: (function (prim) {
+              return new (Graphology.default.Graph)(prim !== undefined ? Caml_option.valFromOption(prim) : undefined);
             }),
           makeDirectedGraph: (function (prim) {
               return new (Graphology.default.DirectedGraph)();
@@ -33,7 +179,7 @@ function MakeGraph(C) {
           makeMultiUndirectedGraph: (function (prim) {
               return new Graphology.MultiUndirectedGraph();
             }),
-          from: (function (prim0, prim1, prim2) {
+          from: (function (prim0, prim1) {
               return Graphology.Graph.from(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
             }),
           fromDirectedGraph: (function (prim) {
@@ -111,25 +257,25 @@ function MakeGraph(C) {
           areNeighbors: (function (prim0, prim1, prim2) {
               return prim0.areNeighbors(prim1, prim2);
             }),
-          addNode: (function (prim0, prim1, prim2, prim3) {
+          addNode: (function (prim0, prim1, prim2) {
               prim0.addNode(prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
             }),
-          mergeNode: (function (prim0, prim1, prim2, prim3) {
+          mergeNode: (function (prim0, prim1, prim2) {
               return prim0.mergeNode(prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
             }),
           updateNode: (function (prim0, prim1, prim2) {
               return prim0.updateNode(prim1, prim2);
             }),
-          addEdge: (function (prim0, prim1, prim2, prim3, prim4) {
+          addEdge: (function (prim0, prim1, prim2, prim3) {
               prim0.addEdge(prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
             }),
-          addEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4, prim5) {
+          addEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4) {
               prim0.addEdgeWithKey(prim1, prim2, prim3, prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
             }),
-          mergeEdge: (function (prim0, prim1, prim2, prim3, prim4) {
+          mergeEdge: (function (prim0, prim1, prim2, prim3) {
               return prim0.mergeEdge(prim1, prim2, prim3 !== undefined ? Caml_option.valFromOption(prim3) : undefined);
             }),
-          mergeEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4, prim5) {
+          mergeEdgeWithKey: (function (prim0, prim1, prim2, prim3, prim4) {
               return prim0.mergeEdgeWithKey(prim1, prim2, prim3, prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
             }),
           updateEdge: (function (prim0, prim1, prim2, prim3) {
@@ -177,62 +323,62 @@ function MakeGraph(C) {
           updateAttributes: (function (prim0, prim1) {
               prim0.updateAttributes(prim1);
             }),
-          getNodeAttribute: (function (prim0, prim1) {
-              return prim0.getNodeAttribute(prim1);
+          getNodeAttribute: (function (prim0, prim1, prim2) {
+              return prim0.getNodeAttribute(prim1, prim2);
             }),
-          getNodeAttributes: (function (prim) {
-              return prim.getNodeAttributes();
+          getNodeAttributes: (function (prim0, prim1) {
+              return prim0.getNodeAttributes(prim1);
             }),
-          hasNodeAttribute: (function (prim0, prim1) {
-              return prim0.hasNodeAttribute(prim1);
+          hasNodeAttribute: (function (prim0, prim1, prim2) {
+              return prim0.hasNodeAttribute(prim1, prim2);
             }),
-          setNodeAttribute: (function (prim0, prim1, prim2) {
-              prim0.setNodeAttribute(prim1, prim2);
+          setNodeAttribute: (function (prim0, prim1, prim2, prim3) {
+              prim0.setNodeAttribute(prim1, prim2, prim3);
             }),
-          updateNodeAttribute: (function (prim0, prim1, prim2) {
-              prim0.updateNodeAttribute(prim1, prim2);
+          updateNodeAttribute: (function (prim0, prim1, prim2, prim3) {
+              prim0.updateNodeAttribute(prim1, prim2, prim3);
             }),
-          removeNodeAttribute: (function (prim0, prim1) {
-              prim0.removeNodeAttribute(prim1);
+          removeNodeAttribute: (function (prim0, prim1, prim2) {
+              prim0.removeNodeAttribute(prim1, prim2);
             }),
-          replaceNodeAttributes: (function (prim0, prim1) {
-              prim0.replaceNodeAttributes(prim1);
+          replaceNodeAttributes: (function (prim0, prim1, prim2) {
+              prim0.replaceNodeAttributes(prim1, prim2);
             }),
-          mergeNodeAttributes: (function (prim0, prim1) {
-              prim0.mergeNodeAttributes(prim1);
+          mergeNodeAttributes: (function (prim0, prim1, prim2) {
+              prim0.mergeNodeAttributes(prim1, prim2);
             }),
-          updateNodeAttributes: (function (prim0, prim1) {
-              prim0.updateNodeAttributes(prim1);
+          updateNodeAttributes: (function (prim0, prim1, prim2) {
+              prim0.updateNodeAttributes(prim1, prim2);
             }),
           updateEachNodeAttributes: (function (prim0, prim1) {
               prim0.updateEachNodeAttributes(prim1);
             }),
-          getEdgeAttribute: (function (prim0, prim1) {
-              return prim0.getEdgeAttribute(prim1);
+          getEdgeAttribute: (function (prim0, prim1, prim2) {
+              return prim0.getEdgeAttribute(prim1, prim2);
             }),
-          getEdgeAttributes: (function (prim) {
-              return prim.getEdgeAttributes();
+          getEdgeAttributes: (function (prim0, prim1) {
+              return prim0.getEdgeAttributes(prim1);
             }),
-          hasEdgeAttribute: (function (prim0, prim1) {
-              return prim0.hasEdgeAttribute(prim1);
+          hasEdgeAttribute: (function (prim0, prim1, prim2) {
+              return prim0.hasEdgeAttribute(prim1, prim2);
             }),
-          setEdgeAttribute: (function (prim0, prim1, prim2) {
-              prim0.setEdgeAttribute(prim1, prim2);
+          setEdgeAttribute: (function (prim0, prim1, prim2, prim3) {
+              prim0.setEdgeAttribute(prim1, prim2, prim3);
             }),
-          updateEdgeAttribute: (function (prim0, prim1, prim2) {
-              prim0.updateEdgeAttribute(prim1, prim2);
+          updateEdgeAttribute: (function (prim0, prim1, prim2, prim3) {
+              prim0.updateEdgeAttribute(prim1, prim2, prim3);
             }),
-          removeEdgeAttribute: (function (prim0, prim1) {
-              prim0.removeEdgeAttribute(prim1);
+          removeEdgeAttribute: (function (prim0, prim1, prim2) {
+              prim0.removeEdgeAttribute(prim1, prim2);
             }),
-          replaceEdgeAttributes: (function (prim0, prim1) {
-              prim0.replaceEdgeAttributes(prim1);
+          replaceEdgeAttributes: (function (prim0, prim1, prim2) {
+              prim0.replaceEdgeAttributes(prim1, prim2);
             }),
-          mergeEdgeAttributes: (function (prim0, prim1) {
-              prim0.mergeEdgeAttributes(prim1);
+          mergeEdgeAttributes: (function (prim0, prim1, prim2) {
+              prim0.mergeEdgeAttributes(prim1, prim2);
             }),
-          updateEdgeAttributes: (function (prim0, prim1) {
-              prim0.updateEdgeAttributes(prim1);
+          updateEdgeAttributes: (function (prim0, prim1, prim2) {
+              prim0.updateEdgeAttributes(prim1, prim2);
             }),
           updateEachEdgeAttributes: (function (prim0, prim1) {
               prim0.updateEachEdgeAttributes(prim1);
@@ -264,12 +410,20 @@ function MakeGraph(C) {
           nodeEntries: (function (prim) {
               return prim.nodeEntries();
             }),
-          edges: (function (prim) {
-              return prim.edges();
-            }),
-          forEachEdge: (function (prim0, prim1) {
-              prim0.forEachEdge(prim1);
-            }),
+          edges: edges,
+          inEdges: inEdges,
+          outEdges: outEdges,
+          inboundEdges: inboundEdges,
+          outboundEdges: outboundEdges,
+          directedEdges: directedEdges,
+          undirectedEdges: undirectedEdges,
+          forEachEdge: forEachEdge,
+          forEachInEdge: forEachInEdge,
+          forEachOutEdge: forEachOutEdge,
+          forEachInboundEdge: forEachInboundEdge,
+          forEachOutboundEdge: forEachOutboundEdge,
+          forEachDirectedEdge: forEachDirectedEdge,
+          forEachUndirectedEdge: forEachUndirectedEdge,
           mapEdges: (function (prim0, prim1) {
               return prim0.mapEdges(prim1);
             }),

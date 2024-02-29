@@ -20,10 +20,10 @@ function MakeShortestPath(C) {
               })
           },
           Dijkstra: {
-            bidirectional: (function (prim0, prim1, prim2, prim3, prim4) {
+            bidirectional: (function (prim0, prim1, prim2, prim3) {
                 return GraphologyShortestPath.dijkstra.bidirectional(prim0, prim1, prim2, Caml_option.option_unwrap(prim3));
               }),
-            singleSource: (function (prim0, prim1, prim2, prim3) {
+            singleSource: (function (prim0, prim1, prim2) {
                 return GraphologyShortestPath.dijkstra.singleSource(prim0, prim1, Caml_option.option_unwrap(prim2));
               })
           },
