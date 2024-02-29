@@ -1,4 +1,4 @@
-module type GRAPH_TYPES = GraphTypes.T
+module type GRAPH_TYPES = Graphology__GraphTypes.T
 
 module type SVG = {
   include GRAPH_TYPES

@@ -3,6 +3,8 @@
 
 var Graph;
 
+var GraphTypes;
+
 var Layout;
 
 var ShortestPath;
@@ -15,6 +17,7 @@ var Traversal;
 
 export {
   Graph ,
+  GraphTypes ,
   Layout ,
   ShortestPath ,
   SimplePath ,

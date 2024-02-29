@@ -1,5 +1,5 @@
 @@uncurried
-module type GRAPH_TYPES = GraphTypes.T
+module type GRAPH_TYPES = Graphology__GraphTypes.T
 
 module type CONFIG = {
   type node
@@ -133,7 +133,7 @@ module type GRAPH = {
   // Standard Libraries
   //
   module Layout: {
-    open Layout
+    open Graphology__Layout
     include LAYOUT
       with type t := t
       and type node := node
@@ -143,7 +143,7 @@ module type GRAPH = {
   }
 
   module ShortestPath: {
-    open ShortestPath
+    open Graphology__ShortestPath
     include SHORTESTPATH
       with type t := t
       and type node := node
@@ -153,7 +153,7 @@ module type GRAPH = {
   }
 
   module SimplePath: {
-    open SimplePath
+    open Graphology__SimplePath
     include SIMPLEPATH
       with type t := t
       and type node := node
@@ -163,7 +163,7 @@ module type GRAPH = {
   }
 
   module SVG: {
-    open SVG
+    open Graphology__SVG
     include SVG
       with type t := t
       and type node := node
@@ -173,7 +173,7 @@ module type GRAPH = {
   }
 
   module Traversal: {
-    open Traversal
+    open Graphology__Traversal
     include TRAVERSAL
       with type t := t
       and type node := node
@@ -319,7 +319,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   //
   // Graphology Stand Libraries
   //
-  module Layout = Layout.MakeLayout({
+  module Layout = Graphology__Layout.MakeLayout({
     type t = t
     type node = node
     type edge = edge
@@ -327,7 +327,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type edgeAttr<'a> = edgeAttr<'a>
   })
 
-  module ShortestPath = ShortestPath.MakeShortestPath({
+  module ShortestPath = Graphology__ShortestPath.MakeShortestPath({
     type t = t
     type node = node
     type edge = edge
@@ -335,7 +335,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type edgeAttr<'a> = edgeAttr<'a>
   })
 
-  module SimplePath = SimplePath.MakeSimplePath({
+  module SimplePath = Graphology__SimplePath.MakeSimplePath({
     type t = t
     type node = node
     type edge = edge
@@ -343,7 +343,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type edgeAttr<'a> = edgeAttr<'a>
   })
 
-  module SVG = SVG.MakeSVG({
+  module SVG = Graphology__SVG.MakeSVG({
     type t = t
     type node = node
     type edge = edge
@@ -351,7 +351,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type edgeAttr<'a> = edgeAttr<'a>
   })
 
-  module Traversal = Traversal.MakeTraversal({
+  module Traversal = Graphology__Traversal.MakeTraversal({
     type t = t
     type node = node
     type edge = edge

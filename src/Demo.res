@@ -1,5 +1,7 @@
 @@uncurried
 
+open Graphology
+
 let log = Console.log
 let log2 = Console.log2
 // Str
