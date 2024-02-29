@@ -22,6 +22,7 @@ module type SVG_F = (C: GRAPH_TYPES) =>
     with type t = C.t
     and type node = C.node
     and type edge = C.edge
+    and type graphAttr<'a> = C.graphAttr<'a>
     and type nodeAttr<'a> = C.nodeAttr<'a>
     and type edgeAttr<'a> = C.edgeAttr<'a>
 )
@@ -30,6 +31,7 @@ module MakeSVG: SVG_F = (C: GRAPH_TYPES) => {
   type t = C.t
   type node = C.node
   type edge = C.edge
+  type graphAttr<'a> = C.graphAttr<'a>
   type nodeAttr<'a> = C.nodeAttr<'a>
   type edgeAttr<'a> = C.edgeAttr<'a>
 

@@ -96,6 +96,9 @@ function MakeGraph(C) {
           addNode: (function (prim0, prim1, prim2, prim3) {
               prim0.addNode(prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
             }),
+          mergeNode: (function (prim0, prim1, prim2, prim3) {
+              return prim0.mergeNode(prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
+            }),
           updateNode: (function (prim0, prim1, prim2) {
               return prim0.updateNode(prim1, prim2);
             }),
@@ -129,8 +132,92 @@ function MakeGraph(C) {
           clearEdges: (function (prim) {
               prim.clearEdges();
             }),
-          getEdgeAttribute: (function (prim0, prim1, prim2) {
-              return prim0.getEdgeAttribute(prim1, prim2);
+          getAttribute: (function (prim0, prim1) {
+              return prim0.getAttribute(prim1);
+            }),
+          getAttributes: (function (prim) {
+              return prim.getAttributes();
+            }),
+          hasAttribute: (function (prim0, prim1) {
+              return prim0.hasAttribute(prim1);
+            }),
+          setAttribute: (function (prim0, prim1, prim2) {
+              prim0.setAttribute(prim1, prim2);
+            }),
+          updateAttribute: (function (prim0, prim1, prim2) {
+              prim0.updateAttribute(prim1, prim2);
+            }),
+          removeAttribute: (function (prim0, prim1) {
+              prim0.removeAttribute(prim1);
+            }),
+          replaceAttributes: (function (prim0, prim1) {
+              prim0.replaceAttributes(prim1);
+            }),
+          mergeAttributes: (function (prim0, prim1) {
+              prim0.mergeAttributes(prim1);
+            }),
+          updateAttributes: (function (prim0, prim1) {
+              prim0.updateAttributes(prim1);
+            }),
+          getNodeAttribute: (function (prim0, prim1) {
+              return prim0.getNodeAttribute(prim1);
+            }),
+          getNodeAttributes: (function (prim) {
+              return prim.getNodeAttributes();
+            }),
+          hasNodeAttribute: (function (prim0, prim1) {
+              return prim0.hasNodeAttribute(prim1);
+            }),
+          setNodeAttribute: (function (prim0, prim1, prim2) {
+              prim0.setNodeAttribute(prim1, prim2);
+            }),
+          updateNodeAttribute: (function (prim0, prim1, prim2) {
+              prim0.updateNodeAttribute(prim1, prim2);
+            }),
+          removeNodeAttribute: (function (prim0, prim1) {
+              prim0.removeNodeAttribute(prim1);
+            }),
+          replaceNodeAttributes: (function (prim0, prim1) {
+              prim0.replaceNodeAttributes(prim1);
+            }),
+          mergeNodeAttributes: (function (prim0, prim1) {
+              prim0.mergeNodeAttributes(prim1);
+            }),
+          updateNodeAttributes: (function (prim0, prim1) {
+              prim0.updateNodeAttributes(prim1);
+            }),
+          updateEachNodeAttributes: (function (prim0, prim1) {
+              prim0.updateEachNodeAttributes(prim1);
+            }),
+          getEdgeAttribute: (function (prim0, prim1) {
+              return prim0.getEdgeAttribute(prim1);
+            }),
+          getEdgeAttributes: (function (prim) {
+              return prim.getEdgeAttributes();
+            }),
+          hasEdgeAttribute: (function (prim0, prim1) {
+              return prim0.hasEdgeAttribute(prim1);
+            }),
+          setEdgeAttribute: (function (prim0, prim1, prim2) {
+              prim0.setEdgeAttribute(prim1, prim2);
+            }),
+          updateEdgeAttribute: (function (prim0, prim1, prim2) {
+              prim0.updateEdgeAttribute(prim1, prim2);
+            }),
+          removeEdgeAttribute: (function (prim0, prim1) {
+              prim0.removeEdgeAttribute(prim1);
+            }),
+          replaceEdgeAttributes: (function (prim0, prim1) {
+              prim0.replaceEdgeAttributes(prim1);
+            }),
+          mergeEdgeAttributes: (function (prim0, prim1) {
+              prim0.mergeEdgeAttributes(prim1);
+            }),
+          updateEdgeAttributes: (function (prim0, prim1) {
+              prim0.updateEdgeAttributes(prim1);
+            }),
+          updateEachEdgeAttributes: (function (prim0, prim1) {
+              prim0.updateEachEdgeAttributes(prim1);
             }),
           nodes: (function (prim) {
               return prim.nodes();

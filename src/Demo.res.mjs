@@ -305,6 +305,24 @@ var prim0 = G$3.inspect(g$3);
 
 console.log(prim0, "inspect");
 
+var G$4 = Graphology__Graph.MakeGraph({});
+
+var g$4 = G$4.makeGraph(undefined, undefined);
+
+var match = G$4.mergeNode(g$4, "John", undefined, undefined);
+
+console.log(match[0], match[1]);
+
+var match$1 = G$4.mergeNode(g$4, "John", undefined, undefined);
+
+console.log(match$1[0], match$1[1]);
+
+var match$2 = G$4.mergeNode(g$4, "John", {
+      eyes: "blue"
+    }, undefined);
+
+console.log(match$2[0], match$2[1]);
+
 export {
   log ,
   log2 ,

@@ -198,3 +198,18 @@ let _ = {
 
   g->G.inspect->(log2("inspect", ...))
 }
+
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  let g = G.makeGraph()
+  let (n, b) = g->G.mergeNode("John", ())
+  log2(n, b)
+  let (n, b) = g->G.mergeNode("John", ())
+  log2(n, b)
+  let (n, b) = g->G.mergeNode("John", ~attr={"eyes": "blue"}, ())
+  log2(n, b)
+}

@@ -55,8 +55,7 @@ module type GRAPH = {
 
   // Mutation
   let addNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => unit
-  // todo: need to implement this
-  //  mergeNode: (t, node) => unit = "mergeNode"
+  let mergeNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => (node, bool)
   let updateNode: (t, node, node => node) => (node, bool)
   let addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit
   let addEdgeWithKey: (t, edge, node, node, ~attr: edgeAttr<'a>=?, unit) => unit
@@ -84,8 +83,41 @@ module type GRAPH = {
   let clear: t => unit
   let clearEdges: t => unit
 
-  // todo:Attributes
-  let getEdgeAttribute: (t, edge, string) => 'a
+  // Attributes
+  // Graph Attributes
+  let getAttribute: (t, string) => 'a
+  let getAttributes: t => graphAttr<'a>
+  let hasAttribute: (t, string) => bool
+  let setAttribute: (t, string, 'a) => unit
+  let updateAttribute: (t, string, 'a => 'a) => unit
+  let removeAttribute: (t, string) => unit
+  let replaceAttributes: (t, graphAttr<'a>) => unit
+  let mergeAttributes: (t, graphAttr<'a>) => unit
+  let updateAttributes: (t, graphAttr<'a> => graphAttr<'a>) => unit
+
+  // Node Attribute
+  let getNodeAttribute: (t, string) => 'a
+  let getNodeAttributes: t => nodeAttr<'a>
+  let hasNodeAttribute: (t, string) => bool
+  let setNodeAttribute: (t, string, 'a) => unit
+  let updateNodeAttribute: (t, string, 'a => 'a) => unit
+  let removeNodeAttribute: (t, string) => unit
+  let replaceNodeAttributes: (t, nodeAttr<'a>) => unit
+  let mergeNodeAttributes: (t, nodeAttr<'a>) => unit
+  let updateNodeAttributes: (t, nodeAttr<'a> => graphAttr<'a>) => unit
+  let updateEachNodeAttributes: (t, (node, nodeAttr<'a>) => nodeAttr<'a>) => unit
+
+  // Edge Attribute
+  let getEdgeAttribute: (t, string) => 'a
+  let getEdgeAttributes: t => edgeAttr<'a>
+  let hasEdgeAttribute: (t, string) => bool
+  let setEdgeAttribute: (t, string, 'a) => unit
+  let updateEdgeAttribute: (t, string, 'a => 'a) => unit
+  let removeEdgeAttribute: (t, string) => unit
+  let replaceEdgeAttributes: (t, edgeAttr<'a>) => unit
+  let mergeEdgeAttributes: (t, edgeAttr<'a>) => unit
+  let updateEdgeAttributes: (t, edgeAttr<'a> => graphAttr<'a>) => unit
+  let updateEachEdgeAttributes: (t, (node, edgeAttr<'a>) => edgeAttr<'a>) => unit
 
   // Iteration
   // Nodes Iteration
@@ -138,6 +170,7 @@ module type GRAPH = {
       with type t := t
       and type node := node
       and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
       and type nodeAttr<'a> := nodeAttr<'a>
       and type edgeAttr<'a> := edgeAttr<'a>
   }
@@ -148,6 +181,7 @@ module type GRAPH = {
       with type t := t
       and type node := node
       and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
       and type nodeAttr<'a> := nodeAttr<'a>
       and type edgeAttr<'a> := edgeAttr<'a>
   }
@@ -158,6 +192,7 @@ module type GRAPH = {
       with type t := t
       and type node := node
       and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
       and type nodeAttr<'a> := nodeAttr<'a>
       and type edgeAttr<'a> := edgeAttr<'a>
   }
@@ -168,6 +203,7 @@ module type GRAPH = {
       with type t := t
       and type node := node
       and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
       and type nodeAttr<'a> := nodeAttr<'a>
       and type edgeAttr<'a> := edgeAttr<'a>
   }
@@ -178,6 +214,7 @@ module type GRAPH = {
       with type t := t
       and type node := node
       and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
       and type nodeAttr<'a> := nodeAttr<'a>
       and type edgeAttr<'a> := edgeAttr<'a>
   }
@@ -189,6 +226,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   type t
   type node = C.node
   type edge = C.edge
+  type graphAttr<'a> = {..} as 'a
   type nodeAttr<'a> = {..} as 'a
   type edgeAttr<'a> = {..} as 'a
 
@@ -236,8 +274,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
 
   // Mutation
   @send external addNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => unit = "addNode"
-  // todo: need to implement this
-  //  @send external mergeNode: (t, node) => unit = "mergeNode"
+  @send external mergeNode: (t, node, ~attr: nodeAttr<'a>=?, unit) => (node, bool) = "mergeNode"
   @send external updateNode: (t, node, node => node) => (node, bool) = "updateNode"
 
   @send external addEdge: (t, node, node, ~attr: edgeAttr<'a>=?, unit) => unit = "addEdge"
@@ -272,7 +309,46 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external clearEdges: t => unit = "clearEdges"
 
   // Attributes
-  @send external getEdgeAttribute: (t, edge, string) => 'a = "getEdgeAttribute"
+  // Graph attributes
+  @send external getAttribute: (t, string) => 'a = "getAttribute"
+  @send external getAttributes: t => graphAttr<'a> = "getAttributes"
+  @send external hasAttribute: (t, string) => bool = "hasAttribute"
+  @send external setAttribute: (t, string, 'a) => unit = "setAttribute"
+  @send external updateAttribute: (t, string, 'a => 'a) => unit = "updateAttribute"
+  @send external removeAttribute: (t, string) => unit = "removeAttribute"
+  @send external replaceAttributes: (t, graphAttr<'a>) => unit = "replaceAttributes"
+  @send external mergeAttributes: (t, graphAttr<'a>) => unit = "mergeAttributes"
+  @send external updateAttributes: (t, graphAttr<'a> => graphAttr<'a>) => unit = "updateAttributes"
+
+  // Node Attributes
+  @send external getNodeAttribute: (t, string) => 'a = "getNodeAttribute"
+  @send external getNodeAttributes: t => nodeAttr<'a> = "getNodeAttributes"
+  @send external hasNodeAttribute: (t, string) => bool = "hasNodeAttribute"
+  @send external setNodeAttribute: (t, string, 'a) => unit = "setNodeAttribute"
+  @send external updateNodeAttribute: (t, string, 'a => 'a) => unit = "updateNodeAttribute"
+  @send external removeNodeAttribute: (t, string) => unit = "removeNodeAttribute"
+  @send external replaceNodeAttributes: (t, nodeAttr<'a>) => unit = "replaceNodeAttributes"
+  @send external mergeNodeAttributes: (t, nodeAttr<'a>) => unit = "mergeNodeAttributes"
+  @send
+  external updateNodeAttributes: (t, nodeAttr<'a> => nodeAttr<'a>) => unit = "updateNodeAttributes"
+  @send
+  external updateEachNodeAttributes: (t, (node, nodeAttr<'a>) => nodeAttr<'a>) => unit =
+    "updateEachNodeAttributes"
+
+  // Edge Attributes
+  @send external getEdgeAttribute: (t, string) => 'a = "getEdgeAttribute"
+  @send external getEdgeAttributes: t => edgeAttr<'a> = "getEdgeAttributes"
+  @send external hasEdgeAttribute: (t, string) => bool = "hasEdgeAttribute"
+  @send external setEdgeAttribute: (t, string, 'a) => unit = "setEdgeAttribute"
+  @send external updateEdgeAttribute: (t, string, 'a => 'a) => unit = "updateEdgeAttribute"
+  @send external removeEdgeAttribute: (t, string) => unit = "removeEdgeAttribute"
+  @send external replaceEdgeAttributes: (t, edgeAttr<'a>) => unit = "replaceEdgeAttributes"
+  @send external mergeEdgeAttributes: (t, edgeAttr<'a>) => unit = "mergeEdgeAttributes"
+  @send
+  external updateEdgeAttributes: (t, edgeAttr<'a> => edgeAttr<'a>) => unit = "updateEdgeAttributes"
+  @send
+  external updateEachEdgeAttributes: (t, (node, edgeAttr<'a>) => edgeAttr<'a>) => unit =
+    "updateEachEdgeAttributes"
 
   // Iteration
   // Nodes Iteration
@@ -323,6 +399,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type t = t
     type node = node
     type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
     type nodeAttr<'a> = nodeAttr<'a>
     type edgeAttr<'a> = edgeAttr<'a>
   })
@@ -331,6 +408,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type t = t
     type node = node
     type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
     type nodeAttr<'a> = nodeAttr<'a>
     type edgeAttr<'a> = edgeAttr<'a>
   })
@@ -339,6 +417,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type t = t
     type node = node
     type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
     type nodeAttr<'a> = nodeAttr<'a>
     type edgeAttr<'a> = edgeAttr<'a>
   })
@@ -347,6 +426,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type t = t
     type node = node
     type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
     type nodeAttr<'a> = nodeAttr<'a>
     type edgeAttr<'a> = edgeAttr<'a>
   })
@@ -355,6 +435,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     type t = t
     type node = node
     type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
     type nodeAttr<'a> = nodeAttr<'a>
     type edgeAttr<'a> = edgeAttr<'a>
   })
