@@ -110,28 +110,28 @@ module type GRAPH = {
   let updateAttributes: (t, graphAttr<'a> => graphAttr<'a>) => unit
 
   // Node Attribute
-  let getNodeAttribute: (t, string) => 'a
-  let getNodeAttributes: t => nodeAttr<'a>
-  let hasNodeAttribute: (t, string) => bool
-  let setNodeAttribute: (t, string, 'a) => unit
-  let updateNodeAttribute: (t, string, 'a => 'a) => unit
-  let removeNodeAttribute: (t, string) => unit
-  let replaceNodeAttributes: (t, nodeAttr<'a>) => unit
-  let mergeNodeAttributes: (t, nodeAttr<'a>) => unit
-  let updateNodeAttributes: (t, nodeAttr<'a> => graphAttr<'a>) => unit
+  let getNodeAttribute: (t, node, string) => 'a
+  let getNodeAttributes: (t, node) => nodeAttr<'a>
+  let hasNodeAttribute: (t, node, string) => bool
+  let setNodeAttribute: (t, node, string, 'a) => unit
+  let updateNodeAttribute: (t, node, string, 'a => 'a) => unit
+  let removeNodeAttribute: (t, node, string) => unit
+  let replaceNodeAttributes: (t, node, nodeAttr<'a>) => unit
+  let mergeNodeAttributes: (t, node, nodeAttr<'a>) => unit
+  let updateNodeAttributes: (t, node, nodeAttr<'a> => graphAttr<'a>) => unit
   let updateEachNodeAttributes: (t, (node, nodeAttr<'a>) => nodeAttr<'a>) => unit
 
   // Edge Attribute
-  let getEdgeAttribute: (t, string) => 'a
-  let getEdgeAttributes: t => edgeAttr<'a>
-  let hasEdgeAttribute: (t, string) => bool
-  let setEdgeAttribute: (t, string, 'a) => unit
-  let updateEdgeAttribute: (t, string, 'a => 'a) => unit
-  let removeEdgeAttribute: (t, string) => unit
-  let replaceEdgeAttributes: (t, edgeAttr<'a>) => unit
-  let mergeEdgeAttributes: (t, edgeAttr<'a>) => unit
-  let updateEdgeAttributes: (t, edgeAttr<'a> => graphAttr<'a>) => unit
-  let updateEachEdgeAttributes: (t, (node, edgeAttr<'a>) => edgeAttr<'a>) => unit
+  let getEdgeAttribute: (t, edge, string) => 'a
+  let getEdgeAttributes: (t, edge) => edgeAttr<'a>
+  let hasEdgeAttribute: (t, edge, string) => bool
+  let setEdgeAttribute: (t, edge, string, 'a) => unit
+  let updateEdgeAttribute: (t, edge, string, 'a => 'a) => unit
+  let removeEdgeAttribute: (t, edge, string) => unit
+  let replaceEdgeAttributes: (t, edge, edgeAttr<'a>) => unit
+  let mergeEdgeAttributes: (t, edge, edgeAttr<'a>) => unit
+  let updateEdgeAttributes: (t, edge, edgeAttr<'a> => graphAttr<'a>) => unit
+  let updateEachEdgeAttributes: (t, (edge, edgeAttr<'a>) => edgeAttr<'a>) => unit
 
   // Iteration
   // Nodes Iteration
@@ -376,33 +376,35 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external updateAttributes: (t, graphAttr<'a> => graphAttr<'a>) => unit = "updateAttributes"
 
   // Node Attributes
-  @send external getNodeAttribute: (t, string) => 'a = "getNodeAttribute"
-  @send external getNodeAttributes: t => nodeAttr<'a> = "getNodeAttributes"
-  @send external hasNodeAttribute: (t, string) => bool = "hasNodeAttribute"
-  @send external setNodeAttribute: (t, string, 'a) => unit = "setNodeAttribute"
-  @send external updateNodeAttribute: (t, string, 'a => 'a) => unit = "updateNodeAttribute"
-  @send external removeNodeAttribute: (t, string) => unit = "removeNodeAttribute"
-  @send external replaceNodeAttributes: (t, nodeAttr<'a>) => unit = "replaceNodeAttributes"
-  @send external mergeNodeAttributes: (t, nodeAttr<'a>) => unit = "mergeNodeAttributes"
+  @send external getNodeAttribute: (t, node, string) => 'a = "getNodeAttribute"
+  @send external getNodeAttributes: (t, node) => nodeAttr<'a> = "getNodeAttributes"
+  @send external hasNodeAttribute: (t, node, string) => bool = "hasNodeAttribute"
+  @send external setNodeAttribute: (t, node, string, 'a) => unit = "setNodeAttribute"
+  @send external updateNodeAttribute: (t, node, string, 'a => 'a) => unit = "updateNodeAttribute"
+  @send external removeNodeAttribute: (t, node, string) => unit = "removeNodeAttribute"
+  @send external replaceNodeAttributes: (t, node, nodeAttr<'a>) => unit = "replaceNodeAttributes"
+  @send external mergeNodeAttributes: (t, node, nodeAttr<'a>) => unit = "mergeNodeAttributes"
   @send
-  external updateNodeAttributes: (t, nodeAttr<'a> => nodeAttr<'a>) => unit = "updateNodeAttributes"
+  external updateNodeAttributes: (t, node, nodeAttr<'a> => nodeAttr<'a>) => unit =
+    "updateNodeAttributes"
   @send
   external updateEachNodeAttributes: (t, (node, nodeAttr<'a>) => nodeAttr<'a>) => unit =
     "updateEachNodeAttributes"
 
   // Edge Attributes
-  @send external getEdgeAttribute: (t, string) => 'a = "getEdgeAttribute"
-  @send external getEdgeAttributes: t => edgeAttr<'a> = "getEdgeAttributes"
-  @send external hasEdgeAttribute: (t, string) => bool = "hasEdgeAttribute"
-  @send external setEdgeAttribute: (t, string, 'a) => unit = "setEdgeAttribute"
-  @send external updateEdgeAttribute: (t, string, 'a => 'a) => unit = "updateEdgeAttribute"
-  @send external removeEdgeAttribute: (t, string) => unit = "removeEdgeAttribute"
-  @send external replaceEdgeAttributes: (t, edgeAttr<'a>) => unit = "replaceEdgeAttributes"
-  @send external mergeEdgeAttributes: (t, edgeAttr<'a>) => unit = "mergeEdgeAttributes"
+  @send external getEdgeAttribute: (t, edge, string) => 'a = "getEdgeAttribute"
+  @send external getEdgeAttributes: (t, edge) => edgeAttr<'a> = "getEdgeAttributes"
+  @send external hasEdgeAttribute: (t, edge, string) => bool = "hasEdgeAttribute"
+  @send external setEdgeAttribute: (t, edge, string, 'a) => unit = "setEdgeAttribute"
+  @send external updateEdgeAttribute: (t, edge, string, 'a => 'a) => unit = "updateEdgeAttribute"
+  @send external removeEdgeAttribute: (t, edge, string) => unit = "removeEdgeAttribute"
+  @send external replaceEdgeAttributes: (t, edge, edgeAttr<'a>) => unit = "replaceEdgeAttributes"
+  @send external mergeEdgeAttributes: (t, edge, edgeAttr<'a>) => unit = "mergeEdgeAttributes"
   @send
-  external updateEdgeAttributes: (t, edgeAttr<'a> => edgeAttr<'a>) => unit = "updateEdgeAttributes"
+  external updateEdgeAttributes: (t, edge, edgeAttr<'a> => edgeAttr<'a>) => unit =
+    "updateEdgeAttributes"
   @send
-  external updateEachEdgeAttributes: (t, (node, edgeAttr<'a>) => edgeAttr<'a>) => unit =
+  external updateEachEdgeAttributes: (t, (edge, edgeAttr<'a>) => edgeAttr<'a>) => unit =
     "updateEachEdgeAttributes"
 
   // Iteration
