@@ -31,20 +31,20 @@ let _ = {
 
   h->H.inspect->(log2("inspect", _))
 
-  h->H.forEachNode((n, attr) => {
+  h->H.NodesIter.forEachNode((n, attr) => {
     n->log
     attr->log
     ()
   })
   h
-  ->H.mapNodes((n, attr) => {
+  ->H.NodesIter.mapNodes((n, attr) => {
     n->log
     attr->log
     1
   })
   ->(log2("mapNodes", _))
 
-  let iter = h->H.nodeEntries
+  let iter = h->H.NodesIter.nodeEntries
   iter->(log2("iter", _))
   let arr = iter->Core__Iterator.toArray
   arr->(log2("arr", _))
@@ -133,8 +133,8 @@ let _ = {
   g->G.addEdge(3, 4, ~attr={"weight1": 1})
   //  g->G.addEdgeWithKey(10, 1, 2)
   g->G.edge(1, 2)->(log2("edge", _))
-  g->G.edges(All)->(log2("edges", _))
-  g->G.edges(Node(1))->(log2("edges", _))
+  g->G.EdgesIter.edges(All)->(log2("edges", _))
+  g->G.EdgesIter.edges(Node(1))->(log2("edges", _))
   g->G.inspect->(log2("inspect", _))
 
   g
@@ -241,12 +241,12 @@ let _ = {
   let _ = g->G.mergeEdgeWithKey("J->D2", "John", "Daniel")
 
   // Using the array-returning methods:
-  g->G.edges(All)->(log2("g-G.edges", _))
+  g->G.EdgesIter.edges(All)->(log2("g-G.edges", _))
   //>>> ['T->R', 'T->E', 'C->T', 'R->C']
-  g->G.edges(Node("Thomas"))->(log2("g-G.edges('Thomas')", _))
+  g->G.EdgesIter.edges(Node("Thomas"))->(log2("g-G.edges('Thomas')", _))
   //>>> ['T->R', 'T->E', 'C->T']
 
-  g->G.edges(FromTo("John", "Daniel"))->(log2("g-G.edges('John', 'Daniel')", _))
+  g->G.EdgesIter.edges(FromTo("John", "Daniel"))->(log2("g-G.edges('John', 'Daniel')", _))
 
   //>>> ['J->D1', 'J->D2']
 }

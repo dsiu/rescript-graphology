@@ -44,20 +44,20 @@ H.addEdge(h, "Peter", "Mary", {
         console.log("inspect", __x);
       })(H.inspect(h)));
 
-H.forEachNode(h, (function (n, attr) {
+H.NodesIter.forEachNode(h, (function (n, attr) {
         console.log(n);
         console.log(attr);
       }));
 
 ((function (__x) {
         console.log("mapNodes", __x);
-      })(H.mapNodes(h, (function (n, attr) {
+      })(H.NodesIter.mapNodes(h, (function (n, attr) {
               console.log(n);
               console.log(attr);
               return 1;
             }))));
 
-var iter = H.nodeEntries(h);
+var iter = H.NodesIter.nodeEntries(h);
 
 ((function (__x) {
         console.log("iter", __x);
@@ -218,11 +218,11 @@ G$1.addEdge(g$1, 3, 4, {
 
 ((function (__x) {
         console.log("edges", __x);
-      })(G$1.edges(g$1, "All")));
+      })(G$1.EdgesIter.edges(g$1, "All")));
 
 ((function (__x) {
         console.log("edges", __x);
-      })(G$1.edges(g$1, {
+      })(G$1.EdgesIter.edges(g$1, {
             TAG: "Node",
             _0: 1
           })));
@@ -374,18 +374,18 @@ G$5.mergeEdgeWithKey(g$6, "J->D2", "John", "Daniel", undefined);
 
 ((function (__x) {
         console.log("g-G.edges", __x);
-      })(G$5.edges(g$6, "All")));
+      })(G$5.EdgesIter.edges(g$6, "All")));
 
 ((function (__x) {
         console.log("g-G.edges('Thomas')", __x);
-      })(G$5.edges(g$6, {
+      })(G$5.EdgesIter.edges(g$6, {
             TAG: "Node",
             _0: "Thomas"
           })));
 
 ((function (__x) {
         console.log("g-G.edges('John', 'Daniel')", __x);
-      })(G$5.edges(g$6, {
+      })(G$5.EdgesIter.edges(g$6, {
             TAG: "FromTo",
             _0: "John",
             _1: "Daniel"
