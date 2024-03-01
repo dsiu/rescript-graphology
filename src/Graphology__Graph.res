@@ -25,7 +25,9 @@ module type GRAPH = {
     edges: array<serializedNodeAttr<'e>>,
   }
 
+  //
   // Instantiation
+  //
   let makeGraph: (~options: graphOptions=?) => t
 
   // Specialized Constructors
@@ -37,12 +39,14 @@ module type GRAPH = {
 
   // Static from method
   let from: ('a, ~options: graphOptions=?) => t
+
   // From Specialized Constructors
   let fromDirectedGraph: 'a => t
   let fromUndirectedGraph: unit => t
   let fromMultiGraph: unit => t
   let fromMultiDirectedGraph: unit => t
   let fromMultiUndirectedGraph: unit => t
+
   // Properties
   let order: t => int
   let size: t => int
@@ -90,7 +94,9 @@ module type GRAPH = {
   let clear: t => unit
   let clearEdges: t => unit
 
+  //
   // Attributes
+  //
   // Graph Attributes
   let getAttribute: (t, string) => 'a
   let getAttributes: t => graphAttr<'a>
@@ -126,7 +132,9 @@ module type GRAPH = {
   let updateEdgeAttributes: (t, edge, edgeAttr<'a> => graphAttr<'a>) => unit
   let updateEachEdgeAttributes: (t, (edge, edgeAttr<'a>) => edgeAttr<'a>) => unit
 
+  //
   // Iteration
+  //
   // Nodes Iteration
   let nodes: t => array<node>
   let forEachNode: (t, (node, nodeAttr<'a>) => unit) => unit
@@ -146,22 +154,15 @@ module type GRAPH = {
   // Returns an array of relevant edge keys.
   // #.edges
   let edges: (t, edgesVarArgs) => array<edge>
-  // #.inEdges
   let inEdges: (t, edgesVarArgs) => array<edge>
-  // #.outEdges
   let outEdges: (t, edgesVarArgs) => array<edge>
-  // #. inboundEdges
   let inboundEdges: (t, edgesVarArgs) => array<edge>
-  // #.outboundEdges
   let outboundEdges: (t, edgesVarArgs) => array<edge>
-  // #.directedEdges
   let directedEdges: (t, edgesVarArgs) => array<edge>
-  // #.undirectedEdges
   let undirectedEdges: (t, edgesVarArgs) => array<edge>
 
-  // todo: forEachEdge call back should have (edge, attributes, source, target, sourceAttributes, targetAttributes)
-
   // Iterates over relevant edges using a callback.
+  // #.forEachEdge
   type forEachEdgeCallback<'a> = (
     edge,
     edgeAttr<'a>,
@@ -185,29 +186,175 @@ module type GRAPH = {
   let forEachDirectedEdge: (t, forEachEdgeVarArgs<'a>) => unit
   let forEachUndirectedEdge: (t, forEachEdgeVarArgs<'a>) => unit
 
-  // todo:
-  // #.forEachInEdge
-  // #.forEachOutEdge
-  // #.forEachInboundEdge (in + undirected)
-  // #.forEachOutboundEdge (out + undirected)
-  // #.forEachDirectedEdge
-  // #.forEachUndirectedEdge
-  let mapEdges: (t, (edge, edgeAttr<'a>) => 'b) => array<'b>
-  // todo:
-  // #.mapInEdges
-  // #.mapOutEdges
-  // #.mapInboundEdges (in + undirected)
-  // #.mapOutboundEdges (out + undirected)
-  // #.mapDirectedEdges
-  // #.mapUndirectedEdges
-  let filterEdges: (t, (edge, edgeAttr<'a>) => bool) => array<edge>
-  let reduceEdges: (t, ('a, edge, edgeAttr<'a>) => 'a, 'a) => array<edge>
-  let findEdge: (t, (edge, edgeAttr<'a>) => bool) => edge
-  let someEdge: (t, (edge, edgeAttr<'a>) => bool) => bool
-  let everyEdge: (t, (edge, edgeAttr<'a>) => bool) => bool
+  // #.mapEdges
+  type mapEdgesCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => edge
 
-  type edgeIterValue<'a> = {edge: edge, attributes: edgeAttr<'a>}
-  let edgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  type mapEdgesVarArgs<'a> =
+    | All(mapEdgesCallback<'a>)
+    | Node(node, mapEdgesCallback<'a>)
+    | FromTo(node, node, mapEdgesCallback<'a>)
+
+  let mapEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+  let mapInEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+  let mapOutEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+  let mapInboundEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+  let mapOutboundEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+  let mapDirectedEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+  let mapUndirectedEdges: (t, mapEdgesVarArgs<'a>) => array<edge>
+
+  // #.filterEdges
+  type filterEdgesCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => bool
+
+  type filterEdgesVarArgs<'a> =
+    | All(filterEdgesCallback<'a>)
+    | Node(node, filterEdgesCallback<'a>)
+    | FromTo(node, node, filterEdgesCallback<'a>)
+
+  let filterEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+  let filterInEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+  let filterOutEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+  let filterInboundEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+  let filterOutboundEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+  let filterDirectedEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+  let filterUndirectedEdges: (t, filterEdgesVarArgs<'a>) => array<edge>
+
+  // #.reduceEdges
+  type reduceEdgesCallback<'a, 'r> = (
+    'r,
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => 'r
+
+  type reduceEdgesVarArgs<'a, 'r> =
+    | All(reduceEdgesCallback<'a, 'r>, 'r)
+    | Node(node, reduceEdgesCallback<'a, 'r>, 'r)
+    | FromTo(node, node, reduceEdgesCallback<'a, 'r>, 'r)
+
+  let reduceEdges: (t, reduceEdgesVarArgs<'a, 'r>) => 'r
+  let reduceInEdges: (t, reduceEdgesVarArgs<'a, 'r>) => 'r
+  let reduceOutEdges: (t, reduceEdgesVarArgs<'a, 'r>) => 'r
+  let reduceOutboundEdges: (t, reduceEdgesVarArgs<'a, 'r>) => 'r
+  let reduceDirectedEdges: (t, reduceEdgesVarArgs<'a, 'r>) => 'r
+  let reduceUndirectedEdges: (t, reduceEdgesVarArgs<'a, 'r>) => 'r
+
+  // #.findEdge
+  type findEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => unit
+
+  type findEdgeVarArgs<'a> =
+    | All(findEdgeCallback<'a>)
+    | Node(node, findEdgeCallback<'a>)
+    | FromTo(node, node, findEdgeCallback<'a>)
+
+  let findEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+  let findInEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+  let findOutEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+  let findInboundEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+  let findOutboundEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+  let findDirectedEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+  let findUndirectedEdge: (t, findEdgeVarArgs<'a>) => Nullable.t<edge>
+
+  // #.someEdge
+  type someEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => bool
+
+  type someEdgeVarArgs<'a> =
+    | All(someEdgeCallback<'a>)
+    | Node(node, someEdgeCallback<'a>)
+    | FromTo(node, node, someEdgeCallback<'a>)
+
+  let someEdge: (t, someEdgeVarArgs<'a>) => bool
+  let someInEdge: (t, someEdgeVarArgs<'a>) => bool
+  let someOutEdge: (t, someEdgeVarArgs<'a>) => bool
+  let someInboundEdge: (t, someEdgeVarArgs<'a>) => bool
+  let someOutboundEdge: (t, someEdgeVarArgs<'a>) => bool
+  let someDirectedEdge: (t, someEdgeVarArgs<'a>) => bool
+  let someUndirectedEdge: (t, someEdgeVarArgs<'a>) => bool
+
+  // #.everyEdge
+  type everyEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => bool
+
+  type everyEdgeVarArgs<'a> =
+    | All(everyEdgeCallback<'a>)
+    | Node(node, everyEdgeCallback<'a>)
+    | FromTo(node, node, everyEdgeCallback<'a>)
+
+  let everyEdge: (t, everyEdgeVarArgs<'a>) => bool
+  let everyInEdge: (t, everyEdgeVarArgs<'a>) => bool
+  let everyOutEdge: (t, everyEdgeVarArgs<'a>) => bool
+  let everyInboundEdge: (t, everyEdgeVarArgs<'a>) => bool
+  let everyOutboundEdge: (t, everyEdgeVarArgs<'a>) => bool
+  let everyDirectedEdge: (t, everyEdgeVarArgs<'a>) => bool
+  let everyUndirectedEdge: (t, everyEdgeVarArgs<'a>) => bool
+
+  //#.edgeEntries
+  type edgeIterValue<'a> = {
+    edge: edge,
+    attributes: edgeAttr<'a>,
+    source: node,
+    target: node,
+    sourceAttributes: nodeAttr<'a>,
+    targetAttributes: nodeAttr<'a>,
+  }
+
+  type edgeEntriesVarArgs<'a> =
+    | All
+    | Node(node)
+    | FromTo(node, node)
+
+  let edgeEntries: (t, edgeEntriesVarArgs<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let inEdgeEntries: (t, edgeEntriesVarArgs<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let outEdgeEntries: (t, edgeEntriesVarArgs<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let inboundEdgeEntries: (t, edgeEntriesVarArgs<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let outboundEdgeEntries: (t, edgeEntriesVarArgs<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let directedEdgeEntries: (t, edgeEntriesVarArgs<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let undirectedEdgeEntries: (
+    t,
+    edgeEntriesVarArgs<'a>,
+  ) => RescriptCore.Iterator.t<edgeIterValue<'a>>
 
   // Neighbors Iteration
   let neighbors: t => array<node>
@@ -699,17 +846,973 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
     )
   }
 
-  // map
-  @send external mapEdges: (t, (edge, edgeAttr<'a>) => 'b) => array<'b> = "mapEdges"
+  // #.mapEdges
+  type mapEdgesCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => edge
 
-  // filter
-  @send external filterEdges: (t, (edge, edgeAttr<'a>) => bool) => array<edge> = "filterEdges"
-  @send external reduceEdges: (t, ('b, edge, edgeAttr<'a>) => 'b, 'b) => array<edge> = "reduceEdges"
-  @send external findEdge: (t, (edge, edgeAttr<'a>) => bool) => edge = "findEdge"
-  @send external someEdge: (t, (edge, edgeAttr<'a>) => bool) => bool = "someEdge"
-  @send external everyEdge: (t, (edge, edgeAttr<'a>) => bool) => bool = "everyEdge"
-  type edgeIterValue<'a> = {edge: edge, attributes: edgeAttr<'a>}
-  @send external edgeEntries: t => Core__Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  type mapEdgesVarArgs<'a> =
+    | All(mapEdgesCallback<'a>)
+    | Node(node, mapEdgesCallback<'a>)
+    | FromTo(node, node, mapEdgesCallback<'a>)
+
+  let _mapEdgesVarArgsCall = (t, mapEdgesVarArgs, allFn, nodeFn, fromToFn) => {
+    switch mapEdgesVarArgs {
+    | All(callback) => allFn(t, callback)
+    | Node(node, callback) => nodeFn(t, node, callback)
+    | FromTo(source, target, callback) => fromToFn(t, source, target, callback)
+    }
+  }
+
+  @send external _mapEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapEdges"
+  @send external _mapEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> = "mapEdges"
+  @send
+  external _mapEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> = "mapEdges"
+
+  let mapEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(t, mapEdgesVarArgs, _mapEdges, _mapEdgesOfNode, _mapEdgesFromTo)
+  }
+
+  @send external _mapInEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapInEdges"
+  @send external _mapInEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> = "mapInEdges"
+  @send
+  external _mapInEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> = "mapInEdges"
+
+  let mapInEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(t, mapEdgesVarArgs, _mapInEdges, _mapEdgesOfNode, _mapInEdgesFromTo)
+  }
+
+  @send external _mapOutEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapOutEdges"
+  @send external _mapOutEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> = "mapOutEdges"
+  @send
+  external _mapOutEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> = "mapOutEdges"
+
+  let mapOutEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(t, mapEdgesVarArgs, _mapOutEdges, _mapEdgesOfNode, _mapOutEdgesFromTo)
+  }
+
+  @send external _mapInboundEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapInboundEdges"
+  @send
+  external _mapInboundEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapInboundEdges"
+  @send
+  external _mapInboundEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapInboundEdges"
+
+  let mapInboundEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(
+      t,
+      mapEdgesVarArgs,
+      _mapInboundEdges,
+      _mapEdgesOfNode,
+      _mapInboundEdgesFromTo,
+    )
+  }
+
+  @send external _mapOutboundEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapOutboundEdges"
+  @send
+  external _mapOutboundEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapOutboundEdges"
+  @send
+  external _mapOutboundEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapOutboundEdges"
+
+  let mapOutboundEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(
+      t,
+      mapEdgesVarArgs,
+      _mapOutboundEdges,
+      _mapEdgesOfNode,
+      _mapOutboundEdgesFromTo,
+    )
+  }
+
+  @send external _mapDirectedEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapDirectedEdges"
+  @send
+  external _mapDirectedEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapDirectedEdges"
+  @send
+  external _mapDirectedEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapDirectedEdges"
+
+  let mapDirectedEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(
+      t,
+      mapEdgesVarArgs,
+      _mapDirectedEdges,
+      _mapEdgesOfNode,
+      _mapDirectedEdgesFromTo,
+    )
+  }
+
+  @send
+  external _mapUndirectedEdges: (t, mapEdgesCallback<'a>) => array<edge> = "mapUndirectedEdges"
+  @send
+  external _mapUndirectedEdgesOfNode: (t, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapUndirectedEdges"
+  @send
+  external _mapUndirectedEdgesFromTo: (t, node, node, mapEdgesCallback<'a>) => array<edge> =
+    "mapUndirectedEdges"
+
+  let mapUndirectedEdges = (t, mapEdgesVarArgs) => {
+    _mapEdgesVarArgsCall(
+      t,
+      mapEdgesVarArgs,
+      _mapUndirectedEdges,
+      _mapEdgesOfNode,
+      _mapUndirectedEdgesFromTo,
+    )
+  }
+
+  // #.filterEdges
+  type filterEdgesCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => bool
+
+  type filterEdgesVarArgs<'a> =
+    | All(filterEdgesCallback<'a>)
+    | Node(node, filterEdgesCallback<'a>)
+    | FromTo(node, node, filterEdgesCallback<'a>)
+
+  let _filterEdgesVarArgsCall = (t, filterEdgesVarArgs, allFn, nodeFn, fromToFn) => {
+    switch filterEdgesVarArgs {
+    | All(callback) => allFn(t, callback)
+    | Node(node, callback) => nodeFn(t, node, callback)
+    | FromTo(source, target, callback) => fromToFn(t, source, target, callback)
+    }
+  }
+
+  @send external _filterEdges: (t, filterEdgesCallback<'a>) => array<edge> = "filterEdges"
+  @send
+  external _filterEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> = "filterEdges"
+  @send
+  external _filterEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterEdges"
+
+  let filterEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterEdges,
+      _filterEdgesOfNode,
+      _filterEdgesFromTo,
+    )
+  }
+
+  @send external _filterInEdges: (t, filterEdgesCallback<'a>) => array<edge> = "filterInEdges"
+  @send
+  external _filterInEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> = "filterInEdges"
+  @send
+  external _filterInEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterInEdges"
+
+  let filterInEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterInEdges,
+      _filterInEdgesOfNode,
+      _filterInEdgesFromTo,
+    )
+  }
+
+  @send external _filterOutEdges: (t, filterEdgesCallback<'a>) => array<edge> = "filterOutEdges"
+  @send
+  external _filterOutEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterOutEdges"
+  @send
+  external _filterOutEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterOutEdges"
+
+  let filterOutEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterOutEdges,
+      _filterOutEdgesOfNode,
+      _filterOutEdgesFromTo,
+    )
+  }
+
+  @send
+  external _filterInboundEdges: (t, filterEdgesCallback<'a>) => array<edge> = "filterInboundEdges"
+  @send
+  external _filterInboundEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterInboundEdges"
+  @send
+  external _filterInboundEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterInboundEdges"
+
+  let filterInboundEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterInboundEdges,
+      _filterInboundEdgesOfNode,
+      _filterInboundEdgesFromTo,
+    )
+  }
+
+  @send
+  external _filterOutboundEdges: (t, filterEdgesCallback<'a>) => array<edge> = "filterOutboundEdges"
+  @send
+  external _filterOutboundEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterOutboundEdges"
+  @send
+  external _filterOutboundEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterOutboundEdges"
+
+  let filterOutboundEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterOutboundEdges,
+      _filterOutboundEdgesOfNode,
+      _filterOutboundEdgesFromTo,
+    )
+  }
+
+  @send
+  external _filterDirectedEdges: (t, filterEdgesCallback<'a>) => array<edge> = "filterDirectedEdges"
+  @send
+  external _filterDirectedEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterDirectedEdges"
+  @send
+  external _filterDirectedEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterDirectedEdges"
+
+  let filterDirectedEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterDirectedEdges,
+      _filterDirectedEdgesOfNode,
+      _filterDirectedEdgesFromTo,
+    )
+  }
+
+  @send
+  external _filterUndirectedEdges: (t, filterEdgesCallback<'a>) => array<edge> =
+    "filterUndirectedEdges"
+  @send
+  external _filterUndirectedEdgesOfNode: (t, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterUndirectedEdges"
+  @send
+  external _filterUndirectedEdgesFromTo: (t, node, node, filterEdgesCallback<'a>) => array<edge> =
+    "filterUndirectedEdges"
+
+  let filterUndirectedEdges = (t, filterEdgesVarArgs) => {
+    _filterEdgesVarArgsCall(
+      t,
+      filterEdgesVarArgs,
+      _filterUndirectedEdges,
+      _filterUndirectedEdgesOfNode,
+      _filterUndirectedEdgesFromTo,
+    )
+  }
+
+  // #.reduceEdges
+  type reduceEdgesCallback<'a, 'r> = (
+    'r,
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => 'r
+
+  type reduceEdgesVarArgs<'a, 'r> =
+    | All(reduceEdgesCallback<'a, 'r>, 'r)
+    | Node(node, reduceEdgesCallback<'a, 'r>, 'r)
+    | FromTo(node, node, reduceEdgesCallback<'a, 'r>, 'r)
+
+  let _reduceEdgesVarArgsCall = (t, reduceEdgesVarArgs, allFn, nodeFn, fromToFn) => {
+    switch reduceEdgesVarArgs {
+    | All(callback, init) => allFn(t, callback, init)
+    | Node(node, callback, init) => nodeFn(t, node, callback, init)
+    | FromTo(source, target, callback, init) => fromToFn(t, source, target, callback, init)
+    }
+  }
+
+  @send external _reduceEdges: (t, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceEdges"
+  @send
+  external _reduceEdgesOfNode: (t, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceEdges"
+  @send
+  external _reduceEdgesFromTo: (t, node, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceEdges"
+
+  let reduceEdges = (t, reduceEdgesVarArgs) => {
+    _reduceEdgesVarArgsCall(
+      t,
+      reduceEdgesVarArgs,
+      _reduceEdges,
+      _reduceEdgesOfNode,
+      _reduceEdgesFromTo,
+    )
+  }
+
+  @send external _reduceInEdges: (t, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceInEdges"
+  @send
+  external _reduceInEdgesOfNode: (t, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceInEdges"
+  @send
+  external _reduceInEdgesFromTo: (t, node, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceInEdges"
+
+  let reduceInEdges = (t, reduceEdgesVarArgs) => {
+    _reduceEdgesVarArgsCall(
+      t,
+      reduceEdgesVarArgs,
+      _reduceInEdges,
+      _reduceInEdgesOfNode,
+      _reduceInEdgesFromTo,
+    )
+  }
+
+  @send
+  external _reduceOutEdges: (t, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceOutEdges"
+  @send
+  external _reduceOutEdgesOfNode: (t, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceOutEdges"
+  @send
+  external _reduceOutEdgesFromTo: (t, node, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceOutEdges"
+
+  let reduceOutEdges = (t, reduceEdgesVarArgs) => {
+    _reduceEdgesVarArgsCall(
+      t,
+      reduceEdgesVarArgs,
+      _reduceOutEdges,
+      _reduceOutEdgesOfNode,
+      _reduceOutEdgesFromTo,
+    )
+  }
+
+  @send
+  external _reduceOutboundEdges: (t, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceOutboundEdges"
+  @send
+  external _reduceOutboundEdgesOfNode: (t, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceOutboundEdges"
+  @send
+  external _reduceOutboundEdgesFromTo: (t, node, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceOutboundEdges"
+
+  let reduceOutboundEdges = (t, reduceEdgesVarArgs) => {
+    _reduceEdgesVarArgsCall(
+      t,
+      reduceEdgesVarArgs,
+      _reduceOutboundEdges,
+      _reduceOutboundEdgesOfNode,
+      _reduceOutboundEdgesFromTo,
+    )
+  }
+
+  @send
+  external _reduceDirectedEdges: (t, reduceEdgesCallback<'a, 'r>, 'r) => 'r = "reduceDirectedEdges"
+  @send
+  external _reduceDirectedEdgesOfNode: (t, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceDirectedEdges"
+  @send
+  external _reduceDirectedEdgesFromTo: (t, node, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceDirectedEdges"
+
+  let reduceDirectedEdges = (t, reduceEdgesVarArgs) => {
+    _reduceEdgesVarArgsCall(
+      t,
+      reduceEdgesVarArgs,
+      _reduceDirectedEdges,
+      _reduceDirectedEdgesOfNode,
+      _reduceDirectedEdgesFromTo,
+    )
+  }
+
+  @send
+  external _reduceUndirectedEdges: (t, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceUndirectedEdges"
+  @send
+  external _reduceUndirectedEdgesOfNode: (t, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceUndirectedEdges"
+  @send
+  external _reduceUndirectedEdgesFromTo: (t, node, node, reduceEdgesCallback<'a, 'r>, 'r) => 'r =
+    "reduceUndirectedEdges"
+
+  let reduceUndirectedEdges = (t, reduceEdgesVarArgs) => {
+    _reduceEdgesVarArgsCall(
+      t,
+      reduceEdgesVarArgs,
+      _reduceUndirectedEdges,
+      _reduceUndirectedEdgesOfNode,
+      _reduceUndirectedEdgesFromTo,
+    )
+  }
+
+  // #.findEdge
+  type findEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => unit
+
+  type findEdgeVarArgs<'a> =
+    | All(findEdgeCallback<'a>)
+    | Node(node, findEdgeCallback<'a>)
+    | FromTo(node, node, findEdgeCallback<'a>)
+
+  let _findEdgeVarArgsCall = (t, findEdgeVarArgs, allFn, nodeFn, fromToFn) => {
+    switch findEdgeVarArgs {
+    | All(callback) => allFn(t, callback)
+    | Node(node, callback) => nodeFn(t, node, callback)
+    | FromTo(source, target, callback) => fromToFn(t, source, target, callback)
+    }
+  }
+
+  @send external _findEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> = "findEdges"
+  @send
+  external _findEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> = "findEdges"
+  @send
+  external _findEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> = "findEdges"
+
+  let findEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(t, findEdgeVarArgs, _findEdge, _findEdgeOfNode, _findEdgeFromTo)
+  }
+
+  @send external _findInEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> = "findInEdges"
+  @send
+  external _findInEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> = "findInEdges"
+  @send
+  external _findInEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findInEdges"
+
+  let findInEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(t, findEdgeVarArgs, _findInEdge, _findInEdgeOfNode, _findInEdgeFromTo)
+  }
+
+  @send external _findOutEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> = "findOutEdges"
+  @send
+  external _findOutEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> = "findOutEdges"
+  @send
+  external _findOutEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findOutEdges"
+
+  let findOutEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(t, findEdgeVarArgs, _findOutEdge, _findOutEdgeOfNode, _findOutEdgeFromTo)
+  }
+
+  @send
+  external _findInboundEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> = "findInboundEdges"
+  @send
+  external _findInboundEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findInboundEdges"
+  @send
+  external _findInboundEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findInboundEdges"
+
+  let findInboundEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(
+      t,
+      findEdgeVarArgs,
+      _findInboundEdge,
+      _findInboundEdgeOfNode,
+      _findInboundEdgeFromTo,
+    )
+  }
+
+  @send
+  external _findOutboundEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> = "findOutboundEdges"
+  @send
+  external _findOutboundEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findOutboundEdges"
+  @send
+  external _findOutboundEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findOutboundEdges"
+
+  let findOutboundEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(
+      t,
+      findEdgeVarArgs,
+      _findOutboundEdge,
+      _findOutboundEdgeOfNode,
+      _findOutboundEdgeFromTo,
+    )
+  }
+
+  @send
+  external _findDirectedEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> = "findDirectedEdges"
+  @send
+  external _findDirectedEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findDirectedEdges"
+  @send
+  external _findDirectedEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findDirectedEdges"
+
+  let findDirectedEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(
+      t,
+      findEdgeVarArgs,
+      _findDirectedEdge,
+      _findDirectedEdgeOfNode,
+      _findDirectedEdgeFromTo,
+    )
+  }
+
+  @send
+  external _findUndirectedEdge: (t, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findUndirectedEdges"
+  @send
+  external _findUndirectedEdgeOfNode: (t, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findUndirectedEdges"
+  @send
+  external _findUndirectedEdgeFromTo: (t, node, node, findEdgeCallback<'a>) => Nullable.t<edge> =
+    "findUndirectedEdges"
+
+  let findUndirectedEdge = (t, findEdgeVarArgs) => {
+    _findEdgeVarArgsCall(
+      t,
+      findEdgeVarArgs,
+      _findUndirectedEdge,
+      _findUndirectedEdgeOfNode,
+      _findUndirectedEdgeFromTo,
+    )
+  }
+
+  // #.someEdge
+  type someEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => bool
+
+  type someEdgeVarArgs<'a> =
+    | All(someEdgeCallback<'a>)
+    | Node(node, someEdgeCallback<'a>)
+    | FromTo(node, node, someEdgeCallback<'a>)
+
+  let _someEdgeVarArgsCall = (t, someEdgeVarArgs, allFn, nodeFn, fromToFn) => {
+    switch someEdgeVarArgs {
+    | All(callback) => allFn(t, callback)
+    | Node(node, callback) => nodeFn(t, node, callback)
+    | FromTo(source, target, callback) => fromToFn(t, source, target, callback)
+    }
+  }
+
+  @send external _someEdge: (t, someEdgeCallback<'a>) => bool = "someEdge"
+  @send
+  external _someEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someEdge"
+  @send
+  external _someEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool = "someEdge"
+
+  let someEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(t, someEdgeVarArgs, _someEdge, _someEdgeOfNode, _someEdgeFromTo)
+  }
+
+  @send external _someInEdge: (t, someEdgeCallback<'a>) => bool = "someInEdge"
+  @send
+  external _someInEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someInEdge"
+  @send
+  external _someInEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool = "someInEdge"
+
+  let someInEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(t, someEdgeVarArgs, _someInEdge, _someInEdgeOfNode, _someInEdgeFromTo)
+  }
+
+  @send external _someOutEdge: (t, someEdgeCallback<'a>) => bool = "someOutEdge"
+  @send
+  external _someOutEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someOutEdge"
+  @send
+  external _someOutEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool = "someOutEdge"
+
+  let someOutEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(t, someEdgeVarArgs, _someOutEdge, _someOutEdgeOfNode, _someOutEdgeFromTo)
+  }
+
+  @send external _someInboundEdge: (t, someEdgeCallback<'a>) => bool = "someInboundEdge"
+  @send
+  external _someInboundEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someInboundEdge"
+  @send
+  external _someInboundEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool = "someInboundEdge"
+
+  let someInboundEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(
+      t,
+      someEdgeVarArgs,
+      _someInboundEdge,
+      _someInboundEdgeOfNode,
+      _someInboundEdgeFromTo,
+    )
+  }
+
+  @send external _someOutboundEdge: (t, someEdgeCallback<'a>) => bool = "someOutboundEdge"
+  @send
+  external _someOutboundEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someOutboundEdge"
+  @send
+  external _someOutboundEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool =
+    "someOutboundEdge"
+
+  let someOutboundEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(
+      t,
+      someEdgeVarArgs,
+      _someOutboundEdge,
+      _someOutboundEdgeOfNode,
+      _someOutboundEdgeFromTo,
+    )
+  }
+
+  @send external _someDirectedEdge: (t, someEdgeCallback<'a>) => bool = "someDirectedEdge"
+  @send
+  external _someDirectedEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someDirectedEdge"
+  @send
+  external _someDirectedEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool =
+    "someDirectedEdge"
+
+  let someDirectedEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(
+      t,
+      someEdgeVarArgs,
+      _someDirectedEdge,
+      _someDirectedEdgeOfNode,
+      _someDirectedEdgeFromTo,
+    )
+  }
+
+  @send external _someUndirectedEdge: (t, someEdgeCallback<'a>) => bool = "someUndirectedEdge"
+  @send
+  external _someUndirectedEdgeOfNode: (t, node, someEdgeCallback<'a>) => bool = "someUndirectedEdge"
+  @send
+  external _someUndirectedEdgeFromTo: (t, node, node, someEdgeCallback<'a>) => bool =
+    "someUndirectedEdge"
+
+  let someUndirectedEdge = (t, someEdgeVarArgs) => {
+    _someEdgeVarArgsCall(
+      t,
+      someEdgeVarArgs,
+      _someUndirectedEdge,
+      _someUndirectedEdgeOfNode,
+      _someUndirectedEdgeFromTo,
+    )
+  }
+
+  // #.everyEdge
+  type everyEdgeCallback<'a> = (
+    edge,
+    edgeAttr<'a>,
+    node,
+    node,
+    nodeAttr<'a>,
+    nodeAttr<'a>,
+    bool,
+  ) => bool
+
+  type everyEdgeVarArgs<'a> =
+    | All(everyEdgeCallback<'a>)
+    | Node(node, everyEdgeCallback<'a>)
+    | FromTo(node, node, everyEdgeCallback<'a>)
+
+  let _everyEdgeVarArgsCall = (t, everyEdgeVarArgs, allFn, nodeFn, fromToFn) => {
+    switch everyEdgeVarArgs {
+    | All(callback) => allFn(t, callback)
+    | Node(node, callback) => nodeFn(t, node, callback)
+    | FromTo(source, target, callback) => fromToFn(t, source, target, callback)
+    }
+  }
+
+  @send external _everyEdge: (t, everyEdgeCallback<'a>) => bool = "everyEdge"
+  @send
+  external _everyEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool = "everyEdge"
+  @send
+  external _everyEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool = "everyEdge"
+
+  let everyEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(t, everyEdgeVarArgs, _everyEdge, _everyEdgeOfNode, _everyEdgeFromTo)
+  }
+
+  @send external _everyInEdge: (t, everyEdgeCallback<'a>) => bool = "everyInEdge"
+  @send
+  external _everyInEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool = "everyInEdge"
+  @send
+  external _everyInEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool = "everyInEdge"
+
+  let everyInEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(t, everyEdgeVarArgs, _everyInEdge, _everyInEdgeOfNode, _everyInEdgeFromTo)
+  }
+
+  @send external _everyOutEdge: (t, everyEdgeCallback<'a>) => bool = "everyOutEdge"
+  @send
+  external _everyOutEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool = "everyOutEdge"
+  @send
+  external _everyOutEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool = "everyOutEdge"
+
+  let everyOutEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(
+      t,
+      everyEdgeVarArgs,
+      _everyOutEdge,
+      _everyOutEdgeOfNode,
+      _everyOutEdgeFromTo,
+    )
+  }
+
+  @send external _everyInboundEdge: (t, everyEdgeCallback<'a>) => bool = "everyInboundEdge"
+  @send
+  external _everyInboundEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool = "everyInboundEdge"
+  @send
+  external _everyInboundEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool =
+    "everyInboundEdge"
+
+  let everyInboundEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(
+      t,
+      everyEdgeVarArgs,
+      _everyInboundEdge,
+      _everyInboundEdgeOfNode,
+      _everyInboundEdgeFromTo,
+    )
+  }
+
+  @send external _everyOutboundEdge: (t, everyEdgeCallback<'a>) => bool = "everyOutboundEdge"
+  @send
+  external _everyOutboundEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool = "everyOutboundEdge"
+  @send
+  external _everyOutboundEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool =
+    "everyOutboundEdge"
+
+  let everyOutboundEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(
+      t,
+      everyEdgeVarArgs,
+      _everyOutboundEdge,
+      _everyOutboundEdgeOfNode,
+      _everyOutboundEdgeFromTo,
+    )
+  }
+
+  @send external _everyDirectedEdge: (t, everyEdgeCallback<'a>) => bool = "everyDirectedEdge"
+  @send
+  external _everyDirectedEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool = "everyDirectedEdge"
+  @send
+  external _everyDirectedEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool =
+    "everyDirectedEdge"
+
+  let everyDirectedEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(
+      t,
+      everyEdgeVarArgs,
+      _everyDirectedEdge,
+      _everyDirectedEdgeOfNode,
+      _everyDirectedEdgeFromTo,
+    )
+  }
+
+  @send external _everyUndirectedEdge: (t, everyEdgeCallback<'a>) => bool = "everyUndirectedEdge"
+  @send
+  external _everyUndirectedEdgeOfNode: (t, node, everyEdgeCallback<'a>) => bool =
+    "everyUndirectedEdge"
+  @send
+  external _everyUndirectedEdgeFromTo: (t, node, node, everyEdgeCallback<'a>) => bool =
+    "everyUndirectedEdge"
+
+  let everyUndirectedEdge = (t, everyEdgeVarArgs) => {
+    _everyEdgeVarArgsCall(
+      t,
+      everyEdgeVarArgs,
+      _everyUndirectedEdge,
+      _everyUndirectedEdgeOfNode,
+      _everyUndirectedEdgeFromTo,
+    )
+  }
+
+  //#.edgeEntries
+  type edgeIterValue<'a> = {
+    edge: edge,
+    attributes: edgeAttr<'a>,
+    source: node,
+    target: node,
+    sourceAttributes: nodeAttr<'a>,
+    targetAttributes: nodeAttr<'a>,
+  }
+
+  type edgeEntriesVarArgs<'a> =
+    | All
+    | Node(node)
+    | FromTo(node, node)
+
+  let _edgeEntriesVarArgsCall = (t, edgeEntriesVarArgs, allFn, nodeFn, fromToFn) => {
+    switch edgeEntriesVarArgs {
+    | All => allFn(t)
+    | Node(node) => nodeFn(t, node)
+    | FromTo(source, target) => fromToFn(t, source, target)
+    }
+  }
+
+  @send external _edgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  @send
+  external _edgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "edgeEntries"
+  @send
+  external _edgeEntriesFromTo: (t, node, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "edgeEntries"
+
+  let edgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _edgeEntries,
+      _edgeEntriesOfNode,
+      _edgeEntriesFromTo,
+    )
+  }
+
+  @send external _inEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
+  @send
+  external _inEdgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "inEdgeEntries"
+  @send
+  external _inEdgeEntriesFromTo: (t, node, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "inEdgeEntries"
+
+  let inEdgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _inEdgeEntries,
+      _inEdgeEntriesOfNode,
+      _inEdgeEntriesFromTo,
+    )
+  }
+
+  @send external _outEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "outEdgeEntries"
+  @send
+  external _outEdgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "outEdgeEntries"
+  @send
+  external _outEdgeEntriesFromTo: (t, node, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "outEdgeEntries"
+
+  let outEdgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _outEdgeEntries,
+      _outEdgeEntriesOfNode,
+      _outEdgeEntriesFromTo,
+    )
+  }
+
+  @send
+  external _inboundEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "inboundEdgeEntries"
+  @send
+  external _inboundEdgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "inboundEdgeEntries"
+  @send
+  external _inboundEdgeEntriesFromTo: (
+    t,
+    node,
+    node,
+  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "inboundEdgeEntries"
+
+  let inboundEdgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _inboundEdgeEntries,
+      _inboundEdgeEntriesOfNode,
+      _inboundEdgeEntriesFromTo,
+    )
+  }
+
+  @send
+  external _outboundEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "outboundEdgeEntries"
+  @send
+  external _outboundEdgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "outboundEdgeEntries"
+  @send
+  external _outboundEdgeEntriesFromTo: (
+    t,
+    node,
+    node,
+  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "outboundEdgeEntries"
+
+  let outboundEdgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _outboundEdgeEntries,
+      _outboundEdgeEntriesOfNode,
+      _outboundEdgeEntriesFromTo,
+    )
+  }
+
+  @send
+  external _directedEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "directedEdgeEntries"
+  @send
+  external _directedEdgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "directedEdgeEntries"
+  @send
+  external _directedEdgeEntriesFromTo: (
+    t,
+    node,
+    node,
+  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "directedEdgeEntries"
+
+  let directedEdgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _directedEdgeEntries,
+      _directedEdgeEntriesOfNode,
+      _directedEdgeEntriesFromTo,
+    )
+  }
+
+  @send
+  external _undirectedEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "undirectedEdgeEntries"
+  @send
+  external _undirectedEdgeEntriesOfNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+    "undirectedEdgeEntries"
+  @send
+  external _undirectedEdgeEntriesFromTo: (
+    t,
+    node,
+    node,
+  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "undirectedEdgeEntries"
+
+  let undirectedEdgeEntries = (t, edgeEntriesVarArgs) => {
+    _edgeEntriesVarArgsCall(
+      t,
+      edgeEntriesVarArgs,
+      _undirectedEdgeEntries,
+      _undirectedEdgeEntriesOfNode,
+      _undirectedEdgeEntriesFromTo,
+    )
+  }
+
+  //  type edgeIterValue<'a> = {edge: edge, attributes: edgeAttr<'a>}
+  //  @send external edgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "edgeEntries"
 
   // Neighbors Iteration
   @send external neighbors: t => array<node> = "neighbors"
