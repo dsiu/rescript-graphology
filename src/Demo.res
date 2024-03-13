@@ -250,3 +250,74 @@ let _ = {
 
   //>>> ['J->D1', 'J->D2']
 }
+
+// use Graphology's built in BFS
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  let g = G.makeGraph()
+  let _ = g->G.mergeEdge("1", "2")
+  let _ = g->G.mergeEdge("1", "3")
+  let _ = g->G.mergeEdge("1", "4")
+  let _ = g->G.mergeEdge("2", "5")
+  let _ = g->G.mergeEdge("2", "6")
+  let _ = g->G.mergeEdge("4", "7")
+  let _ = g->G.mergeEdge("4", "8")
+  let _ = g->G.mergeEdge("5", "9")
+  let _ = g->G.mergeEdge("5", "10")
+  let _ = g->G.mergeEdge("7", "11")
+  let _ = g->G.mergeEdge("7", "12")
+
+  //    let pos = g->G.Layout.circular
+  //    G.Layout.Circular.assign(g, ~options={center: 0.7, scale: 20.0})
+
+  let gexfStrWithOptions = g->G.GEXF.write(
+    ~options={
+      version: "1.3",
+      formatNode: (key, attributes) => {
+        {
+          "label": key,
+          //          "attributes": {
+          //            "age": attributes["age"],
+          //            "name": attributes["name"],
+          //          },
+          //          "viz": {
+          //            "color": "#666",
+          //            "x": attributes["x"],
+          //            "y": attributes["y"],
+          //            "shape": "circle",
+          //            "size": 20,
+          //          },
+        }
+      },
+      formatEdge: (key, attributes) => {
+        {
+          //          "label": key,
+          //          "attributes": {
+          //            "number": attributes["number"],
+          //          },
+          "weight": attributes["weight"],
+          //          "viz": {
+          //            "color": "#FF0",
+          //            "x": attributes["x"],
+          //            "y": attributes["y"],
+          //            "shape": "dotted",
+          //            "thickness": 20,
+          //          },
+        }
+      },
+    },
+  )
+
+  g->G.inspect->(log2("inspect", _))
+  let gexfStr = g->G.GEXF.write(~options={version: "1.3"})
+
+  "---"->log
+  gexfStr->(log2("gexfStr", _))
+
+  //  gexfStrWithOptions->(log2("gexfStr", _))
+  "---"->log
+}

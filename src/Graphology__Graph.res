@@ -227,6 +227,17 @@ module type GRAPH = {
       and type edgeAttr<'a> := edgeAttr<'a>
   }
 
+  module GEXF: {
+    open Graphology__GEXF
+    include GEXF
+      with type t := t
+      and type node := node
+      and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
+      and type nodeAttr<'a> := nodeAttr<'a>
+      and type edgeAttr<'a> := edgeAttr<'a>
+  }
+
   module Traversal: {
     open Graphology__Traversal
     include TRAVERSAL
@@ -477,6 +488,15 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   })
 
   module SVG = Graphology__SVG.MakeSVG({
+    type t = t
+    type node = node
+    type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
+    type nodeAttr<'a> = nodeAttr<'a>
+    type edgeAttr<'a> = edgeAttr<'a>
+  })
+
+  module GEXF = Graphology__GEXF.MakeGEXF({
     type t = t
     type node = node
     type edge = edge

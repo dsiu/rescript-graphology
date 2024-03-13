@@ -391,6 +391,62 @@ G$5.mergeEdgeWithKey(g$6, "J->D2", "John", "Daniel", undefined);
             _1: "Daniel"
           })));
 
+var G$6 = Graphology__Graph.MakeGraph({});
+
+var g$7 = G$6.makeGraph(undefined);
+
+G$6.mergeEdge(g$7, "1", "2", undefined);
+
+G$6.mergeEdge(g$7, "1", "3", undefined);
+
+G$6.mergeEdge(g$7, "1", "4", undefined);
+
+G$6.mergeEdge(g$7, "2", "5", undefined);
+
+G$6.mergeEdge(g$7, "2", "6", undefined);
+
+G$6.mergeEdge(g$7, "4", "7", undefined);
+
+G$6.mergeEdge(g$7, "4", "8", undefined);
+
+G$6.mergeEdge(g$7, "5", "9", undefined);
+
+G$6.mergeEdge(g$7, "5", "10", undefined);
+
+G$6.mergeEdge(g$7, "7", "11", undefined);
+
+G$6.mergeEdge(g$7, "7", "12", undefined);
+
+G$6.GEXF.write(g$7, {
+      formatNode: (function (key, attributes) {
+          return {
+                  label: key
+                };
+        }),
+      formatEdge: (function (key, attributes) {
+          return {
+                  weight: attributes.weight
+                };
+        }),
+      version: "1.3"
+    });
+
+((function (__x) {
+        console.log("inspect", __x);
+      })(G$6.inspect(g$7)));
+
+var gexfStr = G$6.GEXF.write(g$7, {
+      version: "1.3"
+    });
+
+console.log("---");
+
+((function (__x) {
+        console.log("gexfStr", __x);
+      })(gexfStr));
+
+console.log("---");
+
 export {
   log ,
   log2 ,

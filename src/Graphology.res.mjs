@@ -5,23 +5,26 @@ var Graph;
 
 var GraphTypes;
 
-var Layout;
-
 var ShortestPath;
 
 var SimplePath;
 
-var SVG;
-
 var Traversal;
+
+var Layout;
+
+var GEXF;
+
+var SVG;
 
 export {
   Graph ,
   GraphTypes ,
-  Layout ,
   ShortestPath ,
   SimplePath ,
-  SVG ,
   Traversal ,
+  Layout ,
+  GEXF ,
+  SVG ,
 }
 /* No side effect */

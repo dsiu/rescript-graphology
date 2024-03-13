@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@rescript/core/-/core-1.1.0.tgz#e228a2635665b6b6a3288f7fd58552d5c361e253"
   integrity sha512-pz/CL8+9hBUTeMpUouvZohNsa5rqIwurlXoa1CZWN0ZKuWjMVjaoQ3V+0NB72J/QBbs6/8W82VABKBaDn3fGCA==
 
+"@xmldom/xmldom@^0.8.3":
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.10.tgz#a1337ca426aa61cef9fe15b5b28e340a72f6fa99"
+  integrity sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==
+
 "@yomguithereal/helpers@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@yomguithereal/helpers/-/helpers-1.1.1.tgz#185dfb0f88ca2beec53d0adf6eed15c33b1c549d"
@@ -16,6 +21,15 @@ events@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
+
+graphology-gexf@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/graphology-gexf/-/graphology-gexf-0.13.0.tgz#9d734c6bfa91a6dcceacd6b29e7d6dbaa81dbd8e"
+  integrity sha512-MW14uHocDdYO5GERwfr4Oj1/9zc4kcyf3mG79LTEfu/+zIs7fwZhCfF1Rh6zyn6BdjQbHWJ3Sk2NRDlEGdXfxA==
+  dependencies:
+    "@xmldom/xmldom" "^0.8.3"
+    graphology-utils "^2.4.1"
+    xml-writer "^1.7.0"
 
 graphology-indices@^0.17.0:
   version "0.17.0"
@@ -71,7 +85,7 @@ graphology-utils@^1.8.0:
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-1.8.0.tgz#41315c468656e2a3e028a76468bbc2fbe42b0145"
   integrity sha512-Pa7SW30OMm8fVtyH49b3GJ/uxlMHGfXly50wIhlcc7ZoX9ahZa7sPBz+obo4WZClrRV6wh3tIu0GJoI42eao1A==
 
-graphology-utils@^2.0.0, graphology-utils@^2.3.0, graphology-utils@^2.4.2, graphology-utils@^2.4.3:
+graphology-utils@^2.0.0, graphology-utils@^2.3.0, graphology-utils@^2.4.1, graphology-utils@^2.4.2, graphology-utils@^2.4.3:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-2.5.2.tgz#4d30d6e567d27c01f105e1494af816742e8d2440"
   integrity sha512-ckHg8MXrXJkOARk56ZaSCM1g1Wihe2d6iTmz1enGOz4W/l831MBCKSayeFQfowgF8wd+PQ4rlch/56Vs/VZLDQ==
@@ -107,3 +121,8 @@ rescript@^11.1.0-rc.3:
   version "11.1.0-rc.3"
   resolved "https://registry.yarnpkg.com/rescript/-/rescript-11.1.0-rc.3.tgz#217f0938c7cdbc6908dc2f6df67861051492a071"
   integrity sha512-jELsJVEnnCI28EOD/zn9Z9yVTOFn3eLp7cgfPa+XuAPnk1fcliWwiFuUj2sUWNqdWfyN3erArhTpRyKKim9q2A==
+
+xml-writer@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/xml-writer/-/xml-writer-1.7.0.tgz#b76f1d591c16a2634ebdb703c7bdbd0fd6819065"
+  integrity sha512-elFVMRiV5jb59fbc87zzVa0C01QLBEWP909mRuWqFqrYC5wNTH5QW4AaKMNv7d6zAsuOulkD7wnztZNLQW0Nfg==

@@ -15,6 +15,7 @@
   "dependencies": {
     "@rescript/core": "^1.1.0",
     "graphology": "^0.25.4",
+    "graphology-gexf": "^0.13.0",
     "graphology-layout": "^0.6.1",
     "graphology-shortest-path": "^2.0.2",
     "graphology-simple-path": "^0.2.0",
