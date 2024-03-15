@@ -16,15 +16,7 @@ module type NEIGHBORS_ITER = {
 
   // Iterates over relevant edges using a _cb.
   // #.forEachNeighbor
-  type forEachNeighbor_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => unit
+  type forEachNeighbor_cb<'a> = (node, nodeAttr<'a>) => unit
 
   type forEachNeighbor_args<'a> =
     | All(forEachNeighbor_cb<'a>)
@@ -40,28 +32,20 @@ module type NEIGHBORS_ITER = {
   let forEachUndirectedNeighbor: (t, forEachNeighbor_args<'a>) => unit
 
   // #.mapNeighbors
-  type mapNeighbors_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => edge
+  type mapNeighbors_cb<'a, 'b> = (node, nodeAttr<'a>) => 'b
 
-  type mapNeighbors_args<'a> =
-    | All(mapNeighbors_cb<'a>)
-    | Node(node, mapNeighbors_cb<'a>)
-    | FromTo(node, node, mapNeighbors_cb<'a>)
+  type mapNeighbors_args<'a, 'b> =
+    | All(mapNeighbors_cb<'a, 'b>)
+    | Node(node, mapNeighbors_cb<'a, 'b>)
+    | FromTo(node, node, mapNeighbors_cb<'a, 'b>)
 
-  let mapNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
-  let mapInNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
-  let mapOutNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
-  let mapInboundNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
-  let mapOutboundNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
-  let mapDirectedNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
-  let mapUndirectedNeighbors: (t, mapNeighbors_args<'a>) => array<edge>
+  let mapNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
+  let mapInNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
+  let mapOutNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
+  let mapInboundNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
+  let mapOutboundNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
+  let mapDirectedNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
+  let mapUndirectedNeighbors: (t, mapNeighbors_args<'a, 'b>) => array<'b>
 
   // #.filterEdges
   type filterNeighbors_cb<'a> = (
@@ -346,15 +330,7 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   // #.forEachNeighbor
-  type forEachNeighbor_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => unit
+  type forEachNeighbor_cb<'a> = (node, nodeAttr<'a>) => unit
 
   type forEachNeighbor_args<'a> =
     | All(forEachNeighbor_cb<'a>)
@@ -507,20 +483,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   // #.mapNeighbors
-  type mapNeighbors_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => edge
+  type mapNeighbors_cb<'a, 'b> = (node, nodeAttr<'a>) => 'b
 
-  type mapNeighbors_args<'a> =
-    | All(mapNeighbors_cb<'a>)
-    | Node(node, mapNeighbors_cb<'a>)
-    | FromTo(node, node, mapNeighbors_cb<'a>)
+  type mapNeighbors_args<'a, 'b> =
+    | All(mapNeighbors_cb<'a, 'b>)
+    | Node(node, mapNeighbors_cb<'a, 'b>)
+    | FromTo(node, node, mapNeighbors_cb<'a, 'b>)
 
   let _mapNeighbors_call = (t, mapNeighbors_args, allFn, nodeFn, _fromToFn) => {
     switch mapNeighbors_args {
@@ -530,11 +498,11 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
     }
   }
 
-  @send external _mapNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> = "mapNeighbors"
+  @send external _mapNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapNeighbors"
   @send
-  external _mapNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> = "mapNeighbors"
+  external _mapNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapNeighbors"
   @send
-  external _mapNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapNeighbors"
 
   let mapNeighbors = (t, mapNeighbors_args) => {
@@ -547,11 +515,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  @send external _mapInNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> = "mapInNeighbors"
+  @send external _mapInNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapInNeighbors"
   @send
-  external _mapInNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> = "mapInNeighbors"
+  external _mapInNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
+    "mapInNeighbors"
   @send
-  external _mapInNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapInNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapInNeighbors"
 
   let mapInNeighbors = (t, mapNeighbors_args) => {
@@ -564,12 +533,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  @send external _mapOutNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> = "mapOutNeighbors"
+  @send external _mapOutNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapOutNeighbors"
   @send
-  external _mapOutNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapOutNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapOutNeighbors"
   @send
-  external _mapOutNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapOutNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapOutNeighbors"
 
   let mapOutNeighbors = (t, mapNeighbors_args) => {
@@ -583,12 +552,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _mapInboundNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> = "mapInboundNeighbors"
+  external _mapInboundNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapInboundNeighbors"
   @send
-  external _mapInboundNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapInboundNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapInboundNeighbors"
   @send
-  external _mapInboundNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapInboundNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapInboundNeighbors"
 
   let mapInboundNeighbors = (t, mapNeighbors_args) => {
@@ -602,12 +571,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _mapOutboundNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> = "mapOutboundNeighbors"
+  external _mapOutboundNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapOutboundNeighbors"
   @send
-  external _mapOutboundNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapOutboundNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapOutboundNeighbors"
   @send
-  external _mapOutboundNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapOutboundNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapOutboundNeighbors"
 
   let mapOutboundNeighbors = (t, mapNeighbors_args) => {
@@ -621,12 +590,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _mapDirectedNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> = "mapDirectedNeighbors"
+  external _mapDirectedNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> = "mapDirectedNeighbors"
   @send
-  external _mapDirectedNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapDirectedNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapDirectedNeighbors"
   @send
-  external _mapDirectedNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapDirectedNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapDirectedNeighbors"
 
   let mapDirectedNeighbors = (t, mapNeighbors_args) => {
@@ -640,13 +609,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _mapUndirectedNeighbors: (t, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapUndirectedNeighbors: (t, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapUndirectedNeighbors"
   @send
-  external _mapUndirectedNeighbors_ofNode: (t, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapUndirectedNeighbors_ofNode: (t, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapUndirectedNeighbors"
   @send
-  external _mapUndirectedNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a>) => array<edge> =
+  external _mapUndirectedNeighbors_fromTo: (t, node, node, mapNeighbors_cb<'a, 'b>) => array<'b> =
     "mapUndirectedNeighbors"
 
   let mapUndirectedNeighbors = (t, mapNeighbors_args) => {
