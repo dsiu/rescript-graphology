@@ -320,4 +320,98 @@ let _ = {
 
   //  gexfStrWithOptions->(log2("gexfStr", _))
   "---"->log
+
+  "bfs"->log
+  g->G.Traversal.bfs((n, att, depth) => {
+    log2(n, depth)
+  })
+}
+
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = int
+    type edge = int
+  })
+
+  let g = G.makeGraph()
+  g->G.Utils.mergeClique([1, 2, 3])
+  g->G.EdgesIter.edges(All)->Array.map(e => g->G.extremities(e))->log
+
+  let g = G.makeGraph()
+  g->G.Utils.mergeCycle([1, 2, 3, 4, 5])
+  g->G.EdgesIter.edges(All)->Array.map(e => g->G.extremities(e))->log
+
+  let g = G.makeGraph()
+  g->G.Utils.mergePath([1, 2, 3, 4, 5])
+  g->G.EdgesIter.edges(All)->Array.map(e => g->G.extremities(e))->log
+
+  let g = G.makeGraph()
+  g->G.Utils.mergeStar([1, 2, 3, 4, 5])
+  g->G.EdgesIter.edges(All)->Array.map(e => g->G.extremities(e))->log
+}
+
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  let g = G.makeGraph()
+
+  g->G.addNode("Martha")
+  g->G.addNode("Catherine")
+  g->G.addNode("John")
+
+  g->G.addEdgeWithKey("M->C", "Martha", "Catherine")
+  g->G.addEdgeWithKey("C->J", "Catherine", "John")
+
+  open RescriptCore
+  let nodeMap = Dict.make()
+  nodeMap->Dict.set("Martha", 1)
+  nodeMap->Dict.set("Catherine", 2)
+  nodeMap->Dict.set("John", 3)
+
+  let edgeMap = Dict.make()
+  edgeMap->Dict.set("M->C", "rel1")
+  edgeMap->Dict.set("C->J", "rel2")
+
+  let renamedGraph = g->G.Utils.renameGraphKeys(nodeMap, edgeMap)
+
+  renamedGraph->G.NodesIter.nodes->log
+  renamedGraph->G.EdgesIter.edges(All)->log
+}
+
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  let g = G.makeGraph()
+
+  g->G.addNode("Martha")
+  g->G.addNode("Catherine")
+  g->G.addNode("John")
+
+  g->G.addEdgeWithKey("M->C", "Martha", "Catherine")
+  g->G.addEdgeWithKey("C->J", "Catherine", "John")
+
+  let updatedGraph = g->G.Utils.updateGraphKeys(
+    (key, _) => {
+      switch key {
+      | "Martha" => 4
+      | "Catherine" => 5
+      | _ => 6
+      }
+    },
+    (key, _) => {
+      switch key {
+      | "M->C" => "rel3"
+      | _ => "rel4"
+      }
+    },
+  )
+
+  updatedGraph->G.NodesIter.nodes->log
+  updatedGraph->G.EdgesIter.edges(All)->log
 }

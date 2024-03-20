@@ -4,6 +4,7 @@ import * as Graphology from "graphology";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Graphology__SVG from "./Graphology__SVG.res.mjs";
 import * as Graphology__GEXF from "./Graphology__GEXF.res.mjs";
+import * as Graphology__Utils from "./Graphology__Utils.res.mjs";
 import * as Graphology__Layout from "./Graphology__Layout.res.mjs";
 import * as Graphology__Traversal from "./Graphology__Traversal.res.mjs";
 import * as Graphology__SimplePath from "./Graphology__SimplePath.res.mjs";
@@ -22,6 +23,7 @@ function MakeGraph(C) {
   var SVG = Graphology__SVG.MakeSVG({});
   var GEXF = Graphology__GEXF.MakeGEXF({});
   var Traversal = Graphology__Traversal.MakeTraversal({});
+  var Utils = Graphology__Utils.MakeUtils({});
   return {
           makeGraph: (function (prim) {
               return new (Graphology.default.Graph)(prim !== undefined ? Caml_option.valFromOption(prim) : undefined);
@@ -262,7 +264,8 @@ function MakeGraph(C) {
           SimplePath: SimplePath,
           SVG: SVG,
           GEXF: GEXF,
-          Traversal: Traversal
+          Traversal: Traversal,
+          Utils: Utils
         };
 }
 

@@ -447,6 +447,153 @@ console.log("---");
 
 console.log("---");
 
+console.log("bfs");
+
+G$6.Traversal.bfs(g$7, (function (n, att, depth) {
+        console.log(n, depth);
+      }));
+
+var G$7 = Graphology__Graph.MakeGraph({});
+
+var g$8 = G$7.makeGraph(undefined);
+
+G$7.Utils.mergeClique(g$8, [
+      1,
+      2,
+      3
+    ]);
+
+var prim = G$7.EdgesIter.edges(g$8, "All").map(function (e) {
+      return G$7.extremities(g$8, e);
+    });
+
+console.log(prim);
+
+var g$9 = G$7.makeGraph(undefined);
+
+G$7.Utils.mergeCycle(g$9, [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]);
+
+var prim$1 = G$7.EdgesIter.edges(g$9, "All").map(function (e) {
+      return G$7.extremities(g$9, e);
+    });
+
+console.log(prim$1);
+
+var g$10 = G$7.makeGraph(undefined);
+
+G$7.Utils.mergePath(g$10, [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]);
+
+var prim$2 = G$7.EdgesIter.edges(g$10, "All").map(function (e) {
+      return G$7.extremities(g$10, e);
+    });
+
+console.log(prim$2);
+
+var g$11 = G$7.makeGraph(undefined);
+
+G$7.Utils.mergeStar(g$11, [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]);
+
+var prim$3 = G$7.EdgesIter.edges(g$11, "All").map(function (e) {
+      return G$7.extremities(g$11, e);
+    });
+
+console.log(prim$3);
+
+var G$8 = Graphology__Graph.MakeGraph({});
+
+var g$12 = G$8.makeGraph(undefined);
+
+G$8.addNode(g$12, "Martha", undefined);
+
+G$8.addNode(g$12, "Catherine", undefined);
+
+G$8.addNode(g$12, "John", undefined);
+
+G$8.addEdgeWithKey(g$12, "M->C", "Martha", "Catherine", undefined);
+
+G$8.addEdgeWithKey(g$12, "C->J", "Catherine", "John", undefined);
+
+var nodeMap = {};
+
+nodeMap["Martha"] = 1;
+
+nodeMap["Catherine"] = 2;
+
+nodeMap["John"] = 3;
+
+var edgeMap = {};
+
+edgeMap["M->C"] = "rel1";
+
+edgeMap["C->J"] = "rel2";
+
+var renamedGraph = G$8.Utils.renameGraphKeys(g$12, nodeMap, edgeMap);
+
+var prim$4 = G$8.NodesIter.nodes(renamedGraph);
+
+console.log(prim$4);
+
+var prim$5 = G$8.EdgesIter.edges(renamedGraph, "All");
+
+console.log(prim$5);
+
+var G$9 = Graphology__Graph.MakeGraph({});
+
+var g$13 = G$9.makeGraph(undefined);
+
+G$9.addNode(g$13, "Martha", undefined);
+
+G$9.addNode(g$13, "Catherine", undefined);
+
+G$9.addNode(g$13, "John", undefined);
+
+G$9.addEdgeWithKey(g$13, "M->C", "Martha", "Catherine", undefined);
+
+G$9.addEdgeWithKey(g$13, "C->J", "Catherine", "John", undefined);
+
+var updatedGraph = G$9.Utils.updateGraphKeys(g$13, (function (key, param) {
+        switch (key) {
+          case "Catherine" :
+              return 5;
+          case "Martha" :
+              return 4;
+          default:
+            return 6;
+        }
+      }), (function (key, param) {
+        if (key === "M->C") {
+          return "rel3";
+        } else {
+          return "rel4";
+        }
+      }));
+
+var prim$6 = G$9.NodesIter.nodes(updatedGraph);
+
+console.log(prim$6);
+
+var prim$7 = G$9.EdgesIter.edges(updatedGraph, "All");
+
+console.log(prim$7);
+
 export {
   log ,
   log2 ,

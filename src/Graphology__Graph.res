@@ -248,6 +248,17 @@ module type GRAPH = {
       and type nodeAttr<'a> := nodeAttr<'a>
       and type edgeAttr<'a> := edgeAttr<'a>
   }
+
+  module Utils: {
+    open Graphology__Utils
+    include UTILS
+      with type t := t
+      and type node := node
+      and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
+      and type nodeAttr<'a> := nodeAttr<'a>
+      and type edgeAttr<'a> := edgeAttr<'a>
+  }
 }
 
 module type MAKE_GRAPH = (C: CONFIG) => (GRAPH with type node = C.node and type edge = C.edge)
@@ -506,6 +517,15 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   })
 
   module Traversal = Graphology__Traversal.MakeTraversal({
+    type t = t
+    type node = node
+    type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
+    type nodeAttr<'a> = nodeAttr<'a>
+    type edgeAttr<'a> = edgeAttr<'a>
+  })
+
+  module Utils = Graphology__Utils.MakeUtils({
     type t = t
     type node = node
     type edge = edge
