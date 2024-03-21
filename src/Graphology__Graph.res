@@ -183,6 +183,17 @@ module type GRAPH = {
   //
   // Standard Libraries
   //
+  module Generators: {
+    open Graphology__Generators
+    include GENERATORS
+      with type t := t
+      and type node := node
+      and type edge := edge
+      and type graphAttr<'a> := graphAttr<'a>
+      and type nodeAttr<'a> := nodeAttr<'a>
+      and type edgeAttr<'a> := edgeAttr<'a>
+  }
+
   module Layout: {
     open Graphology__Layout
     include LAYOUT
@@ -471,6 +482,15 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   //
   // Graphology Stand Libraries
   //
+  module Generators = Graphology__Generators.MakeGenerators({
+    type t = t
+    type node = node
+    type edge = edge
+    type graphAttr<'a> = graphAttr<'a>
+    type nodeAttr<'a> = nodeAttr<'a>
+    type edgeAttr<'a> = edgeAttr<'a>
+  })
+
   module Layout = Graphology__Layout.MakeLayout({
     type t = t
     type node = node

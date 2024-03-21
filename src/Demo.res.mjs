@@ -277,7 +277,7 @@ G$2.addEdge(g$2, 3, 4, undefined);
         console.log("inspect - layout", __x);
       })(G$2.inspect(g$2)));
 
-var pos = G$2.Layout.circular(g$2, undefined);
+var pos = G$2.Layout.Circular.circular(g$2, undefined);
 
 ((function (__x) {
         console.log("pos", __x);
@@ -593,6 +593,49 @@ console.log(prim$6);
 var prim$7 = G$9.EdgesIter.edges(updatedGraph, "All");
 
 console.log(prim$7);
+
+var G$10 = Graphology__Graph.MakeGraph({});
+
+var g$14 = G$10.makeGraph(undefined);
+
+G$10.addNode(g$14, "Martha", undefined);
+
+G$10.addNode(g$14, "Catherine", undefined);
+
+G$10.addNode(g$14, "John", undefined);
+
+G$10.Layout.CirclePack.assign(g$14, undefined);
+
+((function (__x) {
+        console.log("circlePack", __x);
+      })(G$10.inspect(g$14)));
+
+G$10.Layout.Rotation.assign(g$14, 10.0, undefined);
+
+((function (__x) {
+        console.log("rotation", __x);
+      })(G$10.inspect(g$14)));
+
+var layout = G$10.Layout.Utils.collectLayout(g$14, undefined);
+
+((function (__x) {
+        console.log("collectLayout", __x);
+      })(layout));
+
+var layout$1 = G$10.Layout.Utils.collectLayoutAsFlatArray(g$14, undefined);
+
+((function (__x) {
+        console.log("collectLayoutAsFlatArray", __x);
+      })(layout$1));
+
+G$10.Layout.CirclePack.circlePack(g$14, undefined);
+
+G$10.Layout.CirclePack.circlePack(g$14, {
+      hierarchyAttributes: [
+        "degree",
+        "community"
+      ]
+    });
 
 export {
   log ,

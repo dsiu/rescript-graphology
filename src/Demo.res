@@ -1,3 +1,5 @@
+@@uncurried
+
 open Graphology
 
 let log = Console.log
@@ -169,7 +171,7 @@ let _ = {
 
   g->G.inspect->(log2("inspect - layout", _))
 
-  let pos = g->G.Layout.circular
+  let pos = g->G.Layout.Circular.circular
   pos->(log2("pos", _))
 
   G.Layout.Circular.assign(g, ~options={center: 0.7, scale: 20.0})
@@ -414,4 +416,39 @@ let _ = {
 
   updatedGraph->G.NodesIter.nodes->log
   updatedGraph->G.EdgesIter.edges(All)->log
+}
+
+let _ = {
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  let g = G.makeGraph()
+
+  g->G.addNode("Martha")
+  g->G.addNode("Catherine")
+  g->G.addNode("John")
+
+  //  g->G.inspect->log
+
+  G.Layout.CirclePack.assign(g)
+  g->G.inspect->(log2("circlePack", _))
+
+  G.Layout.Rotation.assign(g, 10.0)
+  g->G.inspect->(log2("rotation", _))
+
+  let layout = g->G.Layout.Utils.collectLayout
+  layout->(log2("collectLayout", _))
+
+  let layout = g->G.Layout.Utils.collectLayoutAsFlatArray
+  layout->(log2("collectLayoutAsFlatArray", _))
+
+  let positions = G.Layout.CirclePack.circlePack(g)
+  //  positions->log
+  let positions = G.Layout.CirclePack.circlePack(
+    g,
+    ~options={hierarchyAttributes: ["degree", "community"]},
+  )
+  //  positions->log
 }

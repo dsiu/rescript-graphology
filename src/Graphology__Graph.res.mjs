@@ -7,6 +7,7 @@ import * as Graphology__GEXF from "./Graphology__GEXF.res.mjs";
 import * as Graphology__Utils from "./Graphology__Utils.res.mjs";
 import * as Graphology__Layout from "./Graphology__Layout.res.mjs";
 import * as Graphology__Traversal from "./Graphology__Traversal.res.mjs";
+import * as Graphology__Generators from "./Graphology__Generators.res.mjs";
 import * as Graphology__SimplePath from "./Graphology__SimplePath.res.mjs";
 import * as Graphology__ShortestPath from "./Graphology__ShortestPath.res.mjs";
 import * as Graphology__Graph_EdgesIter from "./Graphology__Graph_EdgesIter.res.mjs";
@@ -17,6 +18,7 @@ function MakeGraph(C) {
   var NodesIter = Graphology__Graph_NodesIter.MakeNodesIter({});
   var EdgesIter = Graphology__Graph_EdgesIter.MakeEdgesIter({});
   var NeighborsIter = Graphology__Graph_NeighborsIter.MakeNeighborsIter({});
+  var Generators = Graphology__Generators.MakeGenerators({});
   var Layout = Graphology__Layout.MakeLayout({});
   var ShortestPath = Graphology__ShortestPath.MakeShortestPath({});
   var SimplePath = Graphology__SimplePath.MakeSimplePath({});
@@ -259,6 +261,7 @@ function MakeGraph(C) {
           inspect: (function (prim) {
               return prim.inspect();
             }),
+          Generators: Generators,
           Layout: Layout,
           ShortestPath: ShortestPath,
           SimplePath: SimplePath,

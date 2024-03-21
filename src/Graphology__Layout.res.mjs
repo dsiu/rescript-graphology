@@ -2,15 +2,54 @@
 
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as GraphologyLayout from "graphology-layout";
+import * as UtilsJs from "graphology-layout/utils.js";
 
 function MakeLayout(C) {
   return {
-          circular: (function (prim0, prim1) {
-              return GraphologyLayout.circular(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
-            }),
           Circular: {
+            circular: (function (prim0, prim1) {
+                return GraphologyLayout.circular(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              }),
             assign: (function (prim0, prim1) {
                 GraphologyLayout.circular.assign(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              })
+          },
+          Random: {
+            random: (function (prim0, prim1) {
+                return GraphologyLayout.random(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              }),
+            assign: (function (prim0, prim1) {
+                GraphologyLayout.random.assign(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              })
+          },
+          CirclePack: {
+            circlePack: (function (prim0, prim1) {
+                return GraphologyLayout.circlepack(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              }),
+            assign: (function (prim0, prim1) {
+                GraphologyLayout.circlepack.assign(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              })
+          },
+          Rotation: {
+            rotation: (function (prim0, prim1, prim2) {
+                return GraphologyLayout.rotation(prim0, prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
+              }),
+            assign: (function (prim0, prim1, prim2) {
+                GraphologyLayout.rotation.assign(prim0, prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
+              })
+          },
+          Utils: {
+            collectLayout: (function (prim0, prim1) {
+                return UtilsJs.collectLayout(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              }),
+            collectLayoutAsFlatArray: (function (prim0, prim1) {
+                return UtilsJs.collectLayoutAsFlatArray(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);
+              }),
+            assignLayout: (function (prim0, prim1, prim2) {
+                UtilsJs.assignLayout(prim0, prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
+              }),
+            assignLayoutAsFlatArray: (function (prim0, prim1, prim2) {
+                return UtilsJs.assignLayoutAsFlatArray(prim0, prim1, prim2 !== undefined ? Caml_option.valFromOption(prim2) : undefined);
               })
           }
         };
