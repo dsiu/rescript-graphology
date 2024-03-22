@@ -40,10 +40,10 @@ function MakeGraph(C) {
               return new (Graphology.default.MultiGraph)();
             }),
           makeMultiDirectedGraph: (function (prim) {
-              return new Graphology.MultiDirectedGraph();
+              return new (Graphology.default.MultiDirectedGraph)();
             }),
           makeMultiUndirectedGraph: (function (prim) {
-              return new Graphology.MultiUndirectedGraph();
+              return new (Graphology.default.MultiUndirectedGraph)();
             }),
           from: (function (prim0, prim1) {
               return Graphology.Graph.from(prim0, prim1 !== undefined ? Caml_option.valFromOption(prim1) : undefined);

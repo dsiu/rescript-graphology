@@ -6,3 +6,9 @@ module type T = {
   type nodeAttr<'a> = {..} as 'a
   type edgeAttr<'a> = {..} as 'a
 }
+
+type graphOptions = {
+  allowSelfLoops?: bool,
+  multi?: bool,
+  @as("type") type_?: [#mixed | #undirected | #directed],
+}

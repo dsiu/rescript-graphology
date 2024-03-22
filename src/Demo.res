@@ -6,6 +6,12 @@ let log = Console.log
 let log2 = Console.log2
 // Str
 
+// todo: refactor
+let stringToFile = (str, ~fileName) => {
+  open NodeJs
+  Fs.writeFileSync(fileName, str->Buffer.fromString)
+}
+
 let _ = {
   module G = Graph.MakeGraph({
     type node = string
@@ -451,4 +457,44 @@ let _ = {
     ~options={hierarchyAttributes: ["degree", "community"]},
   )
   //  positions->log
+}
+
+let _ = {
+  "generators"->log
+  module G = Graph.MakeGraph({
+    type node = string
+    type edge = string
+  })
+
+  module GEXF = {
+    let writeToFile = (g, filename) => {
+      let gexfStrWithOptions = g->G.GEXF.write(
+        ~options={
+          version: "1.3",
+          formatNode: (key, _attributes) => {
+            {
+              "label": key,
+              "attributes": {
+                "name": key,
+              },
+            }
+          },
+          formatEdge: (key, _attributes) => {
+            {
+              "label": key,
+              "attributes": {
+                "name": key,
+              },
+            }
+          },
+        },
+      )
+
+      gexfStrWithOptions->stringToFile(~fileName=filename)
+    }
+  }
+
+  let g = G.Generators.karateClub(G.Generators.DirectedGraph)
+  g->G.inspect->(log2("complete", _))
+  g->GEXF.writeToFile("karateClub.gexf")
 }

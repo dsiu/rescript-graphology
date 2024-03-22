@@ -22,6 +22,14 @@ events@^3.3.0:
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
+graphology-generators@^0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/graphology-generators/-/graphology-generators-0.11.2.tgz#eff2c97e4f5bf401e86ab045470dded95f2ebe24"
+  integrity sha512-hx+F0OZRkVdoQ0B1tWrpxoakmHZNex0c6RAoR0PrqJ+6fz/gz6CQ88Qlw78C6yD9nlZVRgepIoDYhRTFV+bEHg==
+  dependencies:
+    graphology-metrics "^2.0.0"
+    graphology-utils "^2.3.0"
+
 graphology-gexf@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/graphology-gexf/-/graphology-gexf-0.13.0.tgz#9d734c6bfa91a6dcceacd6b29e7d6dbaa81dbd8e"
@@ -47,7 +55,16 @@ graphology-layout@^0.6.1:
     graphology-utils "^2.3.0"
     pandemonium "^2.4.0"
 
-graphology-shortest-path@^2.0.2:
+graphology-metrics@^2.0.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/graphology-metrics/-/graphology-metrics-2.2.0.tgz#1ac3c19c9167e7a361cb602534caac5076152203"
+  integrity sha512-eZZFRLGGyyI+iD+XwQvc+lLM3EKCoqUvVjvF/14Htgy4grB2m95OytToYq3saWuHfuf22VVnj9GBHv/pTzKuTw==
+  dependencies:
+    graphology-shortest-path "^2.0.0"
+    graphology-utils "^2.4.4"
+    mnemonist "^0.39.0"
+
+graphology-shortest-path@^2.0.0, graphology-shortest-path@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/graphology-shortest-path/-/graphology-shortest-path-2.0.2.tgz#01385d2c0452ead890da2203b30d00177397678e"
   integrity sha512-hlGvh4Yb1Vmd2J7wT8Q8+t4RQ6Tx+9wRYm0/fZB9PZJ4uW3nml5kJ7yXZ2+JYWT+7wLLmY5mg3o9bLSAWmv/jQ==
@@ -85,7 +102,7 @@ graphology-utils@^1.8.0:
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-1.8.0.tgz#41315c468656e2a3e028a76468bbc2fbe42b0145"
   integrity sha512-Pa7SW30OMm8fVtyH49b3GJ/uxlMHGfXly50wIhlcc7ZoX9ahZa7sPBz+obo4WZClrRV6wh3tIu0GJoI42eao1A==
 
-graphology-utils@^2.0.0, graphology-utils@^2.3.0, graphology-utils@^2.4.1, graphology-utils@^2.4.2, graphology-utils@^2.4.3:
+graphology-utils@^2.0.0, graphology-utils@^2.3.0, graphology-utils@^2.4.1, graphology-utils@^2.4.2, graphology-utils@^2.4.3, graphology-utils@^2.4.4:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-2.5.2.tgz#4d30d6e567d27c01f105e1494af816742e8d2440"
   integrity sha512-ckHg8MXrXJkOARk56ZaSCM1g1Wihe2d6iTmz1enGOz4W/l831MBCKSayeFQfowgF8wd+PQ4rlch/56Vs/VZLDQ==
@@ -116,6 +133,11 @@ pandemonium@^2.4.0:
   integrity sha512-wRqjisUyiUfXowgm7MFH2rwJzKIr20rca5FsHXCMNm1W5YPP1hCtrZfgmQ62kP7OZ7Xt+cR858aB28lu5NX55g==
   dependencies:
     mnemonist "^0.39.2"
+
+rescript-nodejs@^16.1.0:
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/rescript-nodejs/-/rescript-nodejs-16.1.0.tgz#2278d8880d9e4a5c46cd845d5ac4ee2bd69277ee"
+  integrity sha512-RyXGIEsb8UhuShf5PwKcTkYNPz+cPQ0CZq74lbYCbCa5YFidbmiIWpQhCMtpsgP1PkLClhKGDkfZfmwwNOil4Q==
 
 rescript@^11.1.0-rc.3:
   version "11.1.0-rc.3"

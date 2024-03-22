@@ -9,11 +9,7 @@ module type CONFIG = {
 module type GRAPH = {
   include GRAPH_TYPES
 
-  type graphOptions = {
-    allowSelfLoops?: bool,
-    multi?: bool,
-    @as("type") type_?: [#mixed | #undirected | #directed],
-  }
+  type graphOptions = Graphology__GraphTypes.graphOptions
 
   type serializedGraphAttr<'a> = {..} as 'a
   type serializedNodeAttr<'a> = {..} as 'a
@@ -282,11 +278,7 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   type nodeAttr<'a> = {..} as 'a
   type edgeAttr<'a> = {..} as 'a
 
-  type graphOptions = {
-    allowSelfLoops?: bool,
-    multi?: bool,
-    @as("type") type_?: [#mixed | #undirected | #directed],
-  }
+  type graphOptions = Graphology__GraphTypes.graphOptions
 
   type serializedGraphAttr<'a> = {..} as 'a
   type serializedNodeAttr<'a> = {..} as 'a
@@ -306,10 +298,11 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   external makeDirectedGraph: unit => t = "DirectedGraph"
   @new @module("graphology") @scope("default")
   external makeUndirectedGraph: unit => t = "UndirectedGraph"
-  @new @module("graphology") @scope("default") external makeMultiGraph: unit => t = "MultiGraph"
-  @new @module("graphology")
+  @new @module("graphology") @scope("default")
+  external makeMultiGraph: unit => t = "MultiGraph"
+  @new @module("graphology") @scope("default")
   external makeMultiDirectedGraph: unit => t = "MultiDirectedGraph"
-  @new @module("graphology")
+  @new @module("graphology") @scope("default")
   external makeMultiUndirectedGraph: unit => t = "MultiUndirectedGraph"
 
   // Static from method
