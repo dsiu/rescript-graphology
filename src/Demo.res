@@ -13,6 +13,7 @@ let stringToFile = (str, ~fileName) => {
 }
 
 let _ = {
+  log("=== simple graph ===")
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -23,6 +24,7 @@ let _ = {
 }
 
 let _ = {
+  log("=== Traversal ===")
   module Dict = RescriptCore.Dict
   module H = Graph.MakeGraph({
     type node = string
@@ -37,7 +39,7 @@ let _ = {
   h->H.addEdge("John", "Peter", ~attr={"dist": 23})
   h->H.addEdge("Peter", "Mary", ~attr={"dist": 12})
 
-  h->H.inspect->(log2("inspect", _))
+  //  h->H.inspect->(log2("inspect", _))
 
   h->H.NodesIter.forEachNode((n, attr) => {
     n->log
@@ -94,6 +96,7 @@ let _ = {
   ->(log2("Unweighted undirectedSingleSourceLength", _))
 
   //  h->H.ShortestPath.Dijkstra.bidirectional("John", "Mary")->(log2("Dijkstra bidirection", _))
+  log("-- Dijkstra")
   h->H.ShortestPath.Dijkstra.singleSource("John")->(log2("Dijkstra singleSource", _))
 
   let dijss = h->H.ShortestPath.Dijkstra.singleSource("John")
@@ -103,6 +106,10 @@ let _ = {
   dijss->RescriptCore.Dict.get("John")->(log2("John", _))
   dijss->RescriptCore.Dict.get("Peter")->(log2("Peter", _))
   dijss->RescriptCore.Dict.get("Mary")->(log2("Mary", _))
+
+  log("-- AStar")
+
+  h->H.ShortestPath.AStar.bidirectional("John", "Mary")->log2("AStar bidirectional")
 }
 
 {
@@ -124,6 +131,7 @@ let _ = {
 }
 
 {
+  log("=== Shortest Path ===")
   module G = Graph.MakeGraph({
     type node = int
     type edge = string
@@ -143,7 +151,7 @@ let _ = {
   g->G.edge(1, 2)->(log2("edge", _))
   g->G.EdgesIter.edges(All)->(log2("edges", _))
   g->G.EdgesIter.edges(Node(1))->(log2("edges", _))
-  g->G.inspect->(log2("inspect", _))
+  //  g->G.inspect->(log2("inspect", _))
 
   g
   ->G.ShortestPath.Dijkstra.singleSource(1)
@@ -159,6 +167,7 @@ let _ = {
 }
 
 {
+  log("=== Layout Circular / write to file ===")
   module G = Graph.MakeGraph({
     type node = int
     type edge = string
@@ -175,17 +184,17 @@ let _ = {
   g->G.addEdge(2, 4)
   g->G.addEdge(3, 4)
 
-  g->G.inspect->(log2("inspect - layout", _))
+  //  g->G.inspect->(log2("inspect - layout", _))
 
   let pos = g->G.Layout.Circular.circular
-  pos->(log2("pos", _))
+  //  pos->(log2("pos", _))
 
   G.Layout.Circular.assign(g, ~options={center: 0.7, scale: 20.0})
   g->G.SVG.render("./graph.svg", ~settings={margin: 20, width: 4096, height: 4096}, () =>
     log("DONE writing to file")
   )
 
-  g->G.inspect->(log2("inspect - layout", _))
+  //  g->G.inspect->(log2("inspect - layout", _))
 }
 
 {
@@ -202,10 +211,11 @@ let _ = {
   )
   //  let g = G.makeGraph()
 
-  g->G.inspect->(log2("inspect", ...))
+  //  g->G.inspect->(log2("inspect", ...))
 }
 
 let _ = {
+  log("=== export / import ===")
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -213,11 +223,11 @@ let _ = {
 
   let g = G.makeGraph()
   let (n, b) = g->G.mergeNode("John")
-  log2(n, b)
+  //  log2(n, b)
   let (n, b) = g->G.mergeNode("John")
-  log2(n, b)
+  //  log2(n, b)
   let (n, b) = g->G.mergeNode("John", ~attr={"eyes": "blue"})
-  log2(n, b)
+  //  log2(n, b)
 
   let g = G.makeGraph()
 
@@ -225,15 +235,16 @@ let _ = {
   g->G.setAttribute("name", "My Graph")
   let exported = g->G.export
 
-  exported->(log2("exported", _))
+  //  exported->(log2("exported", _))
 
   let h = G.makeGraph()
   h->G.import(exported)
   h->G.addNode("John")
-  h->(log2("imported", _))
+  //  h->(log2("imported", _))
 }
 
 let _ = {
+  log("=== EdgesIter ===")
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -261,6 +272,7 @@ let _ = {
 
 // use Graphology's built in BFS
 let _ = {
+  log("=== BFS ===")
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -320,14 +332,14 @@ let _ = {
     },
   )
 
-  g->G.inspect->(log2("inspect", _))
+  //  g->G.inspect->(log2("inspect", _))
   let gexfStr = g->G.GEXF.write(~options={version: "1.3"})
 
-  "---"->log
-  gexfStr->(log2("gexfStr", _))
+  //  "---"->log
+  //  gexfStr->(log2("gexfStr", _))
 
   //  gexfStrWithOptions->(log2("gexfStr", _))
-  "---"->log
+  //  "---"->log
 
   "bfs"->log
   g->G.Traversal.bfs((n, att, depth) => {
@@ -390,6 +402,7 @@ let _ = {
 }
 
 let _ = {
+  log("=== updateGraphKeys ===")
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -425,6 +438,7 @@ let _ = {
 }
 
 let _ = {
+  log("=== layout ===")
   module G = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -439,16 +453,16 @@ let _ = {
   //  g->G.inspect->log
 
   G.Layout.CirclePack.assign(g)
-  g->G.inspect->(log2("circlePack", _))
+  //  g->G.inspect->(log2("circlePack", _))
 
   G.Layout.Rotation.assign(g, 10.0)
-  g->G.inspect->(log2("rotation", _))
+  //  g->G.inspect->(log2("rotation", _))
 
   let layout = g->G.Layout.Utils.collectLayout
-  layout->(log2("collectLayout", _))
+  //  layout->(log2("collectLayout", _))
 
   let layout = g->G.Layout.Utils.collectLayoutAsFlatArray
-  layout->(log2("collectLayoutAsFlatArray", _))
+  //  layout->(log2("collectLayoutAsFlatArray", _))
 
   let positions = G.Layout.CirclePack.circlePack(g)
   //  positions->log
@@ -495,6 +509,6 @@ let _ = {
   }
 
   let g = G.Generators.karateClub(G.Generators.DirectedGraph)
-  g->G.inspect->(log2("complete", _))
-  g->GEXF.writeToFile("karateClub.gexf")
+  //  g->G.inspect->(log2("complete", _))
+  //  g->GEXF.writeToFile("karateClub.gexf")
 }

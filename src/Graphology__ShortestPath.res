@@ -44,6 +44,23 @@ module type SHORTESTPATH = {
     ) => RescriptCore.Dict.t<array<node>>
   }
 
+  module AStar: {
+    // todo: result might be null if no path found and raises Error exception. how to handle it
+
+    type heuristic = (node, node) => int
+    let bidirectional: (
+      t,
+      node,
+      node,
+      ~weight: @unwrap
+      [
+        | #Attr(string)
+        | #Getter((edge, edgeAttr<'a>) => int)
+      ]=?,
+      ~heuristic: heuristic=?,
+    ) => array<node>
+  }
+
   module Utils: {
     let edgePathFromNodePath: (t, array<node>) => array<edge>
   }
@@ -91,7 +108,7 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
 
   module Dijkstra = {
     // todo: result might be null if no path found and raises Error exception. how to handle it
-    // todo: optiona getEdgeWeight arg is not supported yet
+    // todo: optiona getEdgeWeight arg  is not supported yet
 
     @module("graphology-shortest-path") @scope("dijkstra")
     external bidirectional: (
@@ -117,6 +134,26 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
     ) => RescriptCore.Dict.t<array<node>> = "singleSource"
+  }
+
+  module AStar = {
+    // todo: result might be null if no path found and raises Error exception. how to handle it
+    // todo: optiona getEdgeWeight arg  is not supported yet
+
+    type heuristic = (node, node) => int
+
+    @module("graphology-shortest-path") @scope("astar")
+    external bidirectional: (
+      t,
+      node,
+      node,
+      ~weight: @unwrap
+      [
+        | #Attr(string)
+        | #Getter((edge, edgeAttr<'a>) => int)
+      ]=?,
+      ~heuristic: heuristic=?,
+    ) => array<node> = "bidirectional"
   }
 
   module Utils = {

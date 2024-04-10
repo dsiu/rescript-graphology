@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@rescript/core@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@rescript/core/-/core-1.1.0.tgz#e228a2635665b6b6a3288f7fd58552d5c361e253"
-  integrity sha512-pz/CL8+9hBUTeMpUouvZohNsa5rqIwurlXoa1CZWN0ZKuWjMVjaoQ3V+0NB72J/QBbs6/8W82VABKBaDn3fGCA==
+"@rescript/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@rescript/core/-/core-1.2.0.tgz#31f81d525f24aa7a9d58b2fc5165531a18eafa86"
+  integrity sha512-/crGFHKPGeCCrwkVZQ0ugJZxjh79pT5nIPdlfITwiQvO4FoxwnABRiHWiJ7bi2H0RiU1KRrUtVwA5CQV4hJVnQ==
 
 "@xmldom/xmldom@^0.8.3":
   version "0.8.10"
@@ -64,10 +64,20 @@ graphology-metrics@^2.0.0:
     graphology-utils "^2.4.4"
     mnemonist "^0.39.0"
 
-graphology-shortest-path@^2.0.0, graphology-shortest-path@^2.0.2:
+graphology-shortest-path@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/graphology-shortest-path/-/graphology-shortest-path-2.0.2.tgz#01385d2c0452ead890da2203b30d00177397678e"
   integrity sha512-hlGvh4Yb1Vmd2J7wT8Q8+t4RQ6Tx+9wRYm0/fZB9PZJ4uW3nml5kJ7yXZ2+JYWT+7wLLmY5mg3o9bLSAWmv/jQ==
+  dependencies:
+    "@yomguithereal/helpers" "^1.1.1"
+    graphology-indices "^0.17.0"
+    graphology-utils "^2.4.3"
+    mnemonist "^0.39.0"
+
+graphology-shortest-path@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/graphology-shortest-path/-/graphology-shortest-path-2.1.0.tgz#b5c5a568e7c86b24cbfd2042f9d84f2a54e0b331"
+  integrity sha512-KbT9CTkP/u72vGEJzyRr24xFC7usI9Es3LMmCPHGwQ1KTsoZjxwA9lMKxfU0syvT/w+7fZUdB/Hu2wWYcJBm6Q==
   dependencies:
     "@yomguithereal/helpers" "^1.1.1"
     graphology-indices "^0.17.0"
@@ -139,10 +149,10 @@ rescript-nodejs@^16.1.0:
   resolved "https://registry.yarnpkg.com/rescript-nodejs/-/rescript-nodejs-16.1.0.tgz#2278d8880d9e4a5c46cd845d5ac4ee2bd69277ee"
   integrity sha512-RyXGIEsb8UhuShf5PwKcTkYNPz+cPQ0CZq74lbYCbCa5YFidbmiIWpQhCMtpsgP1PkLClhKGDkfZfmwwNOil4Q==
 
-rescript@^11.1.0-rc.5:
-  version "11.1.0-rc.5"
-  resolved "https://registry.yarnpkg.com/rescript/-/rescript-11.1.0-rc.5.tgz#f3683fa3affdbf2d3d1b8c70ad7939af7e618667"
-  integrity sha512-HTRQ0AS3M8DENB6C5VPCqAGGJNO2CishziB1+oQaYs8sQ3Vtowx4z23oTPEtcX9o1yFG71RBm0cgYqg84GCPig==
+rescript@^11.1.0-rc.7:
+  version "11.1.0-rc.7"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-11.1.0-rc.7.tgz#07195124be8c48e8ff77d43ba07896f28be537ef"
+  integrity sha512-4MsOugrSaS9Sh4grCVwNhOJLv1KZ7gTtN5KsV0ctPvzGyCaco7Ftwqo4uVap7xXuzLjgALPQdYBdElBgTZRvaQ==
 
 xml-writer@^1.7.0:
   version "1.7.0"

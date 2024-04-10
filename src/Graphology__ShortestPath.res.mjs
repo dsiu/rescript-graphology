@@ -27,6 +27,11 @@ function MakeShortestPath(C) {
                 return GraphologyShortestPath.dijkstra.singleSource(prim0, prim1, Caml_option.option_unwrap(prim2));
               })
           },
+          AStar: {
+            bidirectional: (function (prim0, prim1, prim2, prim3, prim4) {
+                return GraphologyShortestPath.astar.bidirectional(prim0, prim1, prim2, Caml_option.option_unwrap(prim3), prim4 !== undefined ? Caml_option.valFromOption(prim4) : undefined);
+              })
+          },
           Utils: {
             edgePathFromNodePath: (function (prim0, prim1) {
                 return GraphologyShortestPath.edgePathFromNodePath(prim0, prim1);
