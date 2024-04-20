@@ -36,20 +36,25 @@ function MakeGenerators(C) {
                   return GraphologyGenerators.classic.ladder(prim0, prim1);
                 }), graphType, length);
   };
-  var cavemanGraphGenHelper = function (fn, graphType, $$int, $$int$1) {
+  var path = function (graphType, order) {
+    return classicGraphGenHelper((function (prim0, prim1) {
+                  return GraphologyGenerators.classic.path(prim0, prim1);
+                }), graphType, order);
+  };
+  var cavemanGraphGenHelper = function (fn, graphType, l, k) {
     switch (graphType) {
       case "Graph" :
-          return fn(Graphology.default.Graph, $$int$1, $$int$1);
+          return fn(Graphology.default.Graph, l, k);
       case "DirectedGraph" :
-          return fn(Graphology.default.DirectedGraph, $$int$1, $$int$1);
+          return fn(Graphology.default.DirectedGraph, l, k);
       case "UndirectedGraph" :
-          return fn(Graphology.default.UndirectedGraph, $$int$1, $$int$1);
+          return fn(Graphology.default.UndirectedGraph, l, k);
       case "MultiGraph" :
-          return fn(Graphology.default.MultiGraph, $$int$1, $$int$1);
+          return fn(Graphology.default.MultiGraph, l, k);
       case "MultiDirectedGraph" :
-          return fn(Graphology.default.MultiDirectedGraph, $$int$1, $$int$1);
+          return fn(Graphology.default.MultiDirectedGraph, l, k);
       case "MultiUndirectedGraph" :
-          return fn(Graphology.default.MultiUndirectedGraph, $$int$1, $$int$1);
+          return fn(Graphology.default.MultiUndirectedGraph, l, k);
       
     }
   };
@@ -131,6 +136,7 @@ function MakeGenerators(C) {
           complete: complete,
           empty: empty,
           ladder: ladder,
+          path: path,
           caveman: caveman,
           connectedCaveman: connectedCaveman,
           clusters: clusters,

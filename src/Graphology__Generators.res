@@ -17,6 +17,7 @@ module type GENERATORS = {
   let complete: (graphType, int) => t
   let empty: (graphType, int) => t
   let ladder: (graphType, int) => t
+  let path: (graphType, int) => t
 
   // Community Graphs
   let caveman: (graphType, int, int) => t
@@ -143,14 +144,14 @@ module MakeGenerators: GENERATORS_F = (C: GRAPH_TYPES) => {
   let path = (graphType, order) => classicGraphGenHelper(_path, graphType, order)
 
   // Community Graphs
-  let cavemanGraphGenHelper = (fn, graphType, int, int) => {
+  let cavemanGraphGenHelper = (fn, graphType, l, k) => {
     switch graphType {
-    | Graph => fn(makeGraph, int, int)
-    | DirectedGraph => fn(makeDirectedGraph, int, int)
-    | UndirectedGraph => fn(makeUndirectedGraph, int, int)
-    | MultiGraph => fn(makeMultiGraph, int, int)
-    | MultiDirectedGraph => fn(makeMultiDirectedGraph, int, int)
-    | MultiUndirectedGraph => fn(makeMultiUndirectedGraph, int, int)
+    | Graph => fn(makeGraph, l, k)
+    | DirectedGraph => fn(makeDirectedGraph, l, k)
+    | UndirectedGraph => fn(makeUndirectedGraph, l, k)
+    | MultiGraph => fn(makeMultiGraph, l, k)
+    | MultiDirectedGraph => fn(makeMultiDirectedGraph, l, k)
+    | MultiUndirectedGraph => fn(makeMultiUndirectedGraph, l, k)
     }
   }
 
