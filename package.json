@@ -10,19 +10,20 @@
   "keywords": [
     "rescript"
   ],
-  "author": "",
+  "author": "Danny Siu <danny.siu@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@rescript/core": "^1.3.0",
+    "@rescript/core": "^1.5.2",
     "graphology": "^0.25.4",
     "graphology-generators": "^0.11.2",
-    "graphology-gexf": "^0.13.0",
+    "graphology-gexf": "^0.13.1",
     "graphology-layout": "^0.6.1",
     "graphology-shortest-path": "^2.1.0",
     "graphology-simple-path": "^0.2.0",
     "graphology-svg": "^0.1.3",
     "graphology-traversal": "^0.3.1",
-    "rescript": "^11.1.0",
+    "rescript": "^11.1.3",
     "rescript-nodejs": "^16.1.0"
-  }
+  },
+  "packageManager": "yarn@4.3.1"
 }
