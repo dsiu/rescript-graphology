@@ -2,7 +2,7 @@
 
 
 function MakeNeighborsIter(C) {
-  var _neighbors_call = function (t, neighbors_args, allFn, nodeFn, _fromToFn) {
+  let _neighbors_call = (t, neighbors_args, allFn, nodeFn, _fromToFn) => {
     if (typeof neighbors_args !== "object") {
       return allFn(t);
     } else if (neighbors_args.TAG === "Node") {
@@ -11,579 +11,174 @@ function MakeNeighborsIter(C) {
       return _fromToFn(t, neighbors_args._0, neighbors_args._1);
     }
   };
-  var neighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.neighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.neighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.neighbors(prim1, prim2);
-                }));
-  };
-  var inNeighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.inNeighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.inNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inNeighbors(prim1, prim2);
-                }));
-  };
-  var outNeighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.outNeighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.outNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outNeighbors(prim1, prim2);
-                }));
-  };
-  var inboundNeighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.inboundNeighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.inboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inboundNeighbors(prim1, prim2);
-                }));
-  };
-  var outboundNeighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.outboundNeighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.outboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outboundNeighbors(prim1, prim2);
-                }));
-  };
-  var directedNeighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.directedNeighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.directedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.directedNeighbors(prim1, prim2);
-                }));
-  };
-  var undirectedNeighbors = function (t, neighbors_args) {
-    return _neighbors_call(t, neighbors_args, (function (prim) {
-                  return prim.undirectedNeighbors();
-                }), (function (prim0, prim1) {
-                  return prim0.undirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.undirectedNeighbors(prim1, prim2);
-                }));
-  };
-  var _forEachNeighbor_call = function (t, forEachNeighbor_args, allFn, nodeFn, _fromToFn) {
+  let neighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.neighbors(), (prim0, prim1) => prim0.neighbors(prim1), (prim0, prim1, prim2) => prim0.neighbors(prim1, prim2));
+  let inNeighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.inNeighbors(), (prim0, prim1) => prim0.inNeighbors(prim1), (prim0, prim1, prim2) => prim0.inNeighbors(prim1, prim2));
+  let outNeighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.outNeighbors(), (prim0, prim1) => prim0.outNeighbors(prim1), (prim0, prim1, prim2) => prim0.outNeighbors(prim1, prim2));
+  let inboundNeighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.inboundNeighbors(), (prim0, prim1) => prim0.inboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.inboundNeighbors(prim1, prim2));
+  let outboundNeighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.outboundNeighbors(), (prim0, prim1) => prim0.outboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.outboundNeighbors(prim1, prim2));
+  let directedNeighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.directedNeighbors(), (prim0, prim1) => prim0.directedNeighbors(prim1), (prim0, prim1, prim2) => prim0.directedNeighbors(prim1, prim2));
+  let undirectedNeighbors = (t, neighbors_args) => _neighbors_call(t, neighbors_args, prim => prim.undirectedNeighbors(), (prim0, prim1) => prim0.undirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.undirectedNeighbors(prim1, prim2));
+  let _forEachNeighbor_call = (t, forEachNeighbor_args, allFn, nodeFn, _fromToFn) => {
     switch (forEachNeighbor_args.TAG) {
       case "All" :
-          return allFn(t, forEachNeighbor_args._0);
+        return allFn(t, forEachNeighbor_args._0);
       case "Node" :
-          return nodeFn(t, forEachNeighbor_args._0, forEachNeighbor_args._1);
+        return nodeFn(t, forEachNeighbor_args._0, forEachNeighbor_args._1);
       case "FromTo" :
-          return _fromToFn(t, forEachNeighbor_args._0, forEachNeighbor_args._1, forEachNeighbor_args._2);
-      
+        return _fromToFn(t, forEachNeighbor_args._0, forEachNeighbor_args._1, forEachNeighbor_args._2);
     }
   };
-  var forEachNeighbor = function (t, forEachNeighbor_args) {
-    _forEachNeighbor_call(t, forEachNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var forEachInNeighbor = function (t, forEachNeighbor_args) {
-    _forEachNeighbor_call(t, forEachNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachInNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachInNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachInNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var forEachOutNeighbor = function (t, forEachNeighbor_args) {
-    _forEachNeighbor_call(t, forEachNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachOutNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachOutNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachOutNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var forEachInboundNeighbor = function (t, forEachNeighbor_args) {
-    _forEachNeighbor_call(t, forEachNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachInboundNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachInboundNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachInboundNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var forEachOutboundNeighbor = function (t, forEachNeighbor_args) {
-    _forEachNeighbor_call(t, forEachNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachOutboundNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachOutboundNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachOutboundNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var forEachDirectedNeighbor = function (t, forEachNeighbor_args) {
-    _forEachNeighbor_call(t, forEachNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachDirectedNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachDirectedNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachDirectedNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var forEachUndirectedNeighbor = function (t, forEachUndirectedNeighbor_args) {
-    _forEachNeighbor_call(t, forEachUndirectedNeighbor_args, (function (prim0, prim1) {
-            prim0.forEachUndirectedNeighbor(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachUndirectedNeighbor(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachUndirectedNeighbor(prim1, prim2, prim3);
-          }));
-  };
-  var _mapNeighbors_call = function (t, mapNeighbors_args, allFn, nodeFn, _fromToFn) {
+  let forEachNeighbor = (t, forEachNeighbor_args) => _forEachNeighbor_call(t, forEachNeighbor_args, (prim0, prim1) => {
+    prim0.forEachNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachNeighbor(prim1, prim2, prim3);
+  });
+  let forEachInNeighbor = (t, forEachNeighbor_args) => _forEachNeighbor_call(t, forEachNeighbor_args, (prim0, prim1) => {
+    prim0.forEachInNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachInNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachInNeighbor(prim1, prim2, prim3);
+  });
+  let forEachOutNeighbor = (t, forEachNeighbor_args) => _forEachNeighbor_call(t, forEachNeighbor_args, (prim0, prim1) => {
+    prim0.forEachOutNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachOutNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachOutNeighbor(prim1, prim2, prim3);
+  });
+  let forEachInboundNeighbor = (t, forEachNeighbor_args) => _forEachNeighbor_call(t, forEachNeighbor_args, (prim0, prim1) => {
+    prim0.forEachInboundNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachInboundNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachInboundNeighbor(prim1, prim2, prim3);
+  });
+  let forEachOutboundNeighbor = (t, forEachNeighbor_args) => _forEachNeighbor_call(t, forEachNeighbor_args, (prim0, prim1) => {
+    prim0.forEachOutboundNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachOutboundNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachOutboundNeighbor(prim1, prim2, prim3);
+  });
+  let forEachDirectedNeighbor = (t, forEachNeighbor_args) => _forEachNeighbor_call(t, forEachNeighbor_args, (prim0, prim1) => {
+    prim0.forEachDirectedNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachDirectedNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachDirectedNeighbor(prim1, prim2, prim3);
+  });
+  let forEachUndirectedNeighbor = (t, forEachUndirectedNeighbor_args) => _forEachNeighbor_call(t, forEachUndirectedNeighbor_args, (prim0, prim1) => {
+    prim0.forEachUndirectedNeighbor(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachUndirectedNeighbor(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachUndirectedNeighbor(prim1, prim2, prim3);
+  });
+  let _mapNeighbors_call = (t, mapNeighbors_args, allFn, nodeFn, _fromToFn) => {
     switch (mapNeighbors_args.TAG) {
       case "All" :
-          return allFn(t, mapNeighbors_args._0);
+        return allFn(t, mapNeighbors_args._0);
       case "Node" :
-          return nodeFn(t, mapNeighbors_args._0, mapNeighbors_args._1);
+        return nodeFn(t, mapNeighbors_args._0, mapNeighbors_args._1);
       case "FromTo" :
-          return _fromToFn(t, mapNeighbors_args._0, mapNeighbors_args._1, mapNeighbors_args._2);
-      
+        return _fromToFn(t, mapNeighbors_args._0, mapNeighbors_args._1, mapNeighbors_args._2);
     }
   };
-  var mapNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var mapInNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapInNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapInNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapInNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var mapOutNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapOutNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapOutNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapOutNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var mapInboundNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapInboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapInboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapInboundNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var mapOutboundNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapOutboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapOutboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapOutboundNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var mapDirectedNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapDirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapDirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapDirectedNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var mapUndirectedNeighbors = function (t, mapNeighbors_args) {
-    return _mapNeighbors_call(t, mapNeighbors_args, (function (prim0, prim1) {
-                  return prim0.mapUndirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapUndirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapUndirectedNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var _filterNeighbors_call = function (t, filterNeighbors_args, allFn, nodeFn, _fromToFn) {
+  let mapNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapNeighbors(prim1, prim2, prim3));
+  let mapInNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapInNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapInNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapInNeighbors(prim1, prim2, prim3));
+  let mapOutNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapOutNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapOutNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapOutNeighbors(prim1, prim2, prim3));
+  let mapInboundNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapInboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapInboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapInboundNeighbors(prim1, prim2, prim3));
+  let mapOutboundNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapOutboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapOutboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapOutboundNeighbors(prim1, prim2, prim3));
+  let mapDirectedNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapDirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapDirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapDirectedNeighbors(prim1, prim2, prim3));
+  let mapUndirectedNeighbors = (t, mapNeighbors_args) => _mapNeighbors_call(t, mapNeighbors_args, (prim0, prim1) => prim0.mapUndirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.mapUndirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapUndirectedNeighbors(prim1, prim2, prim3));
+  let _filterNeighbors_call = (t, filterNeighbors_args, allFn, nodeFn, _fromToFn) => {
     switch (filterNeighbors_args.TAG) {
       case "All" :
-          return allFn(t, filterNeighbors_args._0);
+        return allFn(t, filterNeighbors_args._0);
       case "Node" :
-          return nodeFn(t, filterNeighbors_args._0, filterNeighbors_args._1);
+        return nodeFn(t, filterNeighbors_args._0, filterNeighbors_args._1);
       case "FromTo" :
-          return _fromToFn(t, filterNeighbors_args._0, filterNeighbors_args._1, filterNeighbors_args._2);
-      
+        return _fromToFn(t, filterNeighbors_args._0, filterNeighbors_args._1, filterNeighbors_args._2);
     }
   };
-  var filterNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var filterInNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterInNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterInNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterInNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var filterOutNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterOutNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterOutNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterOutNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var filterInboundNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterInboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterInboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterInboundNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var filterOutboundNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterOutboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterOutboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterOutboundNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var filterDirectedNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterDirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterDirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterDirectedNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var filterUndirectedNeighbors = function (t, filterNeighbors_args) {
-    return _filterNeighbors_call(t, filterNeighbors_args, (function (prim0, prim1) {
-                  return prim0.filterUndirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterUndirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterUndirectedNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var _reduceNeighbors_call = function (t, reduceNeighbors_args, allFn, nodeFn, _fromToFn) {
+  let filterNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterNeighbors(prim1, prim2, prim3));
+  let filterInNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterInNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterInNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterInNeighbors(prim1, prim2, prim3));
+  let filterOutNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterOutNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterOutNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterOutNeighbors(prim1, prim2, prim3));
+  let filterInboundNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterInboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterInboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterInboundNeighbors(prim1, prim2, prim3));
+  let filterOutboundNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterOutboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterOutboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterOutboundNeighbors(prim1, prim2, prim3));
+  let filterDirectedNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterDirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterDirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterDirectedNeighbors(prim1, prim2, prim3));
+  let filterUndirectedNeighbors = (t, filterNeighbors_args) => _filterNeighbors_call(t, filterNeighbors_args, (prim0, prim1) => prim0.filterUndirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.filterUndirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterUndirectedNeighbors(prim1, prim2, prim3));
+  let _reduceNeighbors_call = (t, reduceNeighbors_args, allFn, nodeFn, _fromToFn) => {
     switch (reduceNeighbors_args.TAG) {
       case "All" :
-          return allFn(t, reduceNeighbors_args._0, reduceNeighbors_args._1);
+        return allFn(t, reduceNeighbors_args._0, reduceNeighbors_args._1);
       case "Node" :
-          return nodeFn(t, reduceNeighbors_args._0, reduceNeighbors_args._1, reduceNeighbors_args._2);
+        return nodeFn(t, reduceNeighbors_args._0, reduceNeighbors_args._1, reduceNeighbors_args._2);
       case "FromTo" :
-          return _fromToFn(t, reduceNeighbors_args._0, reduceNeighbors_args._1, reduceNeighbors_args._2, reduceNeighbors_args._3);
-      
+        return _fromToFn(t, reduceNeighbors_args._0, reduceNeighbors_args._1, reduceNeighbors_args._2, reduceNeighbors_args._3);
     }
   };
-  var reduceNeighbors = function (t, reduceNeighbors_args) {
-    return _reduceNeighbors_call(t, reduceNeighbors_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceNeighbors(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceNeighbors(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceInNeighbors = function (t, reduceNeighbors_args) {
-    return _reduceNeighbors_call(t, reduceNeighbors_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceInNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceInNeighbors(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceInNeighbors(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceOutNeighbors = function (t, reduceNeighbors_args) {
-    return _reduceNeighbors_call(t, reduceNeighbors_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceOutNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceOutNeighbors(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceOutNeighbors(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceOutboundNeighbors = function (t, reduceNeighbors_args) {
-    return _reduceNeighbors_call(t, reduceNeighbors_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceOutboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceOutboundNeighbors(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceOutboundNeighbors(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceDirectedNeighbors = function (t, reduceNeighbors_args) {
-    return _reduceNeighbors_call(t, reduceNeighbors_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceDirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceDirectedNeighbors(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceDirectedNeighbors(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceUndirectedNeighbors = function (t, reduceNeighbors_args) {
-    return _reduceNeighbors_call(t, reduceNeighbors_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceUndirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceUndirectedNeighbors(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceUndirectedNeighbors(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var _findNeighbor_call = function (t, findNeighbor_args, allFn, nodeFn, _fromToFn) {
+  let reduceNeighbors = (t, reduceNeighbors_args) => _reduceNeighbors_call(t, reduceNeighbors_args, (prim0, prim1, prim2) => prim0.reduceNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceNeighbors(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceNeighbors(prim1, prim2, prim3, prim4));
+  let reduceInNeighbors = (t, reduceNeighbors_args) => _reduceNeighbors_call(t, reduceNeighbors_args, (prim0, prim1, prim2) => prim0.reduceInNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceInNeighbors(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceInNeighbors(prim1, prim2, prim3, prim4));
+  let reduceOutNeighbors = (t, reduceNeighbors_args) => _reduceNeighbors_call(t, reduceNeighbors_args, (prim0, prim1, prim2) => prim0.reduceOutNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceOutNeighbors(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceOutNeighbors(prim1, prim2, prim3, prim4));
+  let reduceOutboundNeighbors = (t, reduceNeighbors_args) => _reduceNeighbors_call(t, reduceNeighbors_args, (prim0, prim1, prim2) => prim0.reduceOutboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceOutboundNeighbors(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceOutboundNeighbors(prim1, prim2, prim3, prim4));
+  let reduceDirectedNeighbors = (t, reduceNeighbors_args) => _reduceNeighbors_call(t, reduceNeighbors_args, (prim0, prim1, prim2) => prim0.reduceDirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceDirectedNeighbors(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceDirectedNeighbors(prim1, prim2, prim3, prim4));
+  let reduceUndirectedNeighbors = (t, reduceNeighbors_args) => _reduceNeighbors_call(t, reduceNeighbors_args, (prim0, prim1, prim2) => prim0.reduceUndirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceUndirectedNeighbors(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceUndirectedNeighbors(prim1, prim2, prim3, prim4));
+  let _findNeighbor_call = (t, findNeighbor_args, allFn, nodeFn, _fromToFn) => {
     switch (findNeighbor_args.TAG) {
       case "All" :
-          return allFn(t, findNeighbor_args._0);
+        return allFn(t, findNeighbor_args._0);
       case "Node" :
-          return nodeFn(t, findNeighbor_args._0, findNeighbor_args._1);
+        return nodeFn(t, findNeighbor_args._0, findNeighbor_args._1);
       case "FromTo" :
-          return _fromToFn(t, findNeighbor_args._0, findNeighbor_args._1, findNeighbor_args._2);
-      
+        return _fromToFn(t, findNeighbor_args._0, findNeighbor_args._1, findNeighbor_args._2);
     }
   };
-  var findNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var findInNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findInNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findInNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findInNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var findOutNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findOutNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findOutNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findOutNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var findInboundNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findInboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findInboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findInboundNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var findOutboundNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findOutboundNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findOutboundNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findOutboundNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var findDirectedNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findDirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findDirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findDirectedNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var findUndirectedNeighbor = function (t, findNeighbor_args) {
-    return _findNeighbor_call(t, findNeighbor_args, (function (prim0, prim1) {
-                  return prim0.findUndirectedNeighbors(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findUndirectedNeighbors(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findUndirectedNeighbors(prim1, prim2, prim3);
-                }));
-  };
-  var _someNeighbor_call = function (t, someNeighbor_args, allFn, nodeFn, _fromToFn) {
+  let findNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findNeighbors(prim1), (prim0, prim1, prim2) => prim0.findNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findNeighbors(prim1, prim2, prim3));
+  let findInNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findInNeighbors(prim1), (prim0, prim1, prim2) => prim0.findInNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findInNeighbors(prim1, prim2, prim3));
+  let findOutNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findOutNeighbors(prim1), (prim0, prim1, prim2) => prim0.findOutNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findOutNeighbors(prim1, prim2, prim3));
+  let findInboundNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findInboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.findInboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findInboundNeighbors(prim1, prim2, prim3));
+  let findOutboundNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findOutboundNeighbors(prim1), (prim0, prim1, prim2) => prim0.findOutboundNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findOutboundNeighbors(prim1, prim2, prim3));
+  let findDirectedNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findDirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.findDirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findDirectedNeighbors(prim1, prim2, prim3));
+  let findUndirectedNeighbor = (t, findNeighbor_args) => _findNeighbor_call(t, findNeighbor_args, (prim0, prim1) => prim0.findUndirectedNeighbors(prim1), (prim0, prim1, prim2) => prim0.findUndirectedNeighbors(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findUndirectedNeighbors(prim1, prim2, prim3));
+  let _someNeighbor_call = (t, someNeighbor_args, allFn, nodeFn, _fromToFn) => {
     switch (someNeighbor_args.TAG) {
       case "All" :
-          return allFn(t, someNeighbor_args._0);
+        return allFn(t, someNeighbor_args._0);
       case "Node" :
-          return nodeFn(t, someNeighbor_args._0, someNeighbor_args._1);
+        return nodeFn(t, someNeighbor_args._0, someNeighbor_args._1);
       case "FromTo" :
-          return _fromToFn(t, someNeighbor_args._0, someNeighbor_args._1, someNeighbor_args._2);
-      
+        return _fromToFn(t, someNeighbor_args._0, someNeighbor_args._1, someNeighbor_args._2);
     }
   };
-  var someNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var someInNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someInNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someInNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someInNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var someOutNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someOutNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someOutNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someOutNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var someInboundNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someInboundNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someInboundNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someInboundNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var someOutboundNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someOutboundNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someOutboundNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someOutboundNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var someDirectedNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someDirectedNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someDirectedNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someDirectedNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var someUndirectedNeighbor = function (t, someNeighbor_args) {
-    return _someNeighbor_call(t, someNeighbor_args, (function (prim0, prim1) {
-                  return prim0.someUndirectedNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someUndirectedNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someUndirectedNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var _everyNeighbor_call = function (t, everyNeighbor_args, allFn, nodeFn, _fromToFn) {
+  let someNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someNeighbor(prim1), (prim0, prim1, prim2) => prim0.someNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someNeighbor(prim1, prim2, prim3));
+  let someInNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someInNeighbor(prim1), (prim0, prim1, prim2) => prim0.someInNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someInNeighbor(prim1, prim2, prim3));
+  let someOutNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someOutNeighbor(prim1), (prim0, prim1, prim2) => prim0.someOutNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someOutNeighbor(prim1, prim2, prim3));
+  let someInboundNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someInboundNeighbor(prim1), (prim0, prim1, prim2) => prim0.someInboundNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someInboundNeighbor(prim1, prim2, prim3));
+  let someOutboundNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someOutboundNeighbor(prim1), (prim0, prim1, prim2) => prim0.someOutboundNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someOutboundNeighbor(prim1, prim2, prim3));
+  let someDirectedNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someDirectedNeighbor(prim1), (prim0, prim1, prim2) => prim0.someDirectedNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someDirectedNeighbor(prim1, prim2, prim3));
+  let someUndirectedNeighbor = (t, someNeighbor_args) => _someNeighbor_call(t, someNeighbor_args, (prim0, prim1) => prim0.someUndirectedNeighbor(prim1), (prim0, prim1, prim2) => prim0.someUndirectedNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someUndirectedNeighbor(prim1, prim2, prim3));
+  let _everyNeighbor_call = (t, everyNeighbor_args, allFn, nodeFn, _fromToFn) => {
     switch (everyNeighbor_args.TAG) {
       case "All" :
-          return allFn(t, everyNeighbor_args._0);
+        return allFn(t, everyNeighbor_args._0);
       case "Node" :
-          return nodeFn(t, everyNeighbor_args._0, everyNeighbor_args._1);
+        return nodeFn(t, everyNeighbor_args._0, everyNeighbor_args._1);
       case "FromTo" :
-          return _fromToFn(t, everyNeighbor_args._0, everyNeighbor_args._1, everyNeighbor_args._2);
-      
+        return _fromToFn(t, everyNeighbor_args._0, everyNeighbor_args._1, everyNeighbor_args._2);
     }
   };
-  var everyNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var everyInNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyInNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyInNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyInNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var everyOutNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyOutNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyOutNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyOutNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var everyInboundNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyInboundNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyInboundNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyInboundNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var everyOutboundNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyOutboundNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyOutboundNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyOutboundNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var everyDirectedNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyDirectedNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyDirectedNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyDirectedNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var everyUndirectedNeighbor = function (t, everyNeighbor_args) {
-    return _everyNeighbor_call(t, everyNeighbor_args, (function (prim0, prim1) {
-                  return prim0.everyUndirectedNeighbor(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyUndirectedNeighbor(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyUndirectedNeighbor(prim1, prim2, prim3);
-                }));
-  };
-  var _neighborEntries_call = function (t, neighborEntries_args, allFn, nodeFn, _fromToFn) {
+  let everyNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyNeighbor(prim1, prim2, prim3));
+  let everyInNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyInNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyInNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyInNeighbor(prim1, prim2, prim3));
+  let everyOutNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyOutNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyOutNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyOutNeighbor(prim1, prim2, prim3));
+  let everyInboundNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyInboundNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyInboundNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyInboundNeighbor(prim1, prim2, prim3));
+  let everyOutboundNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyOutboundNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyOutboundNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyOutboundNeighbor(prim1, prim2, prim3));
+  let everyDirectedNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyDirectedNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyDirectedNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyDirectedNeighbor(prim1, prim2, prim3));
+  let everyUndirectedNeighbor = (t, everyNeighbor_args) => _everyNeighbor_call(t, everyNeighbor_args, (prim0, prim1) => prim0.everyUndirectedNeighbor(prim1), (prim0, prim1, prim2) => prim0.everyUndirectedNeighbor(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyUndirectedNeighbor(prim1, prim2, prim3));
+  let _neighborEntries_call = (t, neighborEntries_args, allFn, nodeFn, _fromToFn) => {
     if (typeof neighborEntries_args !== "object") {
       return allFn(t);
     } else if (neighborEntries_args.TAG === "Node") {
@@ -592,136 +187,80 @@ function MakeNeighborsIter(C) {
       return _fromToFn(t, neighborEntries_args._0, neighborEntries_args._1);
     }
   };
-  var neighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.neighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.neighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.neighborEntries(prim1, prim2);
-                }));
-  };
-  var inNeighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.inNeighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.inNeighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inNeighborEntries(prim1, prim2);
-                }));
-  };
-  var outNeighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.outNeighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.outNeighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outNeighborEntries(prim1, prim2);
-                }));
-  };
-  var inboundNeighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.inboundNeighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.inboundNeighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inboundNeighborEntries(prim1, prim2);
-                }));
-  };
-  var outboundNeighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.outboundNeighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.outboundNeighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outboundNeighborEntries(prim1, prim2);
-                }));
-  };
-  var directedNeighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.directedNeighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.directedNeighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.directedNeighborEntries(prim1, prim2);
-                }));
-  };
-  var undirectedNeighborEntries = function (t, neighborEntries_args) {
-    return _neighborEntries_call(t, neighborEntries_args, (function (prim) {
-                  return prim.undirectedNeighborEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.undirectedNeighborEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.undirectedNeighborEntries(prim1, prim2);
-                }));
-  };
+  let neighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.neighborEntries(), (prim0, prim1) => prim0.neighborEntries(prim1), (prim0, prim1, prim2) => prim0.neighborEntries(prim1, prim2));
+  let inNeighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.inNeighborEntries(), (prim0, prim1) => prim0.inNeighborEntries(prim1), (prim0, prim1, prim2) => prim0.inNeighborEntries(prim1, prim2));
+  let outNeighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.outNeighborEntries(), (prim0, prim1) => prim0.outNeighborEntries(prim1), (prim0, prim1, prim2) => prim0.outNeighborEntries(prim1, prim2));
+  let inboundNeighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.inboundNeighborEntries(), (prim0, prim1) => prim0.inboundNeighborEntries(prim1), (prim0, prim1, prim2) => prim0.inboundNeighborEntries(prim1, prim2));
+  let outboundNeighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.outboundNeighborEntries(), (prim0, prim1) => prim0.outboundNeighborEntries(prim1), (prim0, prim1, prim2) => prim0.outboundNeighborEntries(prim1, prim2));
+  let directedNeighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.directedNeighborEntries(), (prim0, prim1) => prim0.directedNeighborEntries(prim1), (prim0, prim1, prim2) => prim0.directedNeighborEntries(prim1, prim2));
+  let undirectedNeighborEntries = (t, neighborEntries_args) => _neighborEntries_call(t, neighborEntries_args, prim => prim.undirectedNeighborEntries(), (prim0, prim1) => prim0.undirectedNeighborEntries(prim1), (prim0, prim1, prim2) => prim0.undirectedNeighborEntries(prim1, prim2));
   return {
-          neighbors: neighbors,
-          inNeighbors: inNeighbors,
-          outNeighbors: outNeighbors,
-          inboundNeighbors: inboundNeighbors,
-          outboundNeighbors: outboundNeighbors,
-          directedNeighbors: directedNeighbors,
-          undirectedNeighbors: undirectedNeighbors,
-          forEachNeighbor: forEachNeighbor,
-          forEachInNeighbor: forEachInNeighbor,
-          forEachOutNeighbor: forEachOutNeighbor,
-          forEachInboundNeighbor: forEachInboundNeighbor,
-          forEachOutboundNeighbor: forEachOutboundNeighbor,
-          forEachDirectedNeighbor: forEachDirectedNeighbor,
-          forEachUndirectedNeighbor: forEachUndirectedNeighbor,
-          mapNeighbors: mapNeighbors,
-          mapInNeighbors: mapInNeighbors,
-          mapOutNeighbors: mapOutNeighbors,
-          mapInboundNeighbors: mapInboundNeighbors,
-          mapOutboundNeighbors: mapOutboundNeighbors,
-          mapDirectedNeighbors: mapDirectedNeighbors,
-          mapUndirectedNeighbors: mapUndirectedNeighbors,
-          filterNeighbors: filterNeighbors,
-          filterInNeighbors: filterInNeighbors,
-          filterOutNeighbors: filterOutNeighbors,
-          filterInboundNeighbors: filterInboundNeighbors,
-          filterOutboundNeighbors: filterOutboundNeighbors,
-          filterDirectedNeighbors: filterDirectedNeighbors,
-          filterUndirectedNeighbors: filterUndirectedNeighbors,
-          reduceNeighbors: reduceNeighbors,
-          reduceInNeighbors: reduceInNeighbors,
-          reduceOutNeighbors: reduceOutNeighbors,
-          reduceOutboundNeighbors: reduceOutboundNeighbors,
-          reduceDirectedNeighbors: reduceDirectedNeighbors,
-          reduceUndirectedNeighbors: reduceUndirectedNeighbors,
-          findNeighbor: findNeighbor,
-          findInNeighbor: findInNeighbor,
-          findOutNeighbor: findOutNeighbor,
-          findInboundNeighbor: findInboundNeighbor,
-          findOutboundNeighbor: findOutboundNeighbor,
-          findDirectedNeighbor: findDirectedNeighbor,
-          findUndirectedNeighbor: findUndirectedNeighbor,
-          someNeighbor: someNeighbor,
-          someInNeighbor: someInNeighbor,
-          someOutNeighbor: someOutNeighbor,
-          someInboundNeighbor: someInboundNeighbor,
-          someOutboundNeighbor: someOutboundNeighbor,
-          someDirectedNeighbor: someDirectedNeighbor,
-          someUndirectedNeighbor: someUndirectedNeighbor,
-          everyNeighbor: everyNeighbor,
-          everyInNeighbor: everyInNeighbor,
-          everyOutNeighbor: everyOutNeighbor,
-          everyInboundNeighbor: everyInboundNeighbor,
-          everyOutboundNeighbor: everyOutboundNeighbor,
-          everyDirectedNeighbor: everyDirectedNeighbor,
-          everyUndirectedNeighbor: everyUndirectedNeighbor,
-          neighborEntries: neighborEntries,
-          inNeighborEntries: inNeighborEntries,
-          outNeighborEntries: outNeighborEntries,
-          inboundNeighborEntries: inboundNeighborEntries,
-          outboundNeighborEntries: outboundNeighborEntries,
-          directedNeighborEntries: directedNeighborEntries,
-          undirectedNeighborEntries: undirectedNeighborEntries
-        };
+    neighbors: neighbors,
+    inNeighbors: inNeighbors,
+    outNeighbors: outNeighbors,
+    inboundNeighbors: inboundNeighbors,
+    outboundNeighbors: outboundNeighbors,
+    directedNeighbors: directedNeighbors,
+    undirectedNeighbors: undirectedNeighbors,
+    forEachNeighbor: forEachNeighbor,
+    forEachInNeighbor: forEachInNeighbor,
+    forEachOutNeighbor: forEachOutNeighbor,
+    forEachInboundNeighbor: forEachInboundNeighbor,
+    forEachOutboundNeighbor: forEachOutboundNeighbor,
+    forEachDirectedNeighbor: forEachDirectedNeighbor,
+    forEachUndirectedNeighbor: forEachUndirectedNeighbor,
+    mapNeighbors: mapNeighbors,
+    mapInNeighbors: mapInNeighbors,
+    mapOutNeighbors: mapOutNeighbors,
+    mapInboundNeighbors: mapInboundNeighbors,
+    mapOutboundNeighbors: mapOutboundNeighbors,
+    mapDirectedNeighbors: mapDirectedNeighbors,
+    mapUndirectedNeighbors: mapUndirectedNeighbors,
+    filterNeighbors: filterNeighbors,
+    filterInNeighbors: filterInNeighbors,
+    filterOutNeighbors: filterOutNeighbors,
+    filterInboundNeighbors: filterInboundNeighbors,
+    filterOutboundNeighbors: filterOutboundNeighbors,
+    filterDirectedNeighbors: filterDirectedNeighbors,
+    filterUndirectedNeighbors: filterUndirectedNeighbors,
+    reduceNeighbors: reduceNeighbors,
+    reduceInNeighbors: reduceInNeighbors,
+    reduceOutNeighbors: reduceOutNeighbors,
+    reduceOutboundNeighbors: reduceOutboundNeighbors,
+    reduceDirectedNeighbors: reduceDirectedNeighbors,
+    reduceUndirectedNeighbors: reduceUndirectedNeighbors,
+    findNeighbor: findNeighbor,
+    findInNeighbor: findInNeighbor,
+    findOutNeighbor: findOutNeighbor,
+    findInboundNeighbor: findInboundNeighbor,
+    findOutboundNeighbor: findOutboundNeighbor,
+    findDirectedNeighbor: findDirectedNeighbor,
+    findUndirectedNeighbor: findUndirectedNeighbor,
+    someNeighbor: someNeighbor,
+    someInNeighbor: someInNeighbor,
+    someOutNeighbor: someOutNeighbor,
+    someInboundNeighbor: someInboundNeighbor,
+    someOutboundNeighbor: someOutboundNeighbor,
+    someDirectedNeighbor: someDirectedNeighbor,
+    someUndirectedNeighbor: someUndirectedNeighbor,
+    everyNeighbor: everyNeighbor,
+    everyInNeighbor: everyInNeighbor,
+    everyOutNeighbor: everyOutNeighbor,
+    everyInboundNeighbor: everyInboundNeighbor,
+    everyOutboundNeighbor: everyOutboundNeighbor,
+    everyDirectedNeighbor: everyDirectedNeighbor,
+    everyUndirectedNeighbor: everyUndirectedNeighbor,
+    neighborEntries: neighborEntries,
+    inNeighborEntries: inNeighborEntries,
+    outNeighborEntries: outNeighborEntries,
+    inboundNeighborEntries: inboundNeighborEntries,
+    outboundNeighborEntries: outboundNeighborEntries,
+    directedNeighborEntries: directedNeighborEntries,
+    undirectedNeighborEntries: undirectedNeighborEntries
+  };
 }
 
 export {
-  MakeNeighborsIter ,
+  MakeNeighborsIter,
 }
 /* No side effect */

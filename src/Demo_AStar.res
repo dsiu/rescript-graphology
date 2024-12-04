@@ -107,10 +107,8 @@ module GEXF = {
             "label": key,
             "attributes": {
               "name": key,
-              "x": (_attributes["x"]->Float.parseInt *. 100.0)
-                ->Float.toFixedWithPrecision(~digits=2),
-              "y": (_attributes["y"]->Float.parseInt *. 100.0)
-                ->Float.toFixedWithPrecision(~digits=2),
+              "x": (_attributes["x"]->Float.parseInt *. 100.0)->Float.toFixed(~digits=2),
+              "y": (_attributes["y"]->Float.parseInt *. 100.0)->Float.toFixed(~digits=2),
             },
           }
         },

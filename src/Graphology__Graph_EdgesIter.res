@@ -166,13 +166,13 @@ module type EDGES_ITER = {
     | Node(node)
     | FromTo(node, node)
 
-  let edgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
-  let inEdgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
-  let outEdgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
-  let inboundEdgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
-  let outboundEdgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
-  let directedEdgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
-  let undirectedEdgeEntries: (t, edgeEntries_args<'a>) => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  let edgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let inEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let outEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let inboundEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let outboundEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let directedEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let undirectedEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
 }
 
 // functor type
@@ -1154,25 +1154,21 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
     }
   }
 
-  @send external _edgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  @send external _edgeEntries: t => Iterator.t<edgeIterValue<'a>> = "edgeEntries"
   @send
-  external _edgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
-    "edgeEntries"
+  external _edgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> = "edgeEntries"
   @send
-  external _edgeEntries_fromTo: (t, node, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
-    "edgeEntries"
+  external _edgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> = "edgeEntries"
 
   let edgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(t, edgeEntries_args, _edgeEntries, _edgeEntries_ofNode, _edgeEntries_fromTo)
   }
 
-  @send external _inEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
+  @send external _inEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
   @send
-  external _inEdgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
-    "inEdgeEntries"
+  external _inEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
   @send
-  external _inEdgeEntries_fromTo: (t, node, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
-    "inEdgeEntries"
+  external _inEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
 
   let inEdgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(
@@ -1184,12 +1180,11 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  @send external _outEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> = "outEdgeEntries"
+  @send external _outEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "outEdgeEntries"
   @send
-  external _outEdgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
-    "outEdgeEntries"
+  external _outEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> = "outEdgeEntries"
   @send
-  external _outEdgeEntries_fromTo: (t, node, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _outEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
     "outEdgeEntries"
 
   let outEdgeEntries = (t, edgeEntries_args) => {
@@ -1203,17 +1198,13 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _inboundEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _inboundEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "inboundEdgeEntries"
+  @send
+  external _inboundEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
     "inboundEdgeEntries"
   @send
-  external _inboundEdgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _inboundEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
     "inboundEdgeEntries"
-  @send
-  external _inboundEdgeEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "inboundEdgeEntries"
 
   let inboundEdgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(
@@ -1226,17 +1217,13 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _outboundEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _outboundEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "outboundEdgeEntries"
+  @send
+  external _outboundEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
     "outboundEdgeEntries"
   @send
-  external _outboundEdgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _outboundEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
     "outboundEdgeEntries"
-  @send
-  external _outboundEdgeEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "outboundEdgeEntries"
 
   let outboundEdgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(
@@ -1249,17 +1236,13 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _directedEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _directedEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "directedEdgeEntries"
+  @send
+  external _directedEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
     "directedEdgeEntries"
   @send
-  external _directedEdgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _directedEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
     "directedEdgeEntries"
-  @send
-  external _directedEdgeEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "directedEdgeEntries"
 
   let directedEdgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(
@@ -1272,17 +1255,13 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _undirectedEdgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _undirectedEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "undirectedEdgeEntries"
+  @send
+  external _undirectedEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
     "undirectedEdgeEntries"
   @send
-  external _undirectedEdgeEntries_ofNode: (t, node) => RescriptCore.Iterator.t<edgeIterValue<'a>> =
+  external _undirectedEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
     "undirectedEdgeEntries"
-  @send
-  external _undirectedEdgeEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<edgeIterValue<'a>> = "undirectedEdgeEntries"
 
   let undirectedEdgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(

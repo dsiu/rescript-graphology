@@ -9,13 +9,13 @@ module type SHORTESTPATH = {
     let bidirectional: (t, node, node) => array<node>
 
     // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
-    let singleSource: (t, node) => RescriptCore.Dict.t<array<node>>
+    let singleSource: (t, node) => Dict.t<array<node>>
 
     // todo: result is a map
-    let singleSourceLength: (t, node) => RescriptCore.Dict.t<int>
+    let singleSourceLength: (t, node) => Dict.t<int>
 
     // todo: result is a map
-    let undirectedSingleSourceLength: (t, node) => RescriptCore.Dict.t<int>
+    let undirectedSingleSourceLength: (t, node) => Dict.t<int>
   }
 
   module Dijkstra: {
@@ -25,8 +25,7 @@ module type SHORTESTPATH = {
       t,
       node,
       node,
-      ~weight: @unwrap
-      [
+      ~weight: [
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
@@ -36,12 +35,11 @@ module type SHORTESTPATH = {
     let singleSource: (
       t,
       node,
-      ~weight: @unwrap
-      [
+      ~weight: [
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
-    ) => RescriptCore.Dict.t<array<node>>
+    ) => Dict.t<array<node>>
   }
 
   module AStar: {
@@ -52,8 +50,7 @@ module type SHORTESTPATH = {
       t,
       node,
       node,
-      ~weight: @unwrap
-      [
+      ~weight: [
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
@@ -94,16 +91,15 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
 
     // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
     @module("graphology-shortest-path") @scope("unweighted")
-    external singleSource: (t, node) => RescriptCore.Dict.t<array<node>> = "singleSource"
+    external singleSource: (t, node) => Dict.t<array<node>> = "singleSource"
 
     // todo: result is a map
     @module("graphology-shortest-path") @scope("unweighted")
-    external singleSourceLength: (t, node) => RescriptCore.Dict.t<int> = "singleSourceLength"
+    external singleSourceLength: (t, node) => Dict.t<int> = "singleSourceLength"
 
     // todo: result is a map
     @module("graphology-shortest-path") @scope("unweighted")
-    external undirectedSingleSourceLength: (t, node) => RescriptCore.Dict.t<int> =
-      "undirectedSingleSourceLength"
+    external undirectedSingleSourceLength: (t, node) => Dict.t<int> = "undirectedSingleSourceLength"
   }
 
   module Dijkstra = {
@@ -133,7 +129,7 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
-    ) => RescriptCore.Dict.t<array<node>> = "singleSource"
+    ) => Dict.t<array<node>> = "singleSource"
   }
 
   module AStar = {

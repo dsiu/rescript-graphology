@@ -4,22 +4,22 @@ import * as GraphologyTraversal from "graphology-traversal";
 
 function MakeTraversal(C) {
   return {
-          bfs: (function (prim0, prim1) {
-              GraphologyTraversal.bfs(prim0, prim1);
-            }),
-          bfsFromNode: (function (prim0, prim1, prim2) {
-              GraphologyTraversal.bfsFromNode(prim0, prim1, prim2);
-            }),
-          dfs: (function (prim0, prim1) {
-              GraphologyTraversal.dfs(prim0, prim1);
-            }),
-          dfsFromNode: (function (prim0, prim1, prim2) {
-              GraphologyTraversal.dfsFromNode(prim0, prim1, prim2);
-            })
-        };
+    bfs: (prim0, prim1) => {
+      GraphologyTraversal.bfs(prim0, prim1);
+    },
+    bfsFromNode: (prim0, prim1, prim2) => {
+      GraphologyTraversal.bfsFromNode(prim0, prim1, prim2);
+    },
+    dfs: (prim0, prim1) => {
+      GraphologyTraversal.dfs(prim0, prim1);
+    },
+    dfsFromNode: (prim0, prim1, prim2) => {
+      GraphologyTraversal.dfsFromNode(prim0, prim1, prim2);
+    }
+  };
 }
 
 export {
-  MakeTraversal ,
+  MakeTraversal,
 }
 /* graphology-traversal Not a pure module */

@@ -182,34 +182,13 @@ module type NEIGHBORS_ITER = {
     | Node(node)
     | FromTo(node, node)
 
-  let neighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
-  let inNeighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
-  let outNeighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
-  let inboundNeighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
-  let outboundNeighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
-  let directedNeighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
-  let undirectedNeighborEntries: (
-    t,
-    neighborEntries_args<'a>,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>>
+  let neighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
+  let inNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
+  let outNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
+  let inboundNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
+  let outboundNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
+  let directedNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
+  let undirectedNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'a>>
 }
 
 // functor type
@@ -1415,16 +1394,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _neighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> = "neighborEntries"
+  external _neighborEntries: t => Iterator.t<neighborIterValue<'a>> = "neighborEntries"
   @send
-  external _neighborEntries_ofNode: (t, node) => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _neighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
     "neighborEntries"
   @send
-  external _neighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "neighborEntries"
+  external _neighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
+    "neighborEntries"
 
   let neighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(
@@ -1437,17 +1413,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _inNeighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _inNeighborEntries: t => Iterator.t<neighborIterValue<'a>> = "inNeighborEntries"
+  @send
+  external _inNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
     "inNeighborEntries"
   @send
-  external _inNeighborEntries_ofNode: (t, node) => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _inNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
     "inNeighborEntries"
-  @send
-  external _inNeighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "inNeighborEntries"
 
   let inNeighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(
@@ -1460,17 +1432,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _outNeighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _outNeighborEntries: t => Iterator.t<neighborIterValue<'a>> = "outNeighborEntries"
+  @send
+  external _outNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
     "outNeighborEntries"
   @send
-  external _outNeighborEntries_ofNode: (t, node) => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _outNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
     "outNeighborEntries"
-  @send
-  external _outNeighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "outNeighborEntries"
 
   let outNeighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(
@@ -1483,19 +1451,14 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _inboundNeighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _inboundNeighborEntries: t => Iterator.t<neighborIterValue<'a>> =
     "inboundNeighborEntries"
   @send
-  external _inboundNeighborEntries_ofNode: (
-    t,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "inboundNeighborEntries"
+  external _inboundNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
+    "inboundNeighborEntries"
   @send
-  external _inboundNeighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "inboundNeighborEntries"
+  external _inboundNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
+    "inboundNeighborEntries"
 
   let inboundNeighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(
@@ -1508,19 +1471,14 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _outboundNeighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _outboundNeighborEntries: t => Iterator.t<neighborIterValue<'a>> =
     "outboundNeighborEntries"
   @send
-  external _outboundNeighborEntries_ofNode: (
-    t,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "outboundNeighborEntries"
+  external _outboundNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
+    "outboundNeighborEntries"
   @send
-  external _outboundNeighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "outboundNeighborEntries"
+  external _outboundNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
+    "outboundNeighborEntries"
 
   let outboundNeighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(
@@ -1533,19 +1491,14 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _directedNeighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _directedNeighborEntries: t => Iterator.t<neighborIterValue<'a>> =
     "directedNeighborEntries"
   @send
-  external _directedNeighborEntries_ofNode: (
-    t,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "directedNeighborEntries"
+  external _directedNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
+    "directedNeighborEntries"
   @send
-  external _directedNeighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "directedNeighborEntries"
+  external _directedNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
+    "directedNeighborEntries"
 
   let directedNeighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(
@@ -1558,19 +1511,14 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _undirectedNeighborEntries: t => RescriptCore.Iterator.t<neighborIterValue<'a>> =
+  external _undirectedNeighborEntries: t => Iterator.t<neighborIterValue<'a>> =
     "undirectedNeighborEntries"
   @send
-  external _undirectedNeighborEntries_ofNode: (
-    t,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "undirectedNeighborEntries"
+  external _undirectedNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'a>> =
+    "undirectedNeighborEntries"
   @send
-  external _undirectedNeighborEntries_fromTo: (
-    t,
-    node,
-    node,
-  ) => RescriptCore.Iterator.t<neighborIterValue<'a>> = "undirectedNeighborEntries"
+  external _undirectedNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'a>> =
+    "undirectedNeighborEntries"
 
   let undirectedNeighborEntries = (t, neighborEntries_args) => {
     _neighborEntries_call(

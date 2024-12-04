@@ -13,7 +13,7 @@ module type NODES_ITER = {
   let everyNode: (t, (node, nodeAttr<'a>) => bool) => bool
 
   type nodeIterValue<'a> = {node: node, attributes: nodeAttr<'a>}
-  let nodeEntries: t => RescriptCore.Iterator.t<nodeIterValue<'a>>
+  let nodeEntries: t => Iterator.t<nodeIterValue<'a>>
 }
 
 // functor type
@@ -45,5 +45,5 @@ module MakeNodesIter: NODES_ITER_F = (C: GRAPH_TYPES) => {
   @send external someNode: (t, (node, nodeAttr<'a>) => bool) => bool = "someNode"
   @send external everyNode: (t, (node, nodeAttr<'a>) => bool) => bool = "everyNode"
   type nodeIterValue<'a> = {node: node, attributes: nodeAttr<'a>}
-  @send external nodeEntries: t => Core__Iterator.t<nodeIterValue<'a>> = "nodeEntries"
+  @send external nodeEntries: t => Iterator.t<nodeIterValue<'a>> = "nodeEntries"
 }

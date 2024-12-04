@@ -3,37 +3,21 @@
 
 function MakeNodesIter(C) {
   return {
-          nodes: (function (prim) {
-              return prim.nodes();
-            }),
-          forEachNode: (function (prim0, prim1) {
-              prim0.forEachNode(prim1);
-            }),
-          mapNodes: (function (prim0, prim1) {
-              return prim0.mapNodes(prim1);
-            }),
-          filterNodes: (function (prim0, prim1) {
-              return prim0.filterNodes(prim1);
-            }),
-          reduceNodes: (function (prim0, prim1, prim2) {
-              return prim0.reduceNodes(prim1, prim2);
-            }),
-          findNode: (function (prim0, prim1) {
-              return prim0.findNode(prim1);
-            }),
-          someNode: (function (prim0, prim1) {
-              return prim0.someNode(prim1);
-            }),
-          everyNode: (function (prim0, prim1) {
-              return prim0.everyNode(prim1);
-            }),
-          nodeEntries: (function (prim) {
-              return prim.nodeEntries();
-            })
-        };
+    nodes: prim => prim.nodes(),
+    forEachNode: (prim0, prim1) => {
+      prim0.forEachNode(prim1);
+    },
+    mapNodes: (prim0, prim1) => prim0.mapNodes(prim1),
+    filterNodes: (prim0, prim1) => prim0.filterNodes(prim1),
+    reduceNodes: (prim0, prim1, prim2) => prim0.reduceNodes(prim1, prim2),
+    findNode: (prim0, prim1) => prim0.findNode(prim1),
+    someNode: (prim0, prim1) => prim0.someNode(prim1),
+    everyNode: (prim0, prim1) => prim0.everyNode(prim1),
+    nodeEntries: prim => prim.nodeEntries()
+  };
 }
 
 export {
-  MakeNodesIter ,
+  MakeNodesIter,
 }
 /* No side effect */

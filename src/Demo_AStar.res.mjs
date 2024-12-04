@@ -15,23 +15,23 @@ function stringToFile(str, fileName) {
   Nodefs.writeFileSync(fileName, Buffer.from(str));
 }
 
-var G = Graphology__Graph.MakeGraph({});
+let G = Graphology__Graph.MakeGraph({});
 
-var g = G.makeUndirectedGraph();
+let g = G.makeUndirectedGraph();
 
 function makeNodeKey(param) {
   return param[0].toString() + "," + param[1].toString();
 }
 
 function addNode(r, c) {
-  var key = makeNodeKey([
-        r,
-        c
-      ]);
+  let key = makeNodeKey([
+    r,
+    c
+  ]);
   return G.mergeNode(g, key, {
-                x: c,
-                y: r
-              })[0];
+      x: c,
+      y: r
+    })[0];
 }
 
 G.mergeNode(g, addNode(0, 0), undefined);
@@ -125,31 +125,27 @@ G.mergeEdge(g, addNode(3, 7), addNode(2, 7), undefined);
 G.mergeEdge(g, addNode(3, 7), addNode(3, 6), undefined);
 
 function writeToFile(g, filename) {
-  var gexfStrWithOptions = G.GEXF.write(g, {
-        formatNode: (function (key, _attributes) {
-            return {
-                    label: key,
-                    attributes: {
-                      name: key,
-                      x: (parseInt(_attributes.x) * 100.0).toFixed(2),
-                      y: (parseInt(_attributes.y) * 100.0).toFixed(2)
-                    }
-                  };
-          }),
-        formatEdge: (function (key, _attributes) {
-            return {
-                    label: key,
-                    attributes: {
-                      name: key
-                    }
-                  };
-          }),
-        version: "1.3"
-      });
+  let gexfStrWithOptions = G.GEXF.write(g, {
+    formatNode: (key, _attributes) => ({
+      label: key,
+      attributes: {
+        name: key,
+        x: (parseInt(_attributes.x) * 100.0).toFixed(2),
+        y: (parseInt(_attributes.y) * 100.0).toFixed(2)
+      }
+    }),
+    formatEdge: (key, _attributes) => ({
+      label: key,
+      attributes: {
+        name: key
+      }
+    }),
+    version: "1.3"
+  });
   stringToFile(gexfStrWithOptions, filename);
 }
 
-var GEXF = {
+let GEXF = {
   writeToFile: writeToFile
 };
 
@@ -159,44 +155,38 @@ function manDistance(node, finalTarget) {
   return 1;
 }
 
-var prim = G.inspect(g);
+let prim = G.inspect(g);
 
 console.log(prim);
 
 writeToFile(g, "astar.gexf");
 
-var res = G.ShortestPath.AStar.bidirectional(g, addNode(0, 0), addNode(3, 7), {
-      NAME: "Getter",
-      VAL: (function (e, param) {
-          console.log(e);
-          return 1;
-        })
-    }, (function (node, finalTarget) {
-        var d = manDistance(node, finalTarget);
-        ((function (__x) {
-                console.log("node", __x);
-              })(node));
-        ((function (__x) {
-                console.log("finalTarget", __x);
-              })(finalTarget));
-        ((function (__x) {
-                console.log("d", __x);
-              })(d));
-        return d;
-      }));
+let res = G.ShortestPath.AStar.bidirectional(g, addNode(0, 0), addNode(3, 7), {
+  NAME: "Getter",
+  VAL: (e, param) => {
+    console.log(e);
+    return 1;
+  }
+}, (node, finalTarget) => {
+  let d = manDistance(node, finalTarget);
+  console.log("node", node);
+  console.log("finalTarget", finalTarget);
+  console.log("d", d);
+  return d;
+});
 
 console.log(res);
 
 export {
-  log ,
-  log2 ,
-  stringToFile ,
-  G ,
-  g ,
-  makeNodeKey ,
-  addNode ,
-  GEXF ,
-  manDistance ,
-  res ,
+  log,
+  log2,
+  stringToFile,
+  G,
+  g,
+  makeNodeKey,
+  addNode,
+  GEXF,
+  manDistance,
+  res,
 }
 /* G Not a pure module */

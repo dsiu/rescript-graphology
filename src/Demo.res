@@ -25,7 +25,7 @@ let _ = {
 
 let _ = {
   log("=== Traversal ===")
-  module Dict = RescriptCore.Dict
+  module Dict = Dict
   module H = Graph.MakeGraph({
     type node = string
     type edge = string
@@ -56,7 +56,7 @@ let _ = {
 
   let iter = h->H.NodesIter.nodeEntries
   iter->(log2("iter", _))
-  let arr = iter->Core__Iterator.toArray
+  let arr = iter->Iterator.toArray
   arr->(log2("arr", _))
   let arr2 = arr->Array.map(({node, attributes}) => {
     node->log
@@ -101,11 +101,11 @@ let _ = {
 
   let dijss = h->H.ShortestPath.Dijkstra.singleSource("John")
 
-  dijss->RescriptCore.Dict.keysToArray->(log2("k", _))
-  dijss->RescriptCore.Dict.valuesToArray->(log2("v", _))
-  dijss->RescriptCore.Dict.get("John")->(log2("John", _))
-  dijss->RescriptCore.Dict.get("Peter")->(log2("Peter", _))
-  dijss->RescriptCore.Dict.get("Mary")->(log2("Mary", _))
+  dijss->Dict.keysToArray->(log2("k", _))
+  dijss->Dict.valuesToArray->(log2("v", _))
+  dijss->Dict.get("John")->(log2("John", _))
+  dijss->Dict.get("Peter")->(log2("Peter", _))
+  dijss->Dict.get("Mary")->(log2("Mary", _))
 
   log("-- AStar")
 
@@ -385,7 +385,6 @@ let _ = {
   g->G.addEdgeWithKey("M->C", "Martha", "Catherine")
   g->G.addEdgeWithKey("C->J", "Catherine", "John")
 
-  open RescriptCore
   let nodeMap = Dict.make()
   nodeMap->Dict.set("Martha", 1)
   nodeMap->Dict.set("Catherine", 2)

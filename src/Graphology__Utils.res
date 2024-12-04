@@ -19,8 +19,8 @@ module type UTILS = {
   let mergeStar: (t, array<node>) => unit
 
   //  Miscellaneous helpers
-  type nodeKeyMapping<'a> = RescriptCore.Dict.t<'a>
-  type edgeKeyMapping<'a> = RescriptCore.Dict.t<'a>
+  type nodeKeyMapping<'a> = Dict.t<'a>
+  type edgeKeyMapping<'a> = Dict.t<'a>
   let renameGraphKeys: (t, nodeKeyMapping<'a>, edgeKeyMapping<'b>) => t
 
   type nodeKeyUpdater<'a, 'b> = (node, nodeAttr<'a>) => 'b
@@ -74,8 +74,8 @@ module MakeUtils: UTILS_F = (C: GRAPH_TYPES) => {
   external mergeStar: (t, array<node>) => unit = "mergeStar"
 
   //  Miscellaneous helpers
-  type nodeKeyMapping<'a> = RescriptCore.Dict.t<'a>
-  type edgeKeyMapping<'a> = RescriptCore.Dict.t<'a>
+  type nodeKeyMapping<'a> = Dict.t<'a>
+  type edgeKeyMapping<'a> = Dict.t<'a>
 
   @module("graphology-utils")
   external renameGraphKeys: (t, nodeKeyMapping<'a>, edgeKeyMapping<'b>) => t = "renameGraphKeys"

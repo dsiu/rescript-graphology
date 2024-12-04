@@ -5,7 +5,7 @@ module type LAYOUT = {
 
   type coord = {x: float, y: float}
 
-  type positions = RescriptCore.Dict.t<coord>
+  type positions = Dict.t<coord>
 
   module Circular: {
     type options = {
@@ -58,12 +58,12 @@ module type LAYOUT = {
       dimensions?: array<string>,
       exhaustive?: bool,
     }
-    let collectLayout: (t, ~options: options=?) => RescriptCore.Dict.t<coord>
+    let collectLayout: (t, ~options: options=?) => Dict.t<coord>
 
     type dimOption = {dimensions?: array<string>}
     let collectLayoutAsFlatArray: (t, ~options: dimOption=?) => array<coord>
 
-    type layout = RescriptCore.Dict.t<coord>
+    type layout = Dict.t<coord>
     let assignLayout: (t, layout, ~options: dimOption=?) => unit
     let assignLayoutAsFlatArray: (t, layout, ~options: dimOption=?) => array<coord>
   }
@@ -90,7 +90,7 @@ module MakeLayout: LAYOUT_F = (C: GRAPH_TYPES) => {
   type edgeAttr<'a> = C.edgeAttr<'a>
 
   type coord = {x: float, y: float}
-  type positions = RescriptCore.Dict.t<coord>
+  type positions = Dict.t<coord>
 
   module Circular = {
     type options = {
@@ -157,7 +157,7 @@ module MakeLayout: LAYOUT_F = (C: GRAPH_TYPES) => {
     }
 
     @module("graphology-layout/utils.js")
-    external collectLayout: (t, ~options: options=?) => RescriptCore.Dict.t<coord> = "collectLayout"
+    external collectLayout: (t, ~options: options=?) => Dict.t<coord> = "collectLayout"
 
     type dimOption = {dimensions?: array<string>}
 
@@ -165,7 +165,7 @@ module MakeLayout: LAYOUT_F = (C: GRAPH_TYPES) => {
     external collectLayoutAsFlatArray: (t, ~options: dimOption=?) => array<coord> =
       "collectLayoutAsFlatArray"
 
-    type layout = RescriptCore.Dict.t<coord>
+    type layout = Dict.t<coord>
 
     @module("graphology-layout/utils.js")
     external assignLayout: (t, layout, ~options: dimOption=?) => unit = "assignLayout"

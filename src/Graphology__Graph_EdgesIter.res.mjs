@@ -2,7 +2,7 @@
 
 
 function MakeEdgesIter(C) {
-  var _edges_call = function (t, edges_args, allFn, nodeFn, _fromToFn) {
+  let _edges_call = (t, edges_args, allFn, nodeFn, _fromToFn) => {
     if (typeof edges_args !== "object") {
       return allFn(t);
     } else if (edges_args.TAG === "Node") {
@@ -11,579 +11,174 @@ function MakeEdgesIter(C) {
       return _fromToFn(t, edges_args._0, edges_args._1);
     }
   };
-  var edges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.edges();
-                }), (function (prim0, prim1) {
-                  return prim0.edges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.edges(prim1, prim2);
-                }));
-  };
-  var inEdges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.inEdges();
-                }), (function (prim0, prim1) {
-                  return prim0.inEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inEdges(prim1, prim2);
-                }));
-  };
-  var outEdges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.outEdges();
-                }), (function (prim0, prim1) {
-                  return prim0.outEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outEdges(prim1, prim2);
-                }));
-  };
-  var inboundEdges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.inboundEdges();
-                }), (function (prim0, prim1) {
-                  return prim0.inboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inboundEdges(prim1, prim2);
-                }));
-  };
-  var outboundEdges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.outboundEdges();
-                }), (function (prim0, prim1) {
-                  return prim0.outboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outboundEdges(prim1, prim2);
-                }));
-  };
-  var directedEdges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.directedEdges();
-                }), (function (prim0, prim1) {
-                  return prim0.directedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.directedEdges(prim1, prim2);
-                }));
-  };
-  var undirectedEdges = function (t, edges_args) {
-    return _edges_call(t, edges_args, (function (prim) {
-                  return prim.undirectedEdges();
-                }), (function (prim0, prim1) {
-                  return prim0.undirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.undirectedEdges(prim1, prim2);
-                }));
-  };
-  var _forEachEdge_call = function (t, forEachEdge_args, allFn, nodeFn, _fromToFn) {
+  let edges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.edges(), (prim0, prim1) => prim0.edges(prim1), (prim0, prim1, prim2) => prim0.edges(prim1, prim2));
+  let inEdges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.inEdges(), (prim0, prim1) => prim0.inEdges(prim1), (prim0, prim1, prim2) => prim0.inEdges(prim1, prim2));
+  let outEdges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.outEdges(), (prim0, prim1) => prim0.outEdges(prim1), (prim0, prim1, prim2) => prim0.outEdges(prim1, prim2));
+  let inboundEdges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.inboundEdges(), (prim0, prim1) => prim0.inboundEdges(prim1), (prim0, prim1, prim2) => prim0.inboundEdges(prim1, prim2));
+  let outboundEdges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.outboundEdges(), (prim0, prim1) => prim0.outboundEdges(prim1), (prim0, prim1, prim2) => prim0.outboundEdges(prim1, prim2));
+  let directedEdges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.directedEdges(), (prim0, prim1) => prim0.directedEdges(prim1), (prim0, prim1, prim2) => prim0.directedEdges(prim1, prim2));
+  let undirectedEdges = (t, edges_args) => _edges_call(t, edges_args, prim => prim.undirectedEdges(), (prim0, prim1) => prim0.undirectedEdges(prim1), (prim0, prim1, prim2) => prim0.undirectedEdges(prim1, prim2));
+  let _forEachEdge_call = (t, forEachEdge_args, allFn, nodeFn, _fromToFn) => {
     switch (forEachEdge_args.TAG) {
       case "All" :
-          return allFn(t, forEachEdge_args._0);
+        return allFn(t, forEachEdge_args._0);
       case "Node" :
-          return nodeFn(t, forEachEdge_args._0, forEachEdge_args._1);
+        return nodeFn(t, forEachEdge_args._0, forEachEdge_args._1);
       case "FromTo" :
-          return _fromToFn(t, forEachEdge_args._0, forEachEdge_args._1, forEachEdge_args._2);
-      
+        return _fromToFn(t, forEachEdge_args._0, forEachEdge_args._1, forEachEdge_args._2);
     }
   };
-  var forEachEdge = function (t, forEachEdge_args) {
-    _forEachEdge_call(t, forEachEdge_args, (function (prim0, prim1) {
-            prim0.forEachEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachEdge(prim1, prim2, prim3);
-          }));
-  };
-  var forEachInEdge = function (t, forEachInEdge_args) {
-    _forEachEdge_call(t, forEachInEdge_args, (function (prim0, prim1) {
-            prim0.forEachInEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachInEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachInEdge(prim1, prim2, prim3);
-          }));
-  };
-  var forEachOutEdge = function (t, forEachOutEdge_args) {
-    _forEachEdge_call(t, forEachOutEdge_args, (function (prim0, prim1) {
-            prim0.forEachOutEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachOutEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachOutEdge(prim1, prim2, prim3);
-          }));
-  };
-  var forEachInboundEdge = function (t, forEachInboundEdge_args) {
-    _forEachEdge_call(t, forEachInboundEdge_args, (function (prim0, prim1) {
-            prim0.forEachInboundEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachInboundEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachInboundEdge(prim1, prim2, prim3);
-          }));
-  };
-  var forEachOutboundEdge = function (t, forEachOutboundEdge_args) {
-    _forEachEdge_call(t, forEachOutboundEdge_args, (function (prim0, prim1) {
-            prim0.forEachOutboundEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachOutboundEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachOutboundEdge(prim1, prim2, prim3);
-          }));
-  };
-  var forEachDirectedEdge = function (t, forEachDirectedEdge_args) {
-    _forEachEdge_call(t, forEachDirectedEdge_args, (function (prim0, prim1) {
-            prim0.forEachDirectedEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachDirectedEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachDirectedEdge(prim1, prim2, prim3);
-          }));
-  };
-  var forEachUndirectedEdge = function (t, forEachUndirectedEdge_args) {
-    _forEachEdge_call(t, forEachUndirectedEdge_args, (function (prim0, prim1) {
-            prim0.forEachUndirectedEdge(prim1);
-          }), (function (prim0, prim1, prim2) {
-            prim0.forEachUndirectedEdge(prim1, prim2);
-          }), (function (prim0, prim1, prim2, prim3) {
-            prim0.forEachUndirectedEdge(prim1, prim2, prim3);
-          }));
-  };
-  var _mapEdges_call = function (t, mapEdges_args, allFn, nodeFn, _fromToFn) {
+  let forEachEdge = (t, forEachEdge_args) => _forEachEdge_call(t, forEachEdge_args, (prim0, prim1) => {
+    prim0.forEachEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachEdge(prim1, prim2, prim3);
+  });
+  let forEachInEdge = (t, forEachInEdge_args) => _forEachEdge_call(t, forEachInEdge_args, (prim0, prim1) => {
+    prim0.forEachInEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachInEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachInEdge(prim1, prim2, prim3);
+  });
+  let forEachOutEdge = (t, forEachOutEdge_args) => _forEachEdge_call(t, forEachOutEdge_args, (prim0, prim1) => {
+    prim0.forEachOutEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachOutEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachOutEdge(prim1, prim2, prim3);
+  });
+  let forEachInboundEdge = (t, forEachInboundEdge_args) => _forEachEdge_call(t, forEachInboundEdge_args, (prim0, prim1) => {
+    prim0.forEachInboundEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachInboundEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachInboundEdge(prim1, prim2, prim3);
+  });
+  let forEachOutboundEdge = (t, forEachOutboundEdge_args) => _forEachEdge_call(t, forEachOutboundEdge_args, (prim0, prim1) => {
+    prim0.forEachOutboundEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachOutboundEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachOutboundEdge(prim1, prim2, prim3);
+  });
+  let forEachDirectedEdge = (t, forEachDirectedEdge_args) => _forEachEdge_call(t, forEachDirectedEdge_args, (prim0, prim1) => {
+    prim0.forEachDirectedEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachDirectedEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachDirectedEdge(prim1, prim2, prim3);
+  });
+  let forEachUndirectedEdge = (t, forEachUndirectedEdge_args) => _forEachEdge_call(t, forEachUndirectedEdge_args, (prim0, prim1) => {
+    prim0.forEachUndirectedEdge(prim1);
+  }, (prim0, prim1, prim2) => {
+    prim0.forEachUndirectedEdge(prim1, prim2);
+  }, (prim0, prim1, prim2, prim3) => {
+    prim0.forEachUndirectedEdge(prim1, prim2, prim3);
+  });
+  let _mapEdges_call = (t, mapEdges_args, allFn, nodeFn, _fromToFn) => {
     switch (mapEdges_args.TAG) {
       case "All" :
-          return allFn(t, mapEdges_args._0);
+        return allFn(t, mapEdges_args._0);
       case "Node" :
-          return nodeFn(t, mapEdges_args._0, mapEdges_args._1);
+        return nodeFn(t, mapEdges_args._0, mapEdges_args._1);
       case "FromTo" :
-          return _fromToFn(t, mapEdges_args._0, mapEdges_args._1, mapEdges_args._2);
-      
+        return _fromToFn(t, mapEdges_args._0, mapEdges_args._1, mapEdges_args._2);
     }
   };
-  var mapEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapEdges(prim1, prim2, prim3);
-                }));
-  };
-  var mapInEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapInEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapInEdges(prim1, prim2, prim3);
-                }));
-  };
-  var mapOutEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapOutEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapOutEdges(prim1, prim2, prim3);
-                }));
-  };
-  var mapInboundEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapInboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapInboundEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapInboundEdges(prim1, prim2, prim3);
-                }));
-  };
-  var mapOutboundEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapOutboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapOutboundEdges(prim1, prim2, prim3);
-                }));
-  };
-  var mapDirectedEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapDirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapDirectedEdges(prim1, prim2, prim3);
-                }));
-  };
-  var mapUndirectedEdges = function (t, mapEdges_args) {
-    return _mapEdges_call(t, mapEdges_args, (function (prim0, prim1) {
-                  return prim0.mapUndirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.mapEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.mapUndirectedEdges(prim1, prim2, prim3);
-                }));
-  };
-  var _filterEdges_call = function (t, filterEdges_args, allFn, nodeFn, _fromToFn) {
+  let mapEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapEdges(prim1), (prim0, prim1, prim2) => prim0.mapEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapEdges(prim1, prim2, prim3));
+  let mapInEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapInEdges(prim1), (prim0, prim1, prim2) => prim0.mapEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapInEdges(prim1, prim2, prim3));
+  let mapOutEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapOutEdges(prim1), (prim0, prim1, prim2) => prim0.mapEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapOutEdges(prim1, prim2, prim3));
+  let mapInboundEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapInboundEdges(prim1), (prim0, prim1, prim2) => prim0.mapInboundEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapInboundEdges(prim1, prim2, prim3));
+  let mapOutboundEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapOutboundEdges(prim1), (prim0, prim1, prim2) => prim0.mapEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapOutboundEdges(prim1, prim2, prim3));
+  let mapDirectedEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapDirectedEdges(prim1), (prim0, prim1, prim2) => prim0.mapEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapDirectedEdges(prim1, prim2, prim3));
+  let mapUndirectedEdges = (t, mapEdges_args) => _mapEdges_call(t, mapEdges_args, (prim0, prim1) => prim0.mapUndirectedEdges(prim1), (prim0, prim1, prim2) => prim0.mapEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.mapUndirectedEdges(prim1, prim2, prim3));
+  let _filterEdges_call = (t, filterEdges_args, allFn, nodeFn, _fromToFn) => {
     switch (filterEdges_args.TAG) {
       case "All" :
-          return allFn(t, filterEdges_args._0);
+        return allFn(t, filterEdges_args._0);
       case "Node" :
-          return nodeFn(t, filterEdges_args._0, filterEdges_args._1);
+        return nodeFn(t, filterEdges_args._0, filterEdges_args._1);
       case "FromTo" :
-          return _fromToFn(t, filterEdges_args._0, filterEdges_args._1, filterEdges_args._2);
-      
+        return _fromToFn(t, filterEdges_args._0, filterEdges_args._1, filterEdges_args._2);
     }
   };
-  var filterEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterEdges(prim1, prim2, prim3);
-                }));
-  };
-  var filterInEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterInEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterInEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterInEdges(prim1, prim2, prim3);
-                }));
-  };
-  var filterOutEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterOutEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterOutEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterOutEdges(prim1, prim2, prim3);
-                }));
-  };
-  var filterInboundEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterInboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterInboundEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterInboundEdges(prim1, prim2, prim3);
-                }));
-  };
-  var filterOutboundEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterOutboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterOutboundEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterOutboundEdges(prim1, prim2, prim3);
-                }));
-  };
-  var filterDirectedEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterDirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterDirectedEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterDirectedEdges(prim1, prim2, prim3);
-                }));
-  };
-  var filterUndirectedEdges = function (t, filterEdges_args) {
-    return _filterEdges_call(t, filterEdges_args, (function (prim0, prim1) {
-                  return prim0.filterUndirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.filterUndirectedEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.filterUndirectedEdges(prim1, prim2, prim3);
-                }));
-  };
-  var _reduceEdges_call = function (t, reduceEdges_args, allFn, nodeFn, _fromToFn) {
+  let filterEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterEdges(prim1), (prim0, prim1, prim2) => prim0.filterEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterEdges(prim1, prim2, prim3));
+  let filterInEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterInEdges(prim1), (prim0, prim1, prim2) => prim0.filterInEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterInEdges(prim1, prim2, prim3));
+  let filterOutEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterOutEdges(prim1), (prim0, prim1, prim2) => prim0.filterOutEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterOutEdges(prim1, prim2, prim3));
+  let filterInboundEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterInboundEdges(prim1), (prim0, prim1, prim2) => prim0.filterInboundEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterInboundEdges(prim1, prim2, prim3));
+  let filterOutboundEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterOutboundEdges(prim1), (prim0, prim1, prim2) => prim0.filterOutboundEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterOutboundEdges(prim1, prim2, prim3));
+  let filterDirectedEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterDirectedEdges(prim1), (prim0, prim1, prim2) => prim0.filterDirectedEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterDirectedEdges(prim1, prim2, prim3));
+  let filterUndirectedEdges = (t, filterEdges_args) => _filterEdges_call(t, filterEdges_args, (prim0, prim1) => prim0.filterUndirectedEdges(prim1), (prim0, prim1, prim2) => prim0.filterUndirectedEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.filterUndirectedEdges(prim1, prim2, prim3));
+  let _reduceEdges_call = (t, reduceEdges_args, allFn, nodeFn, _fromToFn) => {
     switch (reduceEdges_args.TAG) {
       case "All" :
-          return allFn(t, reduceEdges_args._0, reduceEdges_args._1);
+        return allFn(t, reduceEdges_args._0, reduceEdges_args._1);
       case "Node" :
-          return nodeFn(t, reduceEdges_args._0, reduceEdges_args._1, reduceEdges_args._2);
+        return nodeFn(t, reduceEdges_args._0, reduceEdges_args._1, reduceEdges_args._2);
       case "FromTo" :
-          return _fromToFn(t, reduceEdges_args._0, reduceEdges_args._1, reduceEdges_args._2, reduceEdges_args._3);
-      
+        return _fromToFn(t, reduceEdges_args._0, reduceEdges_args._1, reduceEdges_args._2, reduceEdges_args._3);
     }
   };
-  var reduceEdges = function (t, reduceEdges_args) {
-    return _reduceEdges_call(t, reduceEdges_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceEdges(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceEdges(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceInEdges = function (t, reduceEdges_args) {
-    return _reduceEdges_call(t, reduceEdges_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceInEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceInEdges(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceInEdges(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceOutEdges = function (t, reduceEdges_args) {
-    return _reduceEdges_call(t, reduceEdges_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceOutEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceOutEdges(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceOutEdges(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceOutboundEdges = function (t, reduceEdges_args) {
-    return _reduceEdges_call(t, reduceEdges_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceOutboundEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceOutboundEdges(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceOutboundEdges(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceDirectedEdges = function (t, reduceEdges_args) {
-    return _reduceEdges_call(t, reduceEdges_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceDirectedEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceDirectedEdges(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceDirectedEdges(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var reduceUndirectedEdges = function (t, reduceEdges_args) {
-    return _reduceEdges_call(t, reduceEdges_args, (function (prim0, prim1, prim2) {
-                  return prim0.reduceUndirectedEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.reduceUndirectedEdges(prim1, prim2, prim3);
-                }), (function (prim0, prim1, prim2, prim3, prim4) {
-                  return prim0.reduceUndirectedEdges(prim1, prim2, prim3, prim4);
-                }));
-  };
-  var _findEdge_call = function (t, findEdge_args, allFn, nodeFn, _fromToFn) {
+  let reduceEdges = (t, reduceEdges_args) => _reduceEdges_call(t, reduceEdges_args, (prim0, prim1, prim2) => prim0.reduceEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceEdges(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceEdges(prim1, prim2, prim3, prim4));
+  let reduceInEdges = (t, reduceEdges_args) => _reduceEdges_call(t, reduceEdges_args, (prim0, prim1, prim2) => prim0.reduceInEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceInEdges(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceInEdges(prim1, prim2, prim3, prim4));
+  let reduceOutEdges = (t, reduceEdges_args) => _reduceEdges_call(t, reduceEdges_args, (prim0, prim1, prim2) => prim0.reduceOutEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceOutEdges(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceOutEdges(prim1, prim2, prim3, prim4));
+  let reduceOutboundEdges = (t, reduceEdges_args) => _reduceEdges_call(t, reduceEdges_args, (prim0, prim1, prim2) => prim0.reduceOutboundEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceOutboundEdges(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceOutboundEdges(prim1, prim2, prim3, prim4));
+  let reduceDirectedEdges = (t, reduceEdges_args) => _reduceEdges_call(t, reduceEdges_args, (prim0, prim1, prim2) => prim0.reduceDirectedEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceDirectedEdges(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceDirectedEdges(prim1, prim2, prim3, prim4));
+  let reduceUndirectedEdges = (t, reduceEdges_args) => _reduceEdges_call(t, reduceEdges_args, (prim0, prim1, prim2) => prim0.reduceUndirectedEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.reduceUndirectedEdges(prim1, prim2, prim3), (prim0, prim1, prim2, prim3, prim4) => prim0.reduceUndirectedEdges(prim1, prim2, prim3, prim4));
+  let _findEdge_call = (t, findEdge_args, allFn, nodeFn, _fromToFn) => {
     switch (findEdge_args.TAG) {
       case "All" :
-          return allFn(t, findEdge_args._0);
+        return allFn(t, findEdge_args._0);
       case "Node" :
-          return nodeFn(t, findEdge_args._0, findEdge_args._1);
+        return nodeFn(t, findEdge_args._0, findEdge_args._1);
       case "FromTo" :
-          return _fromToFn(t, findEdge_args._0, findEdge_args._1, findEdge_args._2);
-      
+        return _fromToFn(t, findEdge_args._0, findEdge_args._1, findEdge_args._2);
     }
   };
-  var findEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findEdges(prim1, prim2, prim3);
-                }));
-  };
-  var findInEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findInEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findInEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findInEdges(prim1, prim2, prim3);
-                }));
-  };
-  var findOutEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findOutEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findOutEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findOutEdges(prim1, prim2, prim3);
-                }));
-  };
-  var findInboundEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findInboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findInboundEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findInboundEdges(prim1, prim2, prim3);
-                }));
-  };
-  var findOutboundEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findOutboundEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findOutboundEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findOutboundEdges(prim1, prim2, prim3);
-                }));
-  };
-  var findDirectedEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findDirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findDirectedEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findDirectedEdges(prim1, prim2, prim3);
-                }));
-  };
-  var findUndirectedEdge = function (t, findEdge_args) {
-    return _findEdge_call(t, findEdge_args, (function (prim0, prim1) {
-                  return prim0.findUndirectedEdges(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.findUndirectedEdges(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.findUndirectedEdges(prim1, prim2, prim3);
-                }));
-  };
-  var _someEdge_call = function (t, someEdge_args, allFn, nodeFn, _fromToFn) {
+  let findEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findEdges(prim1), (prim0, prim1, prim2) => prim0.findEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findEdges(prim1, prim2, prim3));
+  let findInEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findInEdges(prim1), (prim0, prim1, prim2) => prim0.findInEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findInEdges(prim1, prim2, prim3));
+  let findOutEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findOutEdges(prim1), (prim0, prim1, prim2) => prim0.findOutEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findOutEdges(prim1, prim2, prim3));
+  let findInboundEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findInboundEdges(prim1), (prim0, prim1, prim2) => prim0.findInboundEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findInboundEdges(prim1, prim2, prim3));
+  let findOutboundEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findOutboundEdges(prim1), (prim0, prim1, prim2) => prim0.findOutboundEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findOutboundEdges(prim1, prim2, prim3));
+  let findDirectedEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findDirectedEdges(prim1), (prim0, prim1, prim2) => prim0.findDirectedEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findDirectedEdges(prim1, prim2, prim3));
+  let findUndirectedEdge = (t, findEdge_args) => _findEdge_call(t, findEdge_args, (prim0, prim1) => prim0.findUndirectedEdges(prim1), (prim0, prim1, prim2) => prim0.findUndirectedEdges(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.findUndirectedEdges(prim1, prim2, prim3));
+  let _someEdge_call = (t, someEdge_args, allFn, nodeFn, _fromToFn) => {
     switch (someEdge_args.TAG) {
       case "All" :
-          return allFn(t, someEdge_args._0);
+        return allFn(t, someEdge_args._0);
       case "Node" :
-          return nodeFn(t, someEdge_args._0, someEdge_args._1);
+        return nodeFn(t, someEdge_args._0, someEdge_args._1);
       case "FromTo" :
-          return _fromToFn(t, someEdge_args._0, someEdge_args._1, someEdge_args._2);
-      
+        return _fromToFn(t, someEdge_args._0, someEdge_args._1, someEdge_args._2);
     }
   };
-  var someEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someEdge(prim1, prim2, prim3);
-                }));
-  };
-  var someInEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someInEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someInEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someInEdge(prim1, prim2, prim3);
-                }));
-  };
-  var someOutEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someOutEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someOutEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someOutEdge(prim1, prim2, prim3);
-                }));
-  };
-  var someInboundEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someInboundEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someInboundEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someInboundEdge(prim1, prim2, prim3);
-                }));
-  };
-  var someOutboundEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someOutboundEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someOutboundEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someOutboundEdge(prim1, prim2, prim3);
-                }));
-  };
-  var someDirectedEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someDirectedEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someDirectedEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someDirectedEdge(prim1, prim2, prim3);
-                }));
-  };
-  var someUndirectedEdge = function (t, someEdge_args) {
-    return _someEdge_call(t, someEdge_args, (function (prim0, prim1) {
-                  return prim0.someUndirectedEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.someUndirectedEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.someUndirectedEdge(prim1, prim2, prim3);
-                }));
-  };
-  var _everyEdge_call = function (t, everyEdge_args, allFn, nodeFn, _fromToFn) {
+  let someEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someEdge(prim1), (prim0, prim1, prim2) => prim0.someEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someEdge(prim1, prim2, prim3));
+  let someInEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someInEdge(prim1), (prim0, prim1, prim2) => prim0.someInEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someInEdge(prim1, prim2, prim3));
+  let someOutEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someOutEdge(prim1), (prim0, prim1, prim2) => prim0.someOutEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someOutEdge(prim1, prim2, prim3));
+  let someInboundEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someInboundEdge(prim1), (prim0, prim1, prim2) => prim0.someInboundEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someInboundEdge(prim1, prim2, prim3));
+  let someOutboundEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someOutboundEdge(prim1), (prim0, prim1, prim2) => prim0.someOutboundEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someOutboundEdge(prim1, prim2, prim3));
+  let someDirectedEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someDirectedEdge(prim1), (prim0, prim1, prim2) => prim0.someDirectedEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someDirectedEdge(prim1, prim2, prim3));
+  let someUndirectedEdge = (t, someEdge_args) => _someEdge_call(t, someEdge_args, (prim0, prim1) => prim0.someUndirectedEdge(prim1), (prim0, prim1, prim2) => prim0.someUndirectedEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.someUndirectedEdge(prim1, prim2, prim3));
+  let _everyEdge_call = (t, everyEdge_args, allFn, nodeFn, _fromToFn) => {
     switch (everyEdge_args.TAG) {
       case "All" :
-          return allFn(t, everyEdge_args._0);
+        return allFn(t, everyEdge_args._0);
       case "Node" :
-          return nodeFn(t, everyEdge_args._0, everyEdge_args._1);
+        return nodeFn(t, everyEdge_args._0, everyEdge_args._1);
       case "FromTo" :
-          return _fromToFn(t, everyEdge_args._0, everyEdge_args._1, everyEdge_args._2);
-      
+        return _fromToFn(t, everyEdge_args._0, everyEdge_args._1, everyEdge_args._2);
     }
   };
-  var everyEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyEdge(prim1, prim2, prim3);
-                }));
-  };
-  var everyInEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyInEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyInEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyInEdge(prim1, prim2, prim3);
-                }));
-  };
-  var everyOutEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyOutEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyOutEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyOutEdge(prim1, prim2, prim3);
-                }));
-  };
-  var everyInboundEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyInboundEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyInboundEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyInboundEdge(prim1, prim2, prim3);
-                }));
-  };
-  var everyOutboundEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyOutboundEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyOutboundEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyOutboundEdge(prim1, prim2, prim3);
-                }));
-  };
-  var everyDirectedEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyDirectedEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyDirectedEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyDirectedEdge(prim1, prim2, prim3);
-                }));
-  };
-  var everyUndirectedEdge = function (t, everyEdge_args) {
-    return _everyEdge_call(t, everyEdge_args, (function (prim0, prim1) {
-                  return prim0.everyUndirectedEdge(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.everyUndirectedEdge(prim1, prim2);
-                }), (function (prim0, prim1, prim2, prim3) {
-                  return prim0.everyUndirectedEdge(prim1, prim2, prim3);
-                }));
-  };
-  var _edgeEntries_call = function (t, edgeEntries_args, allFn, nodeFn, _fromToFn) {
+  let everyEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyEdge(prim1), (prim0, prim1, prim2) => prim0.everyEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyEdge(prim1, prim2, prim3));
+  let everyInEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyInEdge(prim1), (prim0, prim1, prim2) => prim0.everyInEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyInEdge(prim1, prim2, prim3));
+  let everyOutEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyOutEdge(prim1), (prim0, prim1, prim2) => prim0.everyOutEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyOutEdge(prim1, prim2, prim3));
+  let everyInboundEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyInboundEdge(prim1), (prim0, prim1, prim2) => prim0.everyInboundEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyInboundEdge(prim1, prim2, prim3));
+  let everyOutboundEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyOutboundEdge(prim1), (prim0, prim1, prim2) => prim0.everyOutboundEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyOutboundEdge(prim1, prim2, prim3));
+  let everyDirectedEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyDirectedEdge(prim1), (prim0, prim1, prim2) => prim0.everyDirectedEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyDirectedEdge(prim1, prim2, prim3));
+  let everyUndirectedEdge = (t, everyEdge_args) => _everyEdge_call(t, everyEdge_args, (prim0, prim1) => prim0.everyUndirectedEdge(prim1), (prim0, prim1, prim2) => prim0.everyUndirectedEdge(prim1, prim2), (prim0, prim1, prim2, prim3) => prim0.everyUndirectedEdge(prim1, prim2, prim3));
+  let _edgeEntries_call = (t, edgeEntries_args, allFn, nodeFn, _fromToFn) => {
     if (typeof edgeEntries_args !== "object") {
       return allFn(t);
     } else if (edgeEntries_args.TAG === "Node") {
@@ -592,136 +187,80 @@ function MakeEdgesIter(C) {
       return _fromToFn(t, edgeEntries_args._0, edgeEntries_args._1);
     }
   };
-  var edgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.edgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.edgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.edgeEntries(prim1, prim2);
-                }));
-  };
-  var inEdgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.inEdgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.inEdgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inEdgeEntries(prim1, prim2);
-                }));
-  };
-  var outEdgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.outEdgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.outEdgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outEdgeEntries(prim1, prim2);
-                }));
-  };
-  var inboundEdgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.inboundEdgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.inboundEdgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.inboundEdgeEntries(prim1, prim2);
-                }));
-  };
-  var outboundEdgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.outboundEdgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.outboundEdgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.outboundEdgeEntries(prim1, prim2);
-                }));
-  };
-  var directedEdgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.directedEdgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.directedEdgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.directedEdgeEntries(prim1, prim2);
-                }));
-  };
-  var undirectedEdgeEntries = function (t, edgeEntries_args) {
-    return _edgeEntries_call(t, edgeEntries_args, (function (prim) {
-                  return prim.undirectedEdgeEntries();
-                }), (function (prim0, prim1) {
-                  return prim0.undirectedEdgeEntries(prim1);
-                }), (function (prim0, prim1, prim2) {
-                  return prim0.undirectedEdgeEntries(prim1, prim2);
-                }));
-  };
+  let edgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.edgeEntries(), (prim0, prim1) => prim0.edgeEntries(prim1), (prim0, prim1, prim2) => prim0.edgeEntries(prim1, prim2));
+  let inEdgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.inEdgeEntries(), (prim0, prim1) => prim0.inEdgeEntries(prim1), (prim0, prim1, prim2) => prim0.inEdgeEntries(prim1, prim2));
+  let outEdgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.outEdgeEntries(), (prim0, prim1) => prim0.outEdgeEntries(prim1), (prim0, prim1, prim2) => prim0.outEdgeEntries(prim1, prim2));
+  let inboundEdgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.inboundEdgeEntries(), (prim0, prim1) => prim0.inboundEdgeEntries(prim1), (prim0, prim1, prim2) => prim0.inboundEdgeEntries(prim1, prim2));
+  let outboundEdgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.outboundEdgeEntries(), (prim0, prim1) => prim0.outboundEdgeEntries(prim1), (prim0, prim1, prim2) => prim0.outboundEdgeEntries(prim1, prim2));
+  let directedEdgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.directedEdgeEntries(), (prim0, prim1) => prim0.directedEdgeEntries(prim1), (prim0, prim1, prim2) => prim0.directedEdgeEntries(prim1, prim2));
+  let undirectedEdgeEntries = (t, edgeEntries_args) => _edgeEntries_call(t, edgeEntries_args, prim => prim.undirectedEdgeEntries(), (prim0, prim1) => prim0.undirectedEdgeEntries(prim1), (prim0, prim1, prim2) => prim0.undirectedEdgeEntries(prim1, prim2));
   return {
-          edges: edges,
-          inEdges: inEdges,
-          outEdges: outEdges,
-          inboundEdges: inboundEdges,
-          outboundEdges: outboundEdges,
-          directedEdges: directedEdges,
-          undirectedEdges: undirectedEdges,
-          forEachEdge: forEachEdge,
-          forEachInEdge: forEachInEdge,
-          forEachOutEdge: forEachOutEdge,
-          forEachInboundEdge: forEachInboundEdge,
-          forEachOutboundEdge: forEachOutboundEdge,
-          forEachDirectedEdge: forEachDirectedEdge,
-          forEachUndirectedEdge: forEachUndirectedEdge,
-          mapEdges: mapEdges,
-          mapInEdges: mapInEdges,
-          mapOutEdges: mapOutEdges,
-          mapInboundEdges: mapInboundEdges,
-          mapOutboundEdges: mapOutboundEdges,
-          mapDirectedEdges: mapDirectedEdges,
-          mapUndirectedEdges: mapUndirectedEdges,
-          filterEdges: filterEdges,
-          filterInEdges: filterInEdges,
-          filterOutEdges: filterOutEdges,
-          filterInboundEdges: filterInboundEdges,
-          filterOutboundEdges: filterOutboundEdges,
-          filterDirectedEdges: filterDirectedEdges,
-          filterUndirectedEdges: filterUndirectedEdges,
-          reduceEdges: reduceEdges,
-          reduceInEdges: reduceInEdges,
-          reduceOutEdges: reduceOutEdges,
-          reduceOutboundEdges: reduceOutboundEdges,
-          reduceDirectedEdges: reduceDirectedEdges,
-          reduceUndirectedEdges: reduceUndirectedEdges,
-          findEdge: findEdge,
-          findInEdge: findInEdge,
-          findOutEdge: findOutEdge,
-          findInboundEdge: findInboundEdge,
-          findOutboundEdge: findOutboundEdge,
-          findDirectedEdge: findDirectedEdge,
-          findUndirectedEdge: findUndirectedEdge,
-          someEdge: someEdge,
-          someInEdge: someInEdge,
-          someOutEdge: someOutEdge,
-          someInboundEdge: someInboundEdge,
-          someOutboundEdge: someOutboundEdge,
-          someDirectedEdge: someDirectedEdge,
-          someUndirectedEdge: someUndirectedEdge,
-          everyEdge: everyEdge,
-          everyInEdge: everyInEdge,
-          everyOutEdge: everyOutEdge,
-          everyInboundEdge: everyInboundEdge,
-          everyOutboundEdge: everyOutboundEdge,
-          everyDirectedEdge: everyDirectedEdge,
-          everyUndirectedEdge: everyUndirectedEdge,
-          edgeEntries: edgeEntries,
-          inEdgeEntries: inEdgeEntries,
-          outEdgeEntries: outEdgeEntries,
-          inboundEdgeEntries: inboundEdgeEntries,
-          outboundEdgeEntries: outboundEdgeEntries,
-          directedEdgeEntries: directedEdgeEntries,
-          undirectedEdgeEntries: undirectedEdgeEntries
-        };
+    edges: edges,
+    inEdges: inEdges,
+    outEdges: outEdges,
+    inboundEdges: inboundEdges,
+    outboundEdges: outboundEdges,
+    directedEdges: directedEdges,
+    undirectedEdges: undirectedEdges,
+    forEachEdge: forEachEdge,
+    forEachInEdge: forEachInEdge,
+    forEachOutEdge: forEachOutEdge,
+    forEachInboundEdge: forEachInboundEdge,
+    forEachOutboundEdge: forEachOutboundEdge,
+    forEachDirectedEdge: forEachDirectedEdge,
+    forEachUndirectedEdge: forEachUndirectedEdge,
+    mapEdges: mapEdges,
+    mapInEdges: mapInEdges,
+    mapOutEdges: mapOutEdges,
+    mapInboundEdges: mapInboundEdges,
+    mapOutboundEdges: mapOutboundEdges,
+    mapDirectedEdges: mapDirectedEdges,
+    mapUndirectedEdges: mapUndirectedEdges,
+    filterEdges: filterEdges,
+    filterInEdges: filterInEdges,
+    filterOutEdges: filterOutEdges,
+    filterInboundEdges: filterInboundEdges,
+    filterOutboundEdges: filterOutboundEdges,
+    filterDirectedEdges: filterDirectedEdges,
+    filterUndirectedEdges: filterUndirectedEdges,
+    reduceEdges: reduceEdges,
+    reduceInEdges: reduceInEdges,
+    reduceOutEdges: reduceOutEdges,
+    reduceOutboundEdges: reduceOutboundEdges,
+    reduceDirectedEdges: reduceDirectedEdges,
+    reduceUndirectedEdges: reduceUndirectedEdges,
+    findEdge: findEdge,
+    findInEdge: findInEdge,
+    findOutEdge: findOutEdge,
+    findInboundEdge: findInboundEdge,
+    findOutboundEdge: findOutboundEdge,
+    findDirectedEdge: findDirectedEdge,
+    findUndirectedEdge: findUndirectedEdge,
+    someEdge: someEdge,
+    someInEdge: someInEdge,
+    someOutEdge: someOutEdge,
+    someInboundEdge: someInboundEdge,
+    someOutboundEdge: someOutboundEdge,
+    someDirectedEdge: someDirectedEdge,
+    someUndirectedEdge: someUndirectedEdge,
+    everyEdge: everyEdge,
+    everyInEdge: everyInEdge,
+    everyOutEdge: everyOutEdge,
+    everyInboundEdge: everyInboundEdge,
+    everyOutboundEdge: everyOutboundEdge,
+    everyDirectedEdge: everyDirectedEdge,
+    everyUndirectedEdge: everyUndirectedEdge,
+    edgeEntries: edgeEntries,
+    inEdgeEntries: inEdgeEntries,
+    outEdgeEntries: outEdgeEntries,
+    inboundEdgeEntries: inboundEdgeEntries,
+    outboundEdgeEntries: outboundEdgeEntries,
+    directedEdgeEntries: directedEdgeEntries,
+    undirectedEdgeEntries: undirectedEdgeEntries
+  };
 }
 
 export {
-  MakeEdgesIter ,
+  MakeEdgesIter,
 }
 /* No side effect */
