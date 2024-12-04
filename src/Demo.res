@@ -1,5 +1,5 @@
 @@uncurried
-
+@@warning("-26-32-44-27")
 open Graphology
 
 let log = Console.log

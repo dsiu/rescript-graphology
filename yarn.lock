@@ -9,7 +9,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@dsiu/rescript-graphology@workspace:."
   dependencies:
-    "@rescript/core": "npm:^1.5.2"
+    "@rescript/core": "npm:^1.6.1"
     graphology: "npm:^0.25.4"
     graphology-generators: "npm:^0.11.2"
     graphology-gexf: "npm:^0.13.1"
@@ -18,17 +18,17 @@ __metadata:
     graphology-simple-path: "npm:^0.2.0"
     graphology-svg: "npm:^0.1.3"
     graphology-traversal: "npm:^0.3.1"
-    rescript: "npm:^11.1.3"
+    rescript: "npm:^11.1.4"
     rescript-nodejs: "npm:^16.1.0"
   languageName: unknown
   linkType: soft
 
-"@rescript/core@npm:^1.5.2":
-  version: 1.5.2
-  resolution: "@rescript/core@npm:1.5.2"
+"@rescript/core@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "@rescript/core@npm:1.6.1"
   peerDependencies:
-    rescript: ^11.1.0-rc.7
-  checksum: 10c0/0745586f33b13b1dc5512fc1d3bb596794c82622d28a7775b4f9329772e2ca355dd44d44082e1a6eb8db4dbb8d54c4271e2df3f4b2b845d89c00b590297e6837
+    rescript: ">=11.1.0"
+  checksum: 10c0/04e7fc14dc050de0a9da8eb0642fb0800bc80c8978ef79aada1823bc2080b47a4d40c1168c63b53642009935342a4feb833fc190a71aa45e83af5d896269b95d
   languageName: node
   linkType: hard
 
@@ -66,15 +66,15 @@ __metadata:
   linkType: hard
 
 "graphology-gexf@npm:^0.13.1":
-  version: 0.13.1
-  resolution: "graphology-gexf@npm:0.13.1"
+  version: 0.13.2
+  resolution: "graphology-gexf@npm:0.13.2"
   dependencies:
     "@xmldom/xmldom": "npm:^0.8.3"
     graphology-utils: "npm:^2.4.1"
     xml-writer: "npm:^1.7.0"
   peerDependencies:
     graphology-types: ">=0.20.0"
-  checksum: 10c0/52f478dea21656e6b47a3d48764cb7b0acdd6badf32191d79bb09c8be663a2353ed9c5adde4a841cbf8da8050ffde060a89ea3fade48b9aa165a1a8571c23c8a
+  checksum: 10c0/b3c1977bbc32755936556b8e18ba86bb409d6425d5fc4464d6105e4b58ff4d528050b0607b662c1599ba71632a1c846a1c9d0179c5fe97f51d564a52c6bddbe9
   languageName: node
   linkType: hard
 
@@ -103,33 +103,20 @@ __metadata:
   linkType: hard
 
 "graphology-metrics@npm:^2.0.0":
-  version: 2.2.0
-  resolution: "graphology-metrics@npm:2.2.0"
+  version: 2.3.1
+  resolution: "graphology-metrics@npm:2.3.1"
   dependencies:
+    graphology-indices: "npm:^0.17.0"
     graphology-shortest-path: "npm:^2.0.0"
     graphology-utils: "npm:^2.4.4"
     mnemonist: "npm:^0.39.0"
   peerDependencies:
     graphology-types: ">=0.20.0"
-  checksum: 10c0/a285abe1c7329319e87581151a35ced5c0a233138d2da244b5591c2c5c833aca8c2386167f478dd91c0e38bd033499d38b842d9dba2eddc5811a49c6ca806e23
+  checksum: 10c0/0498a04933e94466601383c41c98ef834b07d93f24c7f19d6260e053888f1ad0585f68040dd5697807eac2ff94f61c0c8823ac19ed5181daee4a60e0f423b6d3
   languageName: node
   linkType: hard
 
-"graphology-shortest-path@npm:^2.0.0":
-  version: 2.0.2
-  resolution: "graphology-shortest-path@npm:2.0.2"
-  dependencies:
-    "@yomguithereal/helpers": "npm:^1.1.1"
-    graphology-indices: "npm:^0.17.0"
-    graphology-utils: "npm:^2.4.3"
-    mnemonist: "npm:^0.39.0"
-  peerDependencies:
-    graphology-types: ">=0.20.0"
-  checksum: 10c0/2e5885d29a71f513f1a3079dc18c6bd69dd859d1d95e53363768edfeec7901ccc01565c07421b67b41be07e87dfd788c25f171d72b368a4f87edc44fe2f513a9
-  languageName: node
-  linkType: hard
-
-"graphology-shortest-path@npm:^2.1.0":
+"graphology-shortest-path@npm:^2.0.0, graphology-shortest-path@npm:^2.1.0":
   version: 2.1.0
   resolution: "graphology-shortest-path@npm:2.1.0"
   dependencies:
@@ -238,14 +225,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rescript@npm:^11.1.3":
-  version: 11.1.3
-  resolution: "rescript@npm:11.1.3"
+"rescript@npm:^11.1.4":
+  version: 11.1.4
+  resolution: "rescript@npm:11.1.4"
   bin:
     bsc: bsc
     bstracing: lib/bstracing
     rescript: rescript
-  checksum: 10c0/11b2370427bc4b55a754b054e6146b7e7b75bfe29b788934623aa4e825293ee65dd2121224a3b72523e28056ea6ebe8a6d6599c8671a8cb1e3f6b492a08b32b7
+  checksum: 10c0/7f12186a84209f586457a60e65755fcdfbcbb503ac805c60ab5132ce4c927bc264c3b851419ed5498ba7dc4066723377bb7453f893f482a0ccd424986d02beba
   languageName: node
   linkType: hard
 
