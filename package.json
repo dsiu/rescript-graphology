@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "rescript",
-    "clean": "rescript clean",
-    "watch": "rescript build -w"
+    "build": "rewatch build .",
+    "watch": "rewatch watch .",
+    "clean": "rewatch clean ."
   },
   "keywords": [
     "rescript"
