@@ -30,7 +30,7 @@ let makeNodeKey = ((r, c)) => {
 
 let addNode = (r, c) => {
   let key = makeNodeKey((r, c))
-  let (key', added) = g->G.mergeNode(key, ~attr={"x": c, "y": r})
+  let (key', _added) = g->G.mergeNode(key, ~attr={"x": c, "y": r})
   key'
 }
 
