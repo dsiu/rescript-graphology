@@ -66,7 +66,7 @@ let iter = H.NodesIter.nodeEntries(h);
 
 console.log("iter", iter);
 
-let arr = Array.from(iter);
+let arr = iter.toArray();
 
 console.log("arr", arr);
 
