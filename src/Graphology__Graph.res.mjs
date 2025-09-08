@@ -3,7 +3,7 @@
 import * as Graphology from "graphology";
 import * as Graphology__SVG from "./Graphology__SVG.res.mjs";
 import * as Graphology__GEXF from "./Graphology__GEXF.res.mjs";
-import * as Primitive_option from "rescript/lib/es6/Primitive_option.js";
+import * as Primitive_option from "@rescript/runtime/lib/es6/Primitive_option.js";
 import * as Graphology__Utils from "./Graphology__Utils.res.mjs";
 import * as Graphology__Layout from "./Graphology__Layout.res.mjs";
 import * as Graphology__Traversal from "./Graphology__Traversal.res.mjs";

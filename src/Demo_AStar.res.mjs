@@ -20,7 +20,7 @@ let G = Graphology__Graph.MakeGraph({});
 let g = G.makeUndirectedGraph();
 
 function makeNodeKey(param) {
-  return param[0].toString() + "," + param[1].toString();
+  return param[0].toString() + `,` + param[1].toString();
 }
 
 function addNode(r, c) {
