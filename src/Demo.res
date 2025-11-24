@@ -54,17 +54,17 @@ let _ = {
   })
   ->(log2("mapNodes", _))
 
-  let iter = h->H.NodesIter.nodeEntries
-  iter->(log2("iter", _))
-  let arr = iter->Iterator.toArray
-  arr->(log2("arr", _))
-  let arr2 = arr->Array.map(({node, attributes}) => {
-    node->log
-    attributes->log
-    node ++ " - " ++ attributes["lastName"]
-  })
-
-  arr2->log
+//  let iter = h->H.NodesIter.nodeEntries
+//  iter->(log2("iter", _))
+//  let arr = iter->Iterator.toArray
+//  arr->(log2("arr", _))
+//  let arr2 = arr->Array.map(({node, attributes}) => {
+//    node->log
+//    attributes->log
+//    node ++ " - " ++ attributes["lastName"]
+//  })
+//
+//  arr2->log
 
   h->H.Traversal.bfs((n, att, depth) => {
     n->log
