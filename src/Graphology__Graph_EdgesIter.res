@@ -152,13 +152,13 @@ module type EDGES_ITER = {
   let everyUndirectedEdge: (t, everyEdge_args<'a>) => bool
 
   //#.edgeEntries
-  type edgeIterValue<'a> = {
+  type edgeIterValue<'e, 'n>  = {
     edge: edge,
-    attributes: edgeAttr<'a>,
+    attributes: edgeAttr<'e>,
     source: node,
     target: node,
-    sourceAttributes: nodeAttr<'a>,
-    targetAttributes: nodeAttr<'a>,
+    sourceAttributes: nodeAttr<'n>,
+    targetAttributes: nodeAttr<'n>,
   }
 
   type edgeEntries_args<'a> =
@@ -166,13 +166,13 @@ module type EDGES_ITER = {
     | Node(node)
     | FromTo(node, node)
 
-  let edgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
-  let inEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
-  let outEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
-  let inboundEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
-  let outboundEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
-  let directedEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
-  let undirectedEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'a>>
+  let edgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
+  let inEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
+  let outEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
+  let inboundEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
+  let outboundEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
+  let directedEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
+  let undirectedEdgeEntries: (t, edgeEntries_args<'a>) => Iterator.t<edgeIterValue<'e, 'n> >
 }
 
 // functor type
@@ -1132,13 +1132,14 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   //#.edgeEntries
-  type edgeIterValue<'a> = {
+  // todo: nodeAttr and edgeAttr should have separate type parameters
+    type edgeIterValue<'e, 'n> = {
     edge: edge,
-    attributes: edgeAttr<'a>,
+    attributes: edgeAttr<'e>,
     source: node,
     target: node,
-    sourceAttributes: nodeAttr<'a>,
-    targetAttributes: nodeAttr<'a>,
+    sourceAttributes: nodeAttr<'n>,
+    targetAttributes: nodeAttr<'n>,
   }
 
   type edgeEntries_args<'a> =
@@ -1154,21 +1155,21 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
     }
   }
 
-  @send external _edgeEntries: t => Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  @send external _edgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "edgeEntries"
   @send
-  external _edgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  external _edgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > = "edgeEntries"
   @send
-  external _edgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  external _edgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > = "edgeEntries"
 
   let edgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(t, edgeEntries_args, _edgeEntries, _edgeEntries_ofNode, _edgeEntries_fromTo)
   }
 
-  @send external _inEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
+  @send external _inEdgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "inEdgeEntries"
   @send
-  external _inEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
+  external _inEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > = "inEdgeEntries"
   @send
-  external _inEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> = "inEdgeEntries"
+  external _inEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > = "inEdgeEntries"
 
   let inEdgeEntries = (t, edgeEntries_args) => {
     _edgeEntries_call(
@@ -1180,11 +1181,11 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  @send external _outEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "outEdgeEntries"
+  @send external _outEdgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "outEdgeEntries"
   @send
-  external _outEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> = "outEdgeEntries"
+  external _outEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > = "outEdgeEntries"
   @send
-  external _outEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
+  external _outEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "outEdgeEntries"
 
   let outEdgeEntries = (t, edgeEntries_args) => {
@@ -1198,12 +1199,12 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _inboundEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "inboundEdgeEntries"
+  external _inboundEdgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "inboundEdgeEntries"
   @send
-  external _inboundEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
+  external _inboundEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "inboundEdgeEntries"
   @send
-  external _inboundEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
+  external _inboundEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "inboundEdgeEntries"
 
   let inboundEdgeEntries = (t, edgeEntries_args) => {
@@ -1217,12 +1218,12 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _outboundEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "outboundEdgeEntries"
+  external _outboundEdgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "outboundEdgeEntries"
   @send
-  external _outboundEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
+  external _outboundEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "outboundEdgeEntries"
   @send
-  external _outboundEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
+  external _outboundEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "outboundEdgeEntries"
 
   let outboundEdgeEntries = (t, edgeEntries_args) => {
@@ -1236,12 +1237,12 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _directedEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "directedEdgeEntries"
+  external _directedEdgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "directedEdgeEntries"
   @send
-  external _directedEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
+  external _directedEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "directedEdgeEntries"
   @send
-  external _directedEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
+  external _directedEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "directedEdgeEntries"
 
   let directedEdgeEntries = (t, edgeEntries_args) => {
@@ -1255,12 +1256,12 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _undirectedEdgeEntries: t => Iterator.t<edgeIterValue<'a>> = "undirectedEdgeEntries"
+  external _undirectedEdgeEntries: t => Iterator.t<edgeIterValue<'e, 'n> > = "undirectedEdgeEntries"
   @send
-  external _undirectedEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'a>> =
+  external _undirectedEdgeEntries_ofNode: (t, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "undirectedEdgeEntries"
   @send
-  external _undirectedEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'a>> =
+  external _undirectedEdgeEntries_fromTo: (t, node, node) => Iterator.t<edgeIterValue<'e, 'n> > =
     "undirectedEdgeEntries"
 
   let undirectedEdgeEntries = (t, edgeEntries_args) => {

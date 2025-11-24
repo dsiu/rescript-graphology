@@ -93,8 +93,8 @@ module type GRAPH = {
   let someEdge: (t, (edge, edgeAttr<'a>) => bool) => bool
   let everyEdge: (t, (edge, edgeAttr<'a>) => bool) => bool
 
-  type edgeIterValue<'a> = {edge: edge, attributes: edgeAttr<'a>}
-  let edgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'a>>
+  type edgeIterValue<'e, 'n>  = {edge: edge, attributes: edgeAttr<'a>}
+  let edgeEntries: t => RescriptCore.Iterator.t<edgeIterValue<'e, 'n> >
 
   // Neighbors Iteration
   let neighbors: t => array<node>
@@ -274,8 +274,8 @@ module MakeGraph: MAKE_GRAPH = (C: CONFIG) => {
   @send external findEdge: (t, (edge, edgeAttr<'a>) => bool) => edge = "findEdge"
   @send external someEdge: (t, (edge, edgeAttr<'a>) => bool) => bool = "someEdge"
   @send external everyEdge: (t, (edge, edgeAttr<'a>) => bool) => bool = "everyEdge"
-  type edgeIterValue<'a> = {edge: edge, attributes: edgeAttr<'a>}
-  @send external edgeEntries: t => Core__Iterator.t<edgeIterValue<'a>> = "edgeEntries"
+  type edgeIterValue<'e, 'n>  = {edge: edge, attributes: edgeAttr<'a>}
+  @send external edgeEntries: t => Core__Iterator.t<edgeIterValue<'e, 'n> > = "edgeEntries"
 
   // Neighbors Iteration
   @send external neighbors: t => array<node> = "neighbors"

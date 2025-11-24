@@ -62,6 +62,24 @@ let __x = H.NodesIter.mapNodes(h, (n, attr) => {
 
 console.log("mapNodes", __x);
 
+let iter = H.NodesIter.nodeEntries(h);
+
+console.log("iter", iter);
+
+let arr = Array.from(iter);
+
+console.log("arr", arr);
+
+let arr2 = arr.map(param => {
+  let attributes = param.attributes;
+  let node = param.node;
+  console.log(node);
+  console.log(attributes);
+  return node + " - " + attributes.lastName;
+});
+
+console.log(arr2);
+
 H.Traversal.bfs(h, (n, att, depth) => {
   console.log(n);
   console.log(att);

@@ -36,6 +36,7 @@ module MakeNodesIter: NODES_ITER_F = (C: GRAPH_TYPES) => {
   type nodeAttr<'a> = C.nodeAttr<'a>
   type edgeAttr<'a> = C.edgeAttr<'a>
 
+
   @send external nodes: t => array<node> = "nodes"
   @send external forEachNode: (t, (node, nodeAttr<'a>) => unit) => unit = "forEachNode"
   @send external mapNodes: (t, (node, nodeAttr<'a>) => 'b) => array<'b> = "mapNodes"
@@ -44,6 +45,7 @@ module MakeNodesIter: NODES_ITER_F = (C: GRAPH_TYPES) => {
   @send external findNode: (t, (node, nodeAttr<'a>) => bool) => node = "findNode"
   @send external someNode: (t, (node, nodeAttr<'a>) => bool) => bool = "someNode"
   @send external everyNode: (t, (node, nodeAttr<'a>) => bool) => bool = "everyNode"
-  type nodeIterValue<'a> = {node: node, attributes: nodeAttr<'a>}
+
+  type nodeIterValue<'a> = {node: C.node, attributes: C.nodeAttr<'a>}
   @send external nodeEntries: t => Iterator.t<nodeIterValue<'a>> = "nodeEntries"
 }

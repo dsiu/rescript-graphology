@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/go.imports.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test.res" afterDir="false" />
+    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed">
+      <change afterPath="$PROJECT_DIR$/src/iter_test.res" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Demo.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Demo.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graph.res.backup" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph.res.backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_EdgesIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_EdgesIter.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_NeighborsIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_NeighborsIter.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_NodesIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_NodesIter.res" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +26,7 @@
     </option>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="430" />
+    <option name="cachedIndexableFilesCount" value="449" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -45,12 +45,12 @@
     &quot;assignee&quot;: &quot;dsiu&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:dsiu/rescript-graphology.git",
-    "accountId": "0397fa2e-db31-4c92-b0f6-0795ff33dcef"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:dsiu/rescript-graphology.git&quot;,
+    &quot;accountId&quot;: &quot;0397fa2e-db31-4c92-b0f6-0795ff33dcef&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
@@ -64,6 +64,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.Demo.res.mjs.executor": "Run",
+    "Node.js.iter_test.res.mjs.executor": "Run",
     "Node.js.test.res.mjs.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -86,7 +88,8 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.22753906",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "settings.javascript.runtime",
+    "settings.editor.selected.configurable": "org.intellij.featuresSuggester.FeatureSuggesterConfigurable",
+    "ts.external.directory.path": "/Applications/IntelliJ IDEA 2025 EAP.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -99,12 +102,16 @@
     <configuration name="Demo.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/Demo.res.mjs" working-dir="$PROJECT_DIR$/src">
       <method v="2" />
     </configuration>
+    <configuration name="iter_test.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/iter_test.res.mjs" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
     <configuration name="test.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/test.res.mjs" working-dir="$PROJECT_DIR$/src">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.Demo.res.mjs" />
+        <item itemvalue="Node.js.iter_test.res.mjs" />
         <item itemvalue="Node.js.test.res.mjs" />
       </list>
     </recent_temporary>
@@ -126,10 +133,39 @@
       <option name="presentableId" value="Default" />
       <updated>1736260810613</updated>
     </task>
+    <task id="LOCAL-00001" summary="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed">
+      <option name="closed" value="true" />
+      <created>1763958092721</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1763958092721</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/iter_test.res.mjs</url>
+          <line>36</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
