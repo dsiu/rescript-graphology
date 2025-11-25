@@ -22,7 +22,11 @@ package-lock.json
 .pnp.*
 coverage/
 
+# my claude local settings
+.claude/settings.local.json
+
 # Ignore root-level graph and image files produced for demos/tests
-/*.gexf
-/*.cyc
-/*.svg
+**/*.gexf
+**/*.cyc
+**/*.svg
+**/*.xgr
