@@ -1,4 +1,3 @@
-@@uncurried
 module type GRAPH_TYPES = Graphology__GraphTypes.T
 
 module type CONFIG = {

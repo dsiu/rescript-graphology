@@ -168,7 +168,6 @@ module type NEIGHBORS_ITER = {
   let everyUndirectedNeighbor: (t, everyNeighbor_args<'a>) => bool
 
   //#.edgeEntries
-  // todo: nodeAttr and edgeAttr should have seperate type parameters
   type neighborIterValue<'e, 'n> = {
     edge: edge,
     attributes: edgeAttr<'e>,

@@ -1132,7 +1132,6 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   //#.edgeEntries
-  // todo: nodeAttr and edgeAttr should have separate type parameters
     type edgeIterValue<'e, 'n> = {
     edge: edge,
     attributes: edgeAttr<'e>,

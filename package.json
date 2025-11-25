@@ -6,13 +6,53 @@
   "scripts": {
     "build": "rescript build .",
     "watch": "rescript watch .",
-    "clean": "rescript clean ."
+    "clean": "rescript clean .",
+    "test": "jest"
   },
   "keywords": [
     "rescript"
   ],
   "author": "Danny Siu <danny.siu@gmail.com>",
   "license": "MIT",
+  "jest": {
+    "testMatch": [
+      "**/__tests__/*_Test.res.(js|ts|jsx|tsx|mjs)"
+    ],
+    "transform": {
+      "^.+\\.m?jsx?$": [
+        "babel-jest",
+        {
+          "presets": [
+            [
+              "@babel/preset-env",
+              {
+                "targets": {
+                  "node": "current"
+                },
+                "modules": "commonjs"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(rescript|@rescript/runtime|@glennsl/rescript-jest|@ryyppy/rescript-promise|re-fp|rescript-bag|@resinfo/parser|rescript-js|js-array2-ex|tablecloth-rescript|@dsiu/rescript-stdlib-fp|@dsiu/rescript-graphology|@greenlabs/garter|rescript-relude|rescript-bastet|rescript-relude-parse|)/)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "mjs"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@glennsl/rescript-jest": "github:dsiu/rescript-jest#rescript-v12",
+    "babel-jest": "^27.3.1",
+    "jest": "^27.3.1",
+    "rescript": "^12.0.0-rc.5"
+  },
   "dependencies": {
     "graphology": "^0.26.0",
     "graphology-generators": "^0.11.2",

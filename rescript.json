@@ -1,16 +1,23 @@
 {
   "name": "@dsiu/rescript-graphology",
-  "sources": {
-    "dir": "src",
-    "subdirs": true
-  },
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "dir": "__tests__",
+      "subdirs": true
+    }
+  ],
   "package-specs": {
     "module": "esmodule",
     "in-source": true
   },
   "suffix": ".res.mjs",
   "dependencies": [
-    "rescript-nodejs"
+    "rescript-nodejs",
+    "@glennsl/rescript-jest"
   ],
   "compiler-flags": [
   ]

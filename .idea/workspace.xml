@@ -4,15 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed">
-      <change afterPath="$PROJECT_DIR$/src/iter_test.res" afterDir="false" />
+    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators">
+      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Changes/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/EdgesIter_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/EdgesIter_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/GEXF_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/GEXF_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Generators_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Generators_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Graph_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Graph_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Layout_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Layout_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/NeighborsIter_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/NeighborsIter_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/NodesIter_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/NodesIter_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/SVG_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/SVG_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/ShortestPath_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/ShortestPath_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/SimplePath_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/SimplePath_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Traversal_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Traversal_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Utils_Test.res" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/Utils_Test.res.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rescript.json" beforeDir="false" afterPath="$PROJECT_DIR$/rescript.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Demo.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Demo.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graph.res.backup" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph.res.backup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Demo_AStar.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Demo_AStar.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graph.res.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphology__Generators.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Generators.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph.res" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_EdgesIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_EdgesIter.res" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_NeighborsIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_NeighborsIter.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_NodesIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_NodesIter.res" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +58,7 @@
     </option>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="449" />
+    <option name="cachedIndexableFilesCount" value="520" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -62,44 +94,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.Demo.res.mjs.executor": "Run",
-    "Node.js.iter_test.res.mjs.executor": "Run",
-    "Node.js.test.res.mjs.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.restore.workspace.module": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "rescript-v12",
-    "go.import.settings.migrated": "true",
-    "javascript.preferred.runtime.type.id": "node",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "/Users/dsiu/.nvm/versions/node/v24.11.0/bin/node",
-    "nodejs_package_manager_path": "yarn",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.22753906",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.intellij.featuresSuggester.FeatureSuggesterConfigurable",
-    "ts.external.directory.path": "/Applications/IntelliJ IDEA 2025 EAP.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Jest.All Tests.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.Demo.res.mjs.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.iter_test.res.mjs.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.test.res.mjs.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.restore.workspace.module&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;rescript-v12&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;/Users/dsiu/code/playground/rescript-graphology/node_modules/jest&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;/Users/dsiu/.nvm/versions/node/v24.11.0/bin/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;npm.build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.clean.executor&quot;: &quot;Run&quot;,
+    &quot;npm.watch.executor&quot;: &quot;Run&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.22753906&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.anthropic.code.plugin.settings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA 2025 EAP.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.idea" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Demo.res.mjs">
-    <configuration name="Demo.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/Demo.res.mjs" working-dir="$PROJECT_DIR$/src">
+  <component name="RunManager" selected="npm.build">
+    <configuration name="All Tests" type="JavaScriptTestRunnerJest" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Demo.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="Demo.res.mjs" working-dir="$PROJECT_DIR$/src">
+      <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
+        <browser with-js-debugger="true" />
+      </EXTENSION>
       <method v="2" />
     </configuration>
     <configuration name="iter_test.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/iter_test.res.mjs" working-dir="$PROJECT_DIR$/src">
@@ -108,6 +156,54 @@
     <configuration name="test.res.mjs" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/test.res.mjs" working-dir="$PROJECT_DIR$/src">
       <method v="2" />
     </configuration>
+    <configuration name="build" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
+        <browser with-js-debugger="true" />
+      </EXTENSION>
+      <method v="2" />
+    </configuration>
+    <configuration name="clean" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="clean" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
+        <browser with-js-debugger="true" />
+      </EXTENSION>
+      <method v="2" />
+    </configuration>
+    <configuration name="watch" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
+        <browser with-js-debugger="true" />
+      </EXTENSION>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Jest.All Tests" />
+      <item itemvalue="Node.js.Demo.res.mjs" />
+      <item itemvalue="Node.js.iter_test.res.mjs" />
+      <item itemvalue="Node.js.test.res.mjs" />
+      <item itemvalue="npm.build" />
+      <item itemvalue="npm.watch" />
+      <item itemvalue="npm.clean" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.Demo.res.mjs" />
@@ -141,27 +237,35 @@
       <option name="project" value="LOCAL" />
       <updated>1763958092721</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators">
+      <option name="closed" value="true" />
+      <created>1763983869337</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1763983869337</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/iter_test.res.mjs</url>
-          <line>36</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators" />
+    <option name="LAST_COMMIT_MESSAGE" value="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
