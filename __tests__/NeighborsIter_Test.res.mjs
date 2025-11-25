@@ -260,7 +260,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let count = G.NeighborsIter.reduceNeighbors(g, {
         TAG: "Node",
         _0: "A",
-        _1: (acc, _edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => acc + 1 | 0,
+        _1: (acc, _neighbor, _attr) => acc + 1 | 0,
         _2: 0
       });
       return Jest.Expect.toBe(Jest.Expect.expect(count), 2);
@@ -275,7 +275,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let targets = G.NeighborsIter.reduceNeighbors(g, {
         TAG: "Node",
         _0: "A",
-        _1: (acc, _edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => acc.concat([target]),
+        _1: (acc, neighbor, _attr) => acc.concat([neighbor]),
         _2: []
       });
       let hasB = targets.includes("B");
@@ -297,7 +297,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.reduceNeighbors(g, {
         TAG: "Node",
         _0: "A",
-        _1: (acc, _edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => acc + 1 | 0,
+        _1: (acc, _neighbor, _attr) => acc + 1 | 0,
         _2: 0
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), 0);
@@ -318,11 +318,11 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.someNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => target === "C"
+        _1: (neighbor, _attr) => neighbor === "C"
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), true);
     });
-    Jest.test("returns false if no edge matches", () => {
+    Jest.test("returns false if no neighbor matches", () => {
       let g = G.makeDirectedGraph();
       G.addNode(g, "A", undefined);
       G.addNode(g, "B", {
@@ -332,7 +332,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.someNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => edge === "e2"
+        _1: (neighbor, _attr) => neighbor === "C"
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), false);
     });
@@ -343,7 +343,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.someNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (_edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => true
+        _1: (_neighbor, _attr) => true
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), false);
     });
@@ -363,10 +363,10 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.everyNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => [
+        _1: (neighbor, _attr) => [
           "B",
           "C"
-        ].includes(target)
+        ].includes(neighbor)
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), true);
     });
@@ -384,7 +384,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.everyNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => target === "B"
+        _1: (neighbor, _attr) => neighbor === "B"
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), false);
     });
@@ -395,7 +395,7 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       let result = G.NeighborsIter.everyNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (_edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => false
+        _1: (_neighbor, _attr) => false
       });
       return Jest.Expect.toBe(Jest.Expect.expect(result), true);
     });
@@ -457,13 +457,9 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       if (entry !== undefined) {
         return Jest.Expect.toEqual(Jest.Expect.expect([
           next.done,
-          entry.edge,
-          entry.source,
-          entry.target
+          entry.neighbor
         ]), [
           false,
-          "e1",
-          "A",
           "B"
         ]);
       } else {
@@ -538,23 +534,23 @@ Jest.describe("Graph - Neighbors Iterator", () => {
       G.addEdgeWithKey(g, "e1", "A", "B", undefined);
       G.addEdgeWithKey(g, "e2", "A", "C", undefined);
       G.addEdgeWithKey(g, "e3", "A", "D", undefined);
-      let edgeCount = G.NeighborsIter.reduceNeighbors(g, {
+      let neighborCount = G.NeighborsIter.reduceNeighbors(g, {
         TAG: "Node",
         _0: "A",
-        _1: (acc, _edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => acc + 1 | 0,
+        _1: (acc, _neighbor, _attr) => acc + 1 | 0,
         _2: 0
       });
       let hasC = G.NeighborsIter.someNeighbor(g, {
         TAG: "Node",
         _0: "A",
-        _1: (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => target === "C"
+        _1: (neighbor, _attr) => neighbor === "C"
       });
       let allNeighbors = G.NeighborsIter.neighbors(g, {
         TAG: "Node",
         _0: "A"
       });
       return Jest.Expect.toEqual(Jest.Expect.expect([
-        edgeCount,
+        neighborCount,
         hasC,
         allNeighbors.length
       ]), [

@@ -174,7 +174,7 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addEdge("A", "C")
 
       let count = g->G.NeighborsIter.reduceNeighbors(Node("A",
-        (acc, _edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => {
+        (acc, _neighbor, _attr) => {
           acc + 1
         }, 0
       ))
@@ -191,8 +191,8 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addEdgeWithKey("e2", "A", "C")
 
       let targets = g->G.NeighborsIter.reduceNeighbors(Node("A",
-        (acc, _edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => {
-          acc->Array.concat([target])
+        (acc, neighbor, _attr) => {
+          acc->Array.concat([neighbor])
         }, []
       ))
 
@@ -207,7 +207,7 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addNode("B")
 
       let result = g->G.NeighborsIter.reduceNeighbors(Node("A",
-        (acc, _edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => {
+        (acc, _neighbor, _attr) => {
           acc + 1
         }, 0
       ))
@@ -226,23 +226,23 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addEdgeWithKey("e2", "A", "C")
 
       let result = g->G.NeighborsIter.someNeighbor(Node("A",
-        (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => {
-          target == "C"
+        (neighbor, _attr) => {
+          neighbor == "C"
         }
       ))
 
       expect(result)->toBe(true)
     })
 
-    test("returns false if no edge matches", () => {
+    test("returns false if no neighbor matches", () => {
       let g = G.makeDirectedGraph()
       g->G.addNode("A")
       g->G.addNode("B", ~attr={"score": 10})
       g->G.addEdgeWithKey("e1", "A", "B")
 
       let result = g->G.NeighborsIter.someNeighbor(Node("A",
-        (edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => {
-          edge == "e2"
+        (neighbor, _attr) => {
+          neighbor == "C"
         }
       ))
 
@@ -255,7 +255,7 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addNode("B")
 
       let result = g->G.NeighborsIter.someNeighbor(Node("A",
-        (_edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => true
+        (_neighbor, _attr) => true
       ))
 
       expect(result)->toBe(false)
@@ -272,8 +272,8 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addEdgeWithKey("e2", "A", "C")
 
       let result = g->G.NeighborsIter.everyNeighbor(Node("A",
-        (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => {
-          ["B", "C"]->Array.includes(target)
+        (neighbor, _attr) => {
+          ["B", "C"]->Array.includes(neighbor)
         }
       ))
 
@@ -289,8 +289,8 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addEdgeWithKey("e2", "A", "C")
 
       let result = g->G.NeighborsIter.everyNeighbor(Node("A",
-        (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => {
-          target == "B"
+        (neighbor, _attr) => {
+          neighbor == "B"
         }
       ))
 
@@ -303,7 +303,7 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addNode("B")
 
       let result = g->G.NeighborsIter.everyNeighbor(Node("A",
-        (_edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => false
+        (_neighbor, _attr) => false
       ))
 
       expect(result)->toBe(true)
@@ -355,8 +355,8 @@ describe("Graph - Neighbors Iterator", () => {
 
       switch next.value {
       | Some(entry) =>
-          expect((next.done, entry.edge, entry.source, entry.target))
-            ->toEqual((false, "e1", "A", "B"))
+          expect((next.done, entry.neighbor))
+            ->toEqual((false, "B"))
       | None => fail("Expected entry value")
       }
     })
@@ -409,21 +409,21 @@ describe("Graph - Neighbors Iterator", () => {
       g->G.addEdgeWithKey("e2", "A", "C")
       g->G.addEdgeWithKey("e3", "A", "D")
 
-      let edgeCount = g->G.NeighborsIter.reduceNeighbors(Node("A",
-        (acc, _edge, _edgeAttr, _source, _target, _sourceAttr, _targetAttr, _undirected) => {
+      let neighborCount = g->G.NeighborsIter.reduceNeighbors(Node("A",
+        (acc, _neighbor, _attr) => {
           acc + 1
         }, 0
       ))
 
       let hasC = g->G.NeighborsIter.someNeighbor(Node("A",
-        (_edge, _edgeAttr, _source, target, _sourceAttr, _targetAttr, _undirected) => {
-          target == "C"
+        (neighbor, _attr) => {
+          neighbor == "C"
         }
       ))
 
       let allNeighbors = g->G.NeighborsIter.neighbors(Node("A"))
 
-      expect((edgeCount, hasC, allNeighbors->Array.length))->toEqual((3, true, 3))
+      expect((neighborCount, hasC, allNeighbors->Array.length))->toEqual((3, true, 3))
     })
 
     test("works with undirected graph", () => {

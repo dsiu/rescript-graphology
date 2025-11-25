@@ -29,8 +29,6 @@ let H = Graphology__Graph.MakeGraph({});
 
 let h = H.makeGraph(undefined);
 
-console.log("hi");
-
 H.addNode(h, "John", {
   lastName: "Doe"
 });
@@ -254,9 +252,12 @@ let ps = G$1.ShortestPath.Dijkstra.bidirectional(g$1, 1, 4, {
   VAL: "weight1"
 });
 
-let es = G$1.ShortestPath.Utils.edgePathFromNodePath(g$1, ps);
-
-console.log("es", es);
+if (ps == null) {
+  console.log("No path found");
+} else {
+  let __x$16 = G$1.ShortestPath.Utils.edgePathFromNodePath(g$1, ps);
+  console.log("es", __x$16);
+}
 
 console.log("=== Layout Circular / write to file ===");
 
@@ -353,24 +354,24 @@ G$5.mergeEdgeWithKey(g$5, "J->D1", "John", "Daniel", undefined);
 
 G$5.mergeEdgeWithKey(g$5, "J->D2", "John", "Daniel", undefined);
 
-let __x$16 = G$5.EdgesIter.edges(g$5, "All");
+let __x$17 = G$5.EdgesIter.edges(g$5, "All");
 
-console.log("g-G.edges", __x$16);
+console.log("g-G.edges", __x$17);
 
-let __x$17 = G$5.EdgesIter.edges(g$5, {
+let __x$18 = G$5.EdgesIter.edges(g$5, {
   TAG: "Node",
   _0: "Thomas"
 });
 
-console.log("g-G.edges('Thomas')", __x$17);
+console.log("g-G.edges('Thomas')", __x$18);
 
-let __x$18 = G$5.EdgesIter.edges(g$5, {
+let __x$19 = G$5.EdgesIter.edges(g$5, {
   TAG: "FromTo",
   _0: "John",
   _1: "Daniel"
 });
 
-console.log("g-G.edges('John', 'Daniel')", __x$18);
+console.log("g-G.edges('John', 'Daniel')", __x$19);
 
 console.log("=== BFS ===");
 
@@ -401,7 +402,7 @@ G$6.mergeEdge(g$6, "7", "11", undefined);
 G$6.mergeEdge(g$6, "7", "12", undefined);
 
 G$6.GEXF.write(g$6, {
-  formatNode: (key, attributes) => ({
+  formatNode: (key, _attributes) => ({
     label: key
   }),
   formatEdge: (key, attributes) => ({

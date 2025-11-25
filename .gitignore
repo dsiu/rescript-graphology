@@ -21,3 +21,8 @@ package-lock.json
 !.yarn/versions
 .pnp.*
 coverage/
+
+# Ignore root-level graph and image files produced for demos/tests
+/*.gexf
+/*.cyc
+/*.svg

@@ -341,6 +341,9 @@ Jest.describe("Graph - Nodes Iterator", () => {
         age: 35
       });
       let result = G.NodesIter.findNode(g, (_node, attr) => attr.age > 28);
+      if (result == null) {
+        return Jest.fail("Expected to find a node");
+      }
       let isValid = [
         "Alice",
         "Charlie"
@@ -352,7 +355,7 @@ Jest.describe("Graph - Nodes Iterator", () => {
       G.addNode(g, "Alice", undefined);
       G.addNode(g, "Bob", undefined);
       let result = G.NodesIter.findNode(g, (node, _attr) => node === "Bob");
-      return Jest.Expect.toBe(Jest.Expect.expect(result), "Bob");
+      return Jest.Expect.toEqual(Jest.Expect.expect(result), "Bob");
     });
     Jest.test("finds node by attribute value", () => {
       let g = G.makeGraph(undefined);
@@ -366,6 +369,9 @@ Jest.describe("Graph - Nodes Iterator", () => {
         role: "admin"
       });
       let result = G.NodesIter.findNode(g, (_node, attr) => attr.role === "admin");
+      if (result == null) {
+        return Jest.fail("Expected to find a node");
+      }
       let isValid = [
         "Alice",
         "Charlie"

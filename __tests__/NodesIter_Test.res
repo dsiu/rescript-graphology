@@ -255,8 +255,13 @@ describe("Graph - Nodes Iterator", () => {
       g->G.addNode("Charlie", ~attr={"age": 35})
 
       let result = g->G.NodesIter.findNode((_node, attr) => attr["age"] > 28)
-      let isValid = ["Alice", "Charlie"]->Array.includes(result)
-      expect(isValid)->toBe(true)
+      switch result->Nullable.toOption {
+      | Some(node) => {
+          let isValid = ["Alice", "Charlie"]->Array.includes(node)
+          expect(isValid)->toBe(true)
+        }
+      | None => fail("Expected to find a node")
+      }
     })
 
     test("finds node by name", () => {
@@ -265,7 +270,7 @@ describe("Graph - Nodes Iterator", () => {
       g->G.addNode("Bob")
 
       let result = g->G.NodesIter.findNode((node, _attr) => node == "Bob")
-      expect(result)->toBe("Bob")
+      expect(result)->toEqual(Nullable.make("Bob"))
     })
 
     test("finds node by attribute value", () => {
@@ -275,8 +280,13 @@ describe("Graph - Nodes Iterator", () => {
       g->G.addNode("Charlie", ~attr={"role": "admin"})
 
       let result = g->G.NodesIter.findNode((_node, attr) => attr["role"] == "admin")
-      let isValid = ["Alice", "Charlie"]->Array.includes(result)
-      expect(isValid)->toBe(true)
+      switch result->Nullable.toOption {
+      | Some(node) => {
+          let isValid = ["Alice", "Charlie"]->Array.includes(node)
+          expect(isValid)->toBe(true)
+        }
+      | None => fail("Expected to find a node")
+      }
     })
   })
 

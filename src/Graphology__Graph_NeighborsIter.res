@@ -71,17 +71,8 @@ module type NEIGHBORS_ITER = {
   let filterDirectedNeighbors: (t, filterNeighbors_args<'a>) => array<edge>
   let filterUndirectedNeighbors: (t, filterNeighbors_args<'a>) => array<edge>
 
-  // #.reduceEdges
-  type reduceNeighbors_cb<'a, 'r> = (
-    'r,
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => 'r
+  // #.reduceNeighbors
+  type reduceNeighbors_cb<'a, 'r> = ('r, node, nodeAttr<'a>) => 'r
 
   type reduceNeighbors_args<'a, 'r> =
     | All(reduceNeighbors_cb<'a, 'r>, 'r)
@@ -119,16 +110,8 @@ module type NEIGHBORS_ITER = {
   let findDirectedNeighbor: (t, findNeighbor_args<'a>) => Nullable.t<edge>
   let findUndirectedNeighbor: (t, findNeighbor_args<'a>) => Nullable.t<edge>
 
-  // #.someEdge
-  type someNeighbor_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => bool
+  // #.someNeighbor
+  type someNeighbor_cb<'a> = (node, nodeAttr<'a>) => bool
 
   type someNeighbor_args<'a> =
     | All(someNeighbor_cb<'a>)
@@ -143,16 +126,8 @@ module type NEIGHBORS_ITER = {
   let someDirectedNeighbor: (t, someNeighbor_args<'a>) => bool
   let someUndirectedNeighbor: (t, someNeighbor_args<'a>) => bool
 
-  // #.everyEdge
-  type everyNeighbor_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => bool
+  // #.everyNeighbor
+  type everyNeighbor_cb<'a> = (node, nodeAttr<'a>) => bool
 
   type everyNeighbor_args<'a> =
     | All(everyNeighbor_cb<'a>)
@@ -167,14 +142,10 @@ module type NEIGHBORS_ITER = {
   let everyDirectedNeighbor: (t, everyNeighbor_args<'a>) => bool
   let everyUndirectedNeighbor: (t, everyNeighbor_args<'a>) => bool
 
-  //#.edgeEntries
-  type neighborIterValue<'e, 'n> = {
-    edge: edge,
-    attributes: edgeAttr<'e>,
-    source: node,
-    target: node,
-    sourceAttributes: nodeAttr<'n>,
-    targetAttributes: nodeAttr<'n>,
+  //#.neighborEntries
+  type neighborIterValue<'n> = {
+    neighbor: node,
+    attributes: nodeAttr<'n>,
   }
 
   type neighborEntries_args<'a> =
@@ -182,13 +153,13 @@ module type NEIGHBORS_ITER = {
     | Node(node)
     | FromTo(node, node)
 
-  let neighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
-  let inNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
-  let outNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
-  let inboundNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
-  let outboundNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
-  let directedNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
-  let undirectedNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'e, 'n>>
+  let neighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
+  let inNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
+  let outNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
+  let inboundNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
+  let outboundNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
+  let directedNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
+  let undirectedNeighborEntries: (t, neighborEntries_args<'a>) => Iterator.t<neighborIterValue<'n>>
 }
 
 // functor type
@@ -772,16 +743,7 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   // #.reduceNeighbors
-  type reduceNeighbors_cb<'a, 'r> = (
-    'r,
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => 'r
+  type reduceNeighbors_cb<'a, 'r> = ('r, node, nodeAttr<'a>) => 'r
 
   type reduceNeighbors_args<'a, 'r> =
     | All(reduceNeighbors_cb<'a, 'r>, 'r)
@@ -1078,16 +1040,8 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  // #.someEdge
-  type someNeighbor_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => bool
+  // #.someNeighbor
+  type someNeighbor_cb<'a> = (node, nodeAttr<'a>) => bool
 
   type someNeighbor_args<'a> =
     | All(someNeighbor_cb<'a>)
@@ -1223,16 +1177,8 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  // #.everyEdge
-  type everyNeighbor_cb<'a> = (
-    edge,
-    edgeAttr<'a>,
-    node,
-    node,
-    nodeAttr<'a>,
-    nodeAttr<'a>,
-    bool,
-  ) => bool
+  // #.everyNeighbor
+  type everyNeighbor_cb<'a> = (node, nodeAttr<'a>) => bool
 
   type everyNeighbor_args<'a> =
     | All(everyNeighbor_cb<'a>)
@@ -1370,14 +1316,10 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
     )
   }
 
-  //#.edgeEntries
-  type neighborIterValue<'e, 'n> = {
-    edge: edge,
-    attributes: edgeAttr<'e>,
-    source: node,
-    target: node,
-    sourceAttributes: nodeAttr<'n>,
-    targetAttributes: nodeAttr<'n>,
+  //#.neighborEntries
+  type neighborIterValue<'n> = {
+    neighbor: node,
+    attributes: nodeAttr<'n>,
   }
 
   type neighborEntries_args<'a> =
@@ -1394,12 +1336,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _neighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> = "neighborEntries"
+  external _neighborEntries: t => Iterator.t<neighborIterValue<'n>> = "neighborEntries"
   @send
-  external _neighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _neighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "neighborEntries"
   @send
-  external _neighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _neighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "neighborEntries"
 
   let neighborEntries = (t, neighborEntries_args) => {
@@ -1413,12 +1355,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _inNeighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> = "inNeighborEntries"
+  external _inNeighborEntries: t => Iterator.t<neighborIterValue<'n>> = "inNeighborEntries"
   @send
-  external _inNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _inNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "inNeighborEntries"
   @send
-  external _inNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _inNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "inNeighborEntries"
 
   let inNeighborEntries = (t, neighborEntries_args) => {
@@ -1432,12 +1374,12 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _outNeighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> = "outNeighborEntries"
+  external _outNeighborEntries: t => Iterator.t<neighborIterValue<'n>> = "outNeighborEntries"
   @send
-  external _outNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _outNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "outNeighborEntries"
   @send
-  external _outNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _outNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "outNeighborEntries"
 
   let outNeighborEntries = (t, neighborEntries_args) => {
@@ -1451,13 +1393,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _inboundNeighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _inboundNeighborEntries: t => Iterator.t<neighborIterValue<'n>> =
     "inboundNeighborEntries"
   @send
-  external _inboundNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _inboundNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "inboundNeighborEntries"
   @send
-  external _inboundNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _inboundNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "inboundNeighborEntries"
 
   let inboundNeighborEntries = (t, neighborEntries_args) => {
@@ -1471,13 +1413,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _outboundNeighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _outboundNeighborEntries: t => Iterator.t<neighborIterValue<'n>> =
     "outboundNeighborEntries"
   @send
-  external _outboundNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _outboundNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "outboundNeighborEntries"
   @send
-  external _outboundNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _outboundNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "outboundNeighborEntries"
 
   let outboundNeighborEntries = (t, neighborEntries_args) => {
@@ -1491,13 +1433,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _directedNeighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _directedNeighborEntries: t => Iterator.t<neighborIterValue<'n>> =
     "directedNeighborEntries"
   @send
-  external _directedNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _directedNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "directedNeighborEntries"
   @send
-  external _directedNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _directedNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "directedNeighborEntries"
 
   let directedNeighborEntries = (t, neighborEntries_args) => {
@@ -1511,13 +1453,13 @@ module MakeNeighborsIter: NEIGHBORS_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   @send
-  external _undirectedNeighborEntries: t => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _undirectedNeighborEntries: t => Iterator.t<neighborIterValue<'n>> =
     "undirectedNeighborEntries"
   @send
-  external _undirectedNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _undirectedNeighborEntries_ofNode: (t, node) => Iterator.t<neighborIterValue<'n>> =
     "undirectedNeighborEntries"
   @send
-  external _undirectedNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'e, 'n>> =
+  external _undirectedNeighborEntries_fromTo: (t, node, node) => Iterator.t<neighborIterValue<'n>> =
     "undirectedNeighborEntries"
 
   let undirectedNeighborEntries = (t, neighborEntries_args) => {

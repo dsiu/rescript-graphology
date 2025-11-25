@@ -164,7 +164,11 @@ Jest.describe("ShortestPath - Dijkstra", () => {
     G.addEdge(g, "B", "C", undefined);
     G.addEdge(g, "A", "C", undefined);
     let path = G.ShortestPath.Dijkstra.bidirectional(g, "A", "C", undefined);
-    return Jest.Expect.toBeLessThanOrEqual(Jest.Expect.expect(path.length), 2);
+    if (path == null) {
+      return Jest.fail("Expected to find a path");
+    } else {
+      return Jest.Expect.toBeLessThanOrEqual(Jest.Expect.expect(path.length), 2);
+    }
   });
 });
 

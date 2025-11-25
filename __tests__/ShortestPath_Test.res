@@ -27,7 +27,7 @@ describe("ShortestPath - Unweighted", () => {
   test("finds bidirectional shortest path", () => {
     let g = createTestGraph()
     let path = g->G.ShortestPath.Unweighted.bidirectional("A", "C")
-    expect(path)->toEqual(["A", "B", "C"])
+    expect(path)->toEqual(Nullable.make(["A", "B", "C"]))
   })
 
   test("finds single source shortest paths", () => {
@@ -90,7 +90,7 @@ describe("ShortestPath - Dijkstra", () => {
   test("finds weighted shortest path with attribute", () => {
     let g = createWeightedGraph()
     let path = g->G.ShortestPath.Dijkstra.bidirectional("A", "C", ~weight=#Attr("weight"))
-    expect(path)->toEqual(["A", "B", "C"])
+    expect(path)->toEqual(Nullable.make(["A", "B", "C"]))
   })
 
   test("finds all shortest paths from single source", () => {
@@ -114,7 +114,7 @@ describe("ShortestPath - Dijkstra", () => {
     g->G.addEdge("A", "C", ~attr={"weight": 5})
 
     let path = g->G.ShortestPath.Dijkstra.bidirectional("A", "C", ~weight=#Attr("weight"))
-    expect(path)->toEqual(["A", "C"])
+    expect(path)->toEqual(Nullable.make(["A", "C"]))
   })
 
   test("works with uniform weights", () => {
@@ -129,7 +129,10 @@ describe("ShortestPath - Dijkstra", () => {
 
     let path = g->G.ShortestPath.Dijkstra.bidirectional("A", "C")
     // Should take direct path A -> C
-    expect(path->Array.length)->toBeLessThanOrEqual(2)
+    switch path->Nullable.toOption {
+    | Some(p) => expect(p->Array.length)->toBeLessThanOrEqual(2)
+    | None => fail("Expected to find a path")
+    }
   })
 })
 

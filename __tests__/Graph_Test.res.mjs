@@ -388,7 +388,7 @@ Jest.describe("Graph - Node Iteration", () => {
       age: 25
     });
     let found = G.NodesIter.findNode(g, (param, attr) => attr.age === 25);
-    return Jest.Expect.toBe(Jest.Expect.expect(found), "Bob");
+    return Jest.Expect.toEqual(Jest.Expect.expect(found), "Bob");
   });
   Jest.test("checks if some node matches predicate", () => {
     let g = G.makeGraph(undefined);

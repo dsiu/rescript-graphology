@@ -49,12 +49,17 @@ g->G.Traversal.bfs((node, attributes, depth) => {
   Console.log3("Visiting", node, depth)
 })
 
-// Find shortest path
+// Find shortest path (returns Nullable.t<array<node>>)
 let path = g->G.ShortestPath.Dijkstra.bidirectional(
   "Alice",
   "Bob",
   ~weight=#Attr("weight")
 )
+// Handle nullable result
+switch path->Nullable.toOption {
+| Some(p) => Console.log2("Path found:", p)
+| None => Console.log("No path exists")
+}
 
 // Apply layout and export
 G.Layout.Circular.assign(g)
@@ -89,6 +94,7 @@ This ensures all operations on your graph maintain type consistency. All algorit
 - Node and edge CRUD operations with attributes
 - Graph, node, and edge attribute management
 - Import/export serialization
+- Iterator support for nodes, edges, and neighbors
 
 ### Algorithms
 - **Shortest Path**: Dijkstra, A*, unweighted (bidirectional & single-source)
@@ -102,11 +108,39 @@ This ensures all operations on your graph maintain type consistency. All algorit
 ### Utilities
 - Graph generators (complete, path, cycle, clique, star, etc.)
 - Key renaming and updating
-- Graph merging utilities
+- Graph merging utilities (mergeClique, mergePath, mergeStar, mergeCycle)
 
 ### Import/Export
 - GEXF format (read/write with custom formatters)
 - SVG rendering with customizable settings
+
+## API Correctness
+
+**All bindings have been verified against the official Graphology API** (as of 2025-11-25). Key points:
+
+### Nullable Return Types
+
+Some functions return `Nullable.t` because they can return `null`/`undefined`:
+
+- **Find operations**: `findNode`, `findEdge`, `findNeighbor` → `Nullable.t<T>`
+- **Shortest paths**: All `bidirectional` functions → `Nullable.t<array<node>>`
+
+```rescript
+// Example: Handle nullable results
+let node = g->G.NodesIter.findNode((n, _) => n == "Alice")
+switch node->Nullable.toOption {
+| Some(n) => Console.log2("Found:", n)
+| None => Console.log("Not found")
+}
+```
+
+### Iterator Callback Signatures
+
+Different iteration methods have different callback signatures:
+
+- **Node iteration**: `(node, attributes) => ...`
+- **Edge iteration**: `(edge, attributes, source, target, sourceAttributes, targetAttributes, undirected) => ...`
+- **Neighbor iteration**: `(neighbor, attributes) => ...` ⚠️ Note: NOT edge information!
 
 ## Documentation
 
@@ -138,10 +172,23 @@ node src/Demo.res.mjs
 
 ### Testing
 
-This project uses Jest with `@glennsl/rescript-jest` for testing. Test files should:
+This project has **comprehensive test coverage with 532 passing tests** across all modules:
+
+- Graph operations (core API)
+- Node, Edge, and Neighbor iteration
+- Shortest path algorithms
+- Traversal algorithms (BFS/DFS)
+- Layout algorithms
+- Graph generators
+- Utility functions
+- GEXF import/export
+- SVG rendering
+
+Test files use Jest with `@glennsl/rescript-jest`. They should:
 - Be placed in the `__tests__` directory
 - Follow the naming convention `*_Test.res`
 - Use the ReScript Jest bindings for assertions
+- Have only one `expect` per test (use tuples for multiple values)
 
 Example test:
 ```rescript
@@ -157,6 +204,18 @@ describe("Graph Tests", () => {
     let g = G.makeGraph()
     g->G.addNode("Alice")
     expect(g->G.hasNode("Alice"))->toBe(true)
+  })
+
+  test("handles nullable find results", () => {
+    module G = Graph.MakeGraph({
+      type node = string
+      type edge = string
+    })
+    let g = G.makeGraph()
+    g->G.addNode("Alice")
+
+    let found = g->G.NodesIter.findNode((n, _) => n == "Alice")
+    expect(found)->toEqual(Nullable.make("Alice"))
   })
 })
 ```

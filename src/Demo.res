@@ -211,8 +211,13 @@ let _ = {
 
   // Convert node path to edge path
   let ps = g->G.ShortestPath.Dijkstra.bidirectional(1, 4, ~weight=#Attr("weight1"))
-  let es = g->G.ShortestPath.Utils.edgePathFromNodePath(ps)
-  es->(log2("es", _))
+  switch ps->Nullable.toOption {
+  | Some(path) => {
+      let es = g->G.ShortestPath.Utils.edgePathFromNodePath(path)
+      es->(log2("es", _))
+    }
+  | None => log("No path found")
+  }
 }
 
 // ============================================================================

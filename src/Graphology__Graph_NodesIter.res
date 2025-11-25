@@ -7,8 +7,8 @@ module type NODES_ITER = {
   let forEachNode: (t, (node, nodeAttr<'a>) => unit) => unit
   let mapNodes: (t, (node, nodeAttr<'a>) => 'b) => array<'b>
   let filterNodes: (t, (node, nodeAttr<'a>) => bool) => array<node>
-  let reduceNodes: (t, ('b, node, nodeAttr<'a>) => 'b, 'b) => array<node>
-  let findNode: (t, (node, nodeAttr<'a>) => bool) => node
+  let reduceNodes: (t, ('r, node, nodeAttr<'a>) => 'r, 'r) => 'r
+  let findNode: (t, (node, nodeAttr<'a>) => bool) => Nullable.t<node>
   let someNode: (t, (node, nodeAttr<'a>) => bool) => bool
   let everyNode: (t, (node, nodeAttr<'a>) => bool) => bool
 
@@ -41,8 +41,8 @@ module MakeNodesIter: NODES_ITER_F = (C: GRAPH_TYPES) => {
   @send external forEachNode: (t, (node, nodeAttr<'a>) => unit) => unit = "forEachNode"
   @send external mapNodes: (t, (node, nodeAttr<'a>) => 'b) => array<'b> = "mapNodes"
   @send external filterNodes: (t, (node, nodeAttr<'a>) => bool) => array<node> = "filterNodes"
-  @send external reduceNodes: (t, ('b, node, nodeAttr<'a>) => 'b, 'b) => array<node> = "reduceNodes"
-  @send external findNode: (t, (node, nodeAttr<'a>) => bool) => node = "findNode"
+  @send external reduceNodes: (t, ('r, node, nodeAttr<'a>) => 'r, 'r) => 'r = "reduceNodes"
+  @send external findNode: (t, (node, nodeAttr<'a>) => bool) => Nullable.t<node> = "findNode"
   @send external someNode: (t, (node, nodeAttr<'a>) => bool) => bool = "someNode"
   @send external everyNode: (t, (node, nodeAttr<'a>) => bool) => bool = "everyNode"
 

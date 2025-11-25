@@ -230,7 +230,11 @@ Jest.describe("Generators - Integration Tests", () => {
     let firstNode = nodes[0];
     let lastNode = nodes[nodes.length - 1 | 0];
     let path = G.ShortestPath.Unweighted.bidirectional(g, firstNode, lastNode);
-    return Jest.Expect.toBe(Jest.Expect.expect(path.length), 5);
+    if (path == null) {
+      return Jest.fail("Expected to find a path");
+    } else {
+      return Jest.Expect.toBe(Jest.Expect.expect(path.length), 5);
+    }
   });
   Jest.test("can combine multiple generator outputs", () => {
     let g1 = G.Generators.path("UndirectedGraph", 3);

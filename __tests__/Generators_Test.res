@@ -254,7 +254,10 @@ describe("Generators - Integration Tests", () => {
     let path = g->G.ShortestPath.Unweighted.bidirectional(firstNode, lastNode)
 
     // Path length should be equal to the number of nodes in a path graph
-    expect(path->Array.length)->toBe(5)
+    switch path->Nullable.toOption {
+    | Some(p) => expect(p->Array.length)->toBe(5)
+    | None => fail("Expected to find a path")
+    }
   })
 
   test("can combine multiple generator outputs", () => {

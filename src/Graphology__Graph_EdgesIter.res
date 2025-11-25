@@ -104,7 +104,7 @@ module type EDGES_ITER = {
   let reduceUndirectedEdges: (t, reduceEdges_args<'a, 'r>) => 'r
 
   // #.findEdge
-  type findEdge_cb<'a> = (edge, edgeAttr<'a>, node, node, nodeAttr<'a>, nodeAttr<'a>, bool) => unit
+  type findEdge_cb<'a> = (edge, edgeAttr<'a>, node, node, nodeAttr<'a>, nodeAttr<'a>, bool) => bool
 
   type findEdge_args<'a> =
     | All(findEdge_cb<'a>)
@@ -785,7 +785,7 @@ module MakeEdgesIter: EDGES_ITER_F = (C: GRAPH_TYPES) => {
   }
 
   // #.findEdge
-  type findEdge_cb<'a> = (edge, edgeAttr<'a>, node, node, nodeAttr<'a>, nodeAttr<'a>, bool) => unit
+  type findEdge_cb<'a> = (edge, edgeAttr<'a>, node, node, nodeAttr<'a>, nodeAttr<'a>, bool) => bool
 
   type findEdge_args<'a> =
     | All(findEdge_cb<'a>)

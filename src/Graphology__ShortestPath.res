@@ -4,23 +4,21 @@ module type SHORTESTPATH = {
   include GRAPH_TYPES
 
   module Unweighted: {
-    // Unweighted
-    // todo: result might be null if no path found and raises Error exception. how to handle it
-    let bidirectional: (t, node, node) => array<node>
+    // Unweighted shortest path - returns null if no path found
+    let bidirectional: (t, node, node) => Nullable.t<array<node>>
 
-    // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
+    // Returns a map of shortest paths from source to all reachable nodes
     let singleSource: (t, node) => Dict.t<array<node>>
 
-    // todo: result is a map
+    // Returns a map of shortest path lengths from source to all reachable nodes
     let singleSourceLength: (t, node) => Dict.t<int>
 
-    // todo: result is a map
+    // Returns a map of shortest path lengths treating graph as undirected
     let undirectedSingleSourceLength: (t, node) => Dict.t<int>
   }
 
   module Dijkstra: {
-    // todo: result might be null if no path found and raises Error exception. how to handle it
-
+    // Dijkstra's shortest path - returns null if no path found
     let bidirectional: (
       t,
       node,
@@ -29,9 +27,9 @@ module type SHORTESTPATH = {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
-    ) => array<node>
+    ) => Nullable.t<array<node>>
 
-    // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
+    // Returns a map of shortest weighted paths from source to all reachable nodes
     let singleSource: (
       t,
       node,
@@ -43,8 +41,7 @@ module type SHORTESTPATH = {
   }
 
   module AStar: {
-    // todo: result might be null if no path found and raises Error exception. how to handle it
-
+    // A* shortest path - returns null if no path found
     type heuristic = (node, node) => int
     let bidirectional: (
       t,
@@ -55,7 +52,7 @@ module type SHORTESTPATH = {
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
       ~heuristic: heuristic=?,
-    ) => array<node>
+    ) => Nullable.t<array<node>>
   }
 
   module Utils: {
@@ -84,28 +81,25 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
   type edgeAttr<'a> = C.edgeAttr<'a>
 
   module Unweighted = {
-    // Unweighted
-    // todo: result might be null if no path found and raises Error exception. how to handle it
+    // Unweighted shortest path - returns null if no path found
     @module("graphology-shortest-path") @scope("unweighted")
-    external bidirectional: (t, node, node) => array<node> = "bidirectional"
+    external bidirectional: (t, node, node) => Nullable.t<array<node>> = "bidirectional"
 
-    // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
+    // Returns a map of shortest paths from source to all reachable nodes
     @module("graphology-shortest-path") @scope("unweighted")
     external singleSource: (t, node) => Dict.t<array<node>> = "singleSource"
 
-    // todo: result is a map
+    // Returns a map of shortest path lengths from source to all reachable nodes
     @module("graphology-shortest-path") @scope("unweighted")
     external singleSourceLength: (t, node) => Dict.t<int> = "singleSourceLength"
 
-    // todo: result is a map
+    // Returns a map of shortest path lengths treating graph as undirected
     @module("graphology-shortest-path") @scope("unweighted")
     external undirectedSingleSourceLength: (t, node) => Dict.t<int> = "undirectedSingleSourceLength"
   }
 
   module Dijkstra = {
-    // todo: result might be null if no path found and raises Error exception. how to handle it
-    // todo: optiona getEdgeWeight arg  is not supported yet
-
+    // Dijkstra's shortest path - returns null if no path found
     @module("graphology-shortest-path") @scope("dijkstra")
     external bidirectional: (
       t,
@@ -116,10 +110,9 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
         | #Attr(string)
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
-    ) => array<node> = "bidirectional"
+    ) => Nullable.t<array<node>> = "bidirectional"
 
-    // todo: result is a map like :  { '1': [ '1' ], '2': [ '1', '2' ], '3': [ '1', '2', '3' ] } how to handle it?
-    // todo: optiona getEdgeWeight arg is not supported yet
+    // Returns a map of shortest weighted paths from source to all reachable nodes
     @module("graphology-shortest-path") @scope("dijkstra")
     external singleSource: (
       t,
@@ -133,9 +126,7 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
   }
 
   module AStar = {
-    // todo: result might be null if no path found and raises Error exception. how to handle it
-    // todo: optiona getEdgeWeight arg  is not supported yet
-
+    // A* shortest path - returns null if no path found
     type heuristic = (node, node) => int
 
     @module("graphology-shortest-path") @scope("astar")
@@ -149,7 +140,7 @@ module MakeShortestPath: SHORTESTPATH_F = (C: GRAPH_TYPES) => {
         | #Getter((edge, edgeAttr<'a>) => int)
       ]=?,
       ~heuristic: heuristic=?,
-    ) => array<node> = "bidirectional"
+    ) => Nullable.t<array<node>> = "bidirectional"
   }
 
   module Utils = {

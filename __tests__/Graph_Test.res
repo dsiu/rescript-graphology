@@ -325,7 +325,7 @@ describe("Graph - Node Iteration", () => {
     g->G.addNode("Bob", ~attr={"age": 25})
 
     let found = g->G.NodesIter.findNode((_, attr) => attr["age"] === 25)
-    expect(found)->toBe("Bob")
+    expect(found)->toEqual(Nullable.make("Bob"))
   })
 
   test("checks if some node matches predicate", () => {
