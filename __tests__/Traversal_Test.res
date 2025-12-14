@@ -139,7 +139,7 @@ describe("Traversal - DFS (Depth-First Search)", () => {
     let g = createTreeGraph()
     let maxDepth = ref(0)
 
-    g->G.Traversal.dfs((node, _attr, depth) => {
+    g->G.Traversal.dfs((_node, _attr, depth) => {
       if depth > maxDepth.contents {
         maxDepth := depth
       }

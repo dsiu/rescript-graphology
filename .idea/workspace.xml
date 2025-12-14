@@ -6,24 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/Generators_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Generators_Test.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/Generators_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Generators_Test.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/Graph_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Graph_Test.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/Graph_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Graph_Test.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/NeighborsIter_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/NeighborsIter_Test.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/NeighborsIter_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/NeighborsIter_Test.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/NodesIter_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/NodesIter_Test.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/NodesIter_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/NodesIter_Test.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/ShortestPath_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/ShortestPath_Test.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/ShortestPath_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/ShortestPath_Test.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Demo.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Demo.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Demo.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Demo.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_EdgesIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_EdgesIter.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_NeighborsIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_NeighborsIter.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphology__Graph_NodesIter.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__Graph_NodesIter.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphology__ShortestPath.res" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphology__ShortestPath.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/Traversal_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Traversal_Test.res" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/Traversal_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Traversal_Test.res.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +21,11 @@
       <option value="directory" />
       <option value="repository" />
     </option>
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/dsiu/code/playground/rescript-graphology" value="2rIyJLpANMlNnKCt06Qrhei5DJG" />
+    </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
     <option name="cachedIndexableFilesCount" value="540" />

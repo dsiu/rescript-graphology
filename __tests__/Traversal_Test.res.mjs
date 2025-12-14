@@ -131,7 +131,7 @@ Jest.describe("Traversal - DFS (Depth-First Search)", () => {
     let maxDepth = {
       contents: 0
     };
-    G.Traversal.dfs(g, (node, _attr, depth) => {
+    G.Traversal.dfs(g, (_node, _attr, depth) => {
       if (depth > maxDepth.contents) {
         maxDepth.contents = depth;
         return;
