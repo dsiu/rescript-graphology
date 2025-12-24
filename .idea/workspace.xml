@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators">
+    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="chore: update Graphology dependencies and add new tests for traversal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/Traversal_Test.res" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Traversal_Test.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/Traversal_Test.res.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/Traversal_Test.res.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +24,7 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="540" />
+    <option name="cachedIndexableFilesCount" value="597" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -53,6 +49,10 @@
     &quot;accountId&quot;: &quot;0397fa2e-db31-4c92-b0f6-0795ff33dcef&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
@@ -70,6 +70,7 @@
     &quot;Node.js.Demo.res.mjs.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.iter_test.res.mjs.executor&quot;: &quot;Run&quot;,
     &quot;Node.js.test.res.mjs.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -185,8 +186,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.169" />
-        <option value="bundled-js-predefined-d6986cc7102b-c7e53b3be11b-JavaScript-IU-253.28294.169" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.50" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.50" />
       </set>
     </attachedChunks>
   </component>
@@ -215,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763983869337</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="chore: update Graphology dependencies and add new tests for traversal">
+      <option name="closed" value="true" />
+      <created>1765723311857</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1765723311857</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +244,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed" />
     <MESSAGE value="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators" />
-    <option name="LAST_COMMIT_MESSAGE" value="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators" />
+    <MESSAGE value="chore: update Graphology dependencies and add new tests for traversal" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update Graphology dependencies and add new tests for traversal" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
