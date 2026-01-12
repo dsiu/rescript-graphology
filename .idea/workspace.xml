@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="chore: update Graphology dependencies and add new tests for traversal">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6604d981-c050-4b5b-b691-40359f0f023e" name="Changes" comment="chore: update Graphology dependencies and fix related tests" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -172,8 +170,8 @@
       <item itemvalue="Node.js.iter_test.res.mjs" />
       <item itemvalue="Node.js.test.res.mjs" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.watch" />
       <item itemvalue="npm.clean" />
+      <item itemvalue="npm.watch" />
     </list>
     <recent_temporary>
       <list>
@@ -186,8 +184,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.50" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.50" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
       </set>
     </attachedChunks>
   </component>
@@ -224,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765723311857</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="chore: update Graphology dependencies and fix related tests">
+      <option name="closed" value="true" />
+      <created>1766576180689</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1766576180689</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +251,8 @@
     <MESSAGE value="NodesIter.nodeEntries failed to typecheck - remove demo code for now until it is fixed" />
     <MESSAGE value="upgrade Graphology libs. The latest support JS native Iterator protocol.&#10;&#10;fixed nodeEntries / edgeEntries / neighborEntries iterators" />
     <MESSAGE value="chore: update Graphology dependencies and add new tests for traversal" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: update Graphology dependencies and add new tests for traversal" />
+    <MESSAGE value="chore: update Graphology dependencies and fix related tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update Graphology dependencies and fix related tests" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
