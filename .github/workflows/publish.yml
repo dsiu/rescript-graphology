@@ -1,0 +1,33 @@
+# Publish to npm using Trusted Publishing (OIDC)
+# No NPM_TOKEN secret required - uses GitHub's OIDC provider
+# Triggered manually when a release is published
+
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - run: corepack enable
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
+      - name: Publish to npm
+        run: npm publish --provenance --access public

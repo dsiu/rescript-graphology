@@ -1,0 +1,51 @@
+# Test files
+__tests__/
+
+# Demo files (not needed by consumers)
+src/Demo.res
+src/Demo.res.mjs
+src/Demo_AStar.res
+src/Demo_AStar.res.mjs
+src/iter_test.res
+src/iter_test.res.mjs
+
+# GitHub
+.github/
+
+# IDE/Editor
+.vscode/
+.idea/
+
+# Documentation (internal)
+CLAUDE.md
+AGENTS.md
+CHANGELOG.md
+RELEASING.md
+
+# Git
+.gitignore
+
+# Yarn
+.yarn/
+.yarnrc.yml
+yarn.lock
+
+# Build artifacts
+lib/
+coverage/
+*.lock
+.bsb.lock
+rewatch.lock
+rescript.lock
+
+# OS
+.DS_Store
+
+# Graph output files
+*.gexf
+*.cyc
+*.svg
+*.xgr
+
+# Claude settings
+.claude/

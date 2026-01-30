@@ -222,7 +222,7 @@ describe("Graph Tests", () => {
 
 ## Requirements
 
-- ReScript v12.0.0-rc.5 or later
+- ReScript v12.x or later
 - Graphology v0.26.0 or later
 - Node.js with ES module support
 
