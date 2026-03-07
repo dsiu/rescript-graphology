@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Type-safe ReScript bindings for Graphology, a robust JavaScript graph library",
   "type": "module",
-  "packageManager": "yarn@4.12.0",
+  "packageManager": "yarn@4.13.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dsiu/rescript-graphology.git"
@@ -82,7 +82,7 @@
     "@glennsl/rescript-jest": "github:dsiu/rescript-jest#rescript-v12-wip",
     "babel-jest": "^27.3.1",
     "jest": "^27.3.1",
-    "rescript": "^12.2.0-rc.1"
+    "rescript": "^12.2.0"
   },
   "dependencies": {
     "graphology": "^0.26.0",
